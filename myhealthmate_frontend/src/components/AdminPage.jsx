@@ -7,7 +7,7 @@ export default function AdminPage() {
   return (
     <>
     <div>
-    <nav class="bg-success d-flex justify-content-center" style={{ height: "50px" }}>
+    <nav class="bg-success d-flex justify-content-center" style={{ height: "50px" ,textAlign:'center'}}>
                     <div class="container-fluid">
                         <span class="navbar-brand mb-0 h1">Welcome to MyHealthmate,Admin</span>
                     </div>

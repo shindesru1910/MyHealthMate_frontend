@@ -32,24 +32,26 @@ export default function UserTable() {
           </div>
         </div>
       ) : (
-        <table class="table table-dark table-striped">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Phone</th>
-              <th>Email</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.map(user => (
-              <tr key={user.id}>
-                <td>{user.id}</td>
-                <td>{user.phone}</td>
-                <td>{user.email}</td>
+        <div className="table-responsive">
+          <table className="table table-light table-striped">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Phone</th>
+                <th>Email</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {users.map(user => (
+                <tr key={user.id}>
+                  <td>{user.id}</td>
+                  <td>{user.phone}</td>
+                  <td>{user.email}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
     </div>
   );

@@ -7,7 +7,11 @@ export default function AdminPage() {
   return (
     <>
     <div>
-      <h1>Admin Overview </h1>
+    <nav class="bg-success d-flex justify-content-center" style={{ height: "50px" }}>
+                    <div class="container-fluid">
+                        <span class="navbar-brand mb-0 h1">Welcome to MyHealthmate,Admin</span>
+                    </div>
+                </nav>
       <div className="container mt-3 d-flex flex-wrap justify-content-center" >
         <Card name="User management" desc="To Management for users " button="Add User"/>
         <Card name="Appointments" desc="To see the total number os appointment" button="Manage Appointments"/>

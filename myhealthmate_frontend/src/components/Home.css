@@ -1,0 +1,23 @@
+/* .hero-section {
+    height: 100vh;
+    background: url('hero-bg.jpg') no-repeat center center/cover;
+  } */
+  
+  .card {
+    margin-bottom: 20px;
+  }
+  
+  .footer {
+    background: #343a40;
+  }
+  
+  .footer a {
+    margin: 0 10px;
+    color: #fff;
+    text-decoration: none;
+  }
+  
+  .footer a:hover {
+    text-decoration: underline;
+  }
+  

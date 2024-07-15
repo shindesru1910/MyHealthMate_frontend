@@ -2,6 +2,9 @@
     height: 100vh;
     background: url('hero-bg.jpg') no-repeat center center/cover;
   } */
+   .h1{
+    color: black;
+   }
   
   .card {
     margin-bottom: 20px;

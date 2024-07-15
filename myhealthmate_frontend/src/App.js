@@ -8,6 +8,7 @@ import Home from './components/Home';
 import UserTable from './components/UserTable';
 import AdminPage from './components/AdminPage';
 import UserPage from './components/UserPage';
+import UserLogin from './components/UserLogin';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/userlist" element={<UserTable />} />
           <Route path="/adminpage" element={<AdminPage/>} />
           <Route path="/Userpage" element={<UserPage/>} />
+          <Route path="/userlogin" element={<UserLogin/>} />
         </Routes>
       </div>
     </Router>

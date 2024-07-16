@@ -1,5 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Link } from 'react-router-dom';
 import './Home.css';
 
 
@@ -26,8 +27,7 @@ const Home = () => {
               <div className="ml-auto">
                 <ul className="navbar-nav">
                   <li className="nav-item">
-                    <button className="btn btn-secondary nav-link active" style={{ width: "66px", height: "40px", background: 'blue' }} type="button">Login</button>
-                  </li>
+                    <Link to="/userlogin" className="btn btn-secondary nav-link active" style={{ width: "66px", height: "40px", background: 'blue' }}>Login</Link>                  </li>
                 </ul>
               </div>
             </ul>

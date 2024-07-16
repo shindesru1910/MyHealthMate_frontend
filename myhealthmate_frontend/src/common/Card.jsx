@@ -2,13 +2,14 @@ import React from "react";
 import './Card.css';
 import { useNavigate } from "react-router-dom";
 
+
 export default function Card(props) {
     const { name, desc, buttons, to, img } = props;
     // console.log(button);
-    // let navigate = useNavigate();
+    let navigate = useNavigate();
     return (
-        <div className="" style={{ cursor: "pointer",height:"250px",width:"350px" }}>
-            <div class="card" style={{ width: "18rem" }}>
+        <div className="" style={{ cursor: "pointer",height:"250px",width:"350px" }} >
+            <div class="card" style={{ width: "18rem" }} onClick={()=>navigate(to)}>
                 <div class="card-body">
                     <h5 class="card-title" >{name}</h5>
                     <p class="card-text">{desc}</p>

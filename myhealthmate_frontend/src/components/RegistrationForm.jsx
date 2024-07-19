@@ -1,15 +1,30 @@
 // src/components/RegistrationForm.js
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import './RegistrationForm.css';
 import axios from 'axios';
 import { ToastContainer } from 'react-toastify';
 import { errortoast, successtoast } from '../functions/toast';
-import { Link } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
+import { json, Link } from "react-router-dom";
 
 export default function RegistrationForm() {
     const initialState = { email: '', phone: '', password: '', first_name: '', last_name: '', date_of_birth: '', gender: '' };
     const [userData, setUserData] = useState(initialState);
-    const [loading, setLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const navigate = useNavigate();
+
+    // useEffect(()=>{
+    //     let userInfo = JSON.parse(localStorage.getItem('userData'));
+    //     setUserData(prev=>({...prev,
+    //         email:userInfo.email,
+    //         password:userInfo.password,
+    //         phone:userInfo.phone,
+    //         first_name:userInfo.first_name,
+    //         last_name:userInfo.last_name,
+    //         date_of_birth:userInfo.date_of_birth,
+    //         gender:userInfo.gender,
+    //     }))
+    // },[])
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -18,31 +33,21 @@ export default function RegistrationForm() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        setLoading(true);
+        setIsLoading(true);
 
-        let formdata = new FormData();
-        formdata.append('phone',userData.phone)
-        formdata.append('email',userData.email)
-        formdata.append('first_name',userData.first_name)
-        formdata.append('last_name',userData.last_name)
-        formdata.append('date_of_birth',userData.date_of_birth)
-        formdata.append('gender',userData.gender)
-        formdata.append('password',userData.password)
+        // let formdata = new FormData();
+        // formdata.append('phone', userData.phone)
+        // formdata.append('email', userData.email)
+        // formdata.append('first_name', userData.first_name)
+        // formdata.append('last_name', userData.last_name)
+        // formdata.append('date_of_birth', userData.date_of_birth)
+        // formdata.append('gender', userData.gender)
+        // formdata.append('password', userData.password)
 
 
-        axios.post("/create-user", formdata)  
-            .then((response) => {
-                if (response.data.status === 200) {
-                    // localStorage.setItem('token', response.data.token);
-                    successtoast(response.data.msg);
-                } else {
-                    errortoast(response.data.msg);
-                }
-            })
-            .catch(error => {
-                errortoast("An error occurred. Please try again.");
-            })
-            .finally(() => setLoading(false));
+        localStorage.setItem('userData', JSON.stringify(userData));
+        // successtoast(response.data.msg);
+        navigate('/userdata');
     };
 
     return (
@@ -115,10 +120,17 @@ export default function RegistrationForm() {
                                         </div>
                                     </div>
 
-                                    <div className="mt-4 pt-2">
-                                        <input data-mdb-ripple-init className="btn btn-primary btn-lg" type="submit" value="Submit" />
-                                    </div>
-                                    <Link to='/userdata'>Next</Link>
+                                    {isLoading ?
+                                        <button type="submit" className="btn btn-primary w-100" disabled>
+                                            <div className="spinner-border spinner-border-sm text-light me-2" role="status">
+                                            </div>
+                                            Loading...
+                                        </button>
+                                        :
+                                        <button type="submit" className="btn btn-primary w-100">
+                                            Login
+                                        </button>
+                                    }
                                 </form>
                             </div>
                         </div>

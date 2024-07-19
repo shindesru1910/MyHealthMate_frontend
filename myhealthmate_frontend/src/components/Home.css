@@ -20,4 +20,7 @@
   .footer a:hover {
     text-decoration: underline;
   }
+
+  /* @import '~swiper/swiper-bundle.min.css'; */
+
   

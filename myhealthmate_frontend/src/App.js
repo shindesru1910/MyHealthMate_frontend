@@ -13,13 +13,10 @@ import UserData from './components/UserData';
 import DoctorTable from './components/DoctorTable';
 import Auth from './components/Auth';
 import Homepage from './components/Homepage';
-<<<<<<< HEAD
 import axios from 'axios';
-=======
 import UserManagement from './components/UserManagement';
 import DoctorManagement from './components/DoctorManagement';
 import AddDoctor from './components/AddDoctor';
->>>>>>> 89071a74a280a0d5c4ccc07b1f71c821e349838f
 
 axios.defaults.baseURL = 'http://localhost:8000';
 

@@ -8,12 +8,12 @@ import UserTable from './components/UserTable';
 import AdminPage from './components/AdminPage';
 import UserPage from './components/UserPage';
 import UserLogin from './components/UserLogin';
-import axios from 'axios';
 import RegistrationForm from './components/RegistrationForm';
 import UserData from './components/UserData';
 import DoctorTable from './components/DoctorTable';
 import Auth from './components/Auth';
 import Homepage from './components/Homepage';
+import axios from 'axios';
 
 axios.defaults.baseURL = 'http://localhost:8000';
 

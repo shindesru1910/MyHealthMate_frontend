@@ -3,27 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-<<<<<<< HEAD
-    "@fortawesome/fontawesome-free": "^6.5.2",
-=======
     "@fortawesome/fontawesome-free": "^6.6.0",
->>>>>>> b48d5b75f2e9c74fae832d21165dd94d06ff9ed8
     "@srexi/purecounterjs": "^1.5.0",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "aos": "^2.3.4",
     "axios": "^1.7.2",
-<<<<<<< HEAD
-    "bootstrap": "^5.3.0",
-=======
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
     "font-awesome": "^4.7.0",
     "gh-pages": "^6.1.1",
     "glightbox": "^3.3.0",
     "jwt-decode": "^4.0.0",
->>>>>>> b48d5b75f2e9c74fae832d21165dd94d06ff9ed8
     "react": "^18.3.1",
     "react-bootstrap": "^2.10.4",
     "react-chatbot-kit": "^2.2.2",
@@ -31,12 +23,9 @@
     "react-jwt": "^1.2.1",
     "react-router-dom": "^6.24.1",
     "react-scripts": "^5.0.1",
-<<<<<<< HEAD
-=======
     "react-toastify": "^10.0.5",
     "sweetalert2": "^11.12.2",
     "swiper": "^11.1.5",
->>>>>>> b48d5b75f2e9c74fae832d21165dd94d06ff9ed8
     "web-vitals": "^2.1.4"
   },
   "scripts": {

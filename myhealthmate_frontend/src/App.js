@@ -14,6 +14,7 @@ import RegistrationForm from './components/RegistrationForm';
 import UserData from './components/UserData';
 import DoctorTable from './components/DoctorTable';
 import Auth from './components/Auth';
+import Homepage from './components/Homepage';
 
 axios.defaults.baseURL = 'http://localhost:8000';
 

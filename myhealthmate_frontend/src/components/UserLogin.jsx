@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import {jwtDecode} from 'jwt-decode';
+import './UserLogin.css';
+// import {jwtDecode} from 'jwt-decode';
 // import jwt from 'jwt-decode';
 
 const UserLogin = () => {
@@ -91,8 +92,7 @@ const UserLogin = () => {
               <Link to="/forgot-password">Forgot Password?</Link>
             </div>
             <div className="text-center mt-2">
-              <span>Don't have an account? </span>
-              <Link to="/register">Register</Link>
+              <span>Don't have an account? </span><Link to="/register">Register</Link>
               {isLoading ?
                 <button type="submit" className="btn btn-primary w-100" disabled>
                   <div className="spinner-border spinner-border-sm text-light me-2" role="status">

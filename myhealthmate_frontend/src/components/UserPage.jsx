@@ -26,7 +26,7 @@ export default function UserPage() {
           <Card name="Health Recommendation" desc="To see and manage recommendations"buttons={[]} />
           <Card name="Health Reports" desc="To manage doctors" buttons={["Upload New Report"]} />
           <Card name="Feedback" desc="Feedback viewer" buttons={["Submit Feedback"]} />
-          <Card name="Upcoming Appointments" desc="To see the total number of appointments" buttons={["Book an Appointment", "View an Appointments"]} />
+          <Card name="Upcoming Appointments" desc="To see the total number of appointments" buttons={["AppointmentForm.js","View Appointment"]} />
           <Card name="Exercise Remainder" desc="Health reports management" buttons={["Edit", "Add New"]} />
           <Card name="Medical History" desc="Statistics of the system" buttons={["Add/Edit Information"]} />
           <Card name="Membership Status" desc="Statistics of the system" buttons={[]} />

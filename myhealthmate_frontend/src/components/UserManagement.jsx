@@ -11,7 +11,7 @@ export default function UserManagement() {
   return (
     <>
       <div>
-        <nav className="bg-success d-flex justify-content-center" style={{ height: "50px", textAlign: 'center' }}>
+        <nav className="bg-primary d-flex justify-content-center" style={{ height: "50px", textAlign: 'center' }}>
           <div className="container-fluid">
             <span className="navbar-brand mb-0 h1" style={{ fontSize: '24px' }}>User Management</span>
           </div>
@@ -22,9 +22,9 @@ export default function UserManagement() {
             </ul>
         </nav>
         <div className="container mt-3 d-flex flex-wrap justify-content-center">
-          <Card name="Add Users"  buttons={[]} color="#4CAF50" />
-          <Card name="Edit Users"  buttons={[]} color="#4CAF50"/>
-          <Card name="User List"  buttons={[]} color="#4CAF50" to="/userlist"/>
+          <Card name="Add Users"  buttons={[]} color="#0096FF" />
+          <Card name="Edit Users"  buttons={[]} color="#0096FF"/>
+          <Card name="User List"  buttons={[]} color="#0096FF" to="/userlist"/>
 
         </div>
       </div>

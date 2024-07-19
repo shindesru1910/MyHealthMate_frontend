@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Auth.module.css */
+=======
+Auth.module.css
+>>>>>>> 89071a74a280a0d5c4ccc07b1f71c821e349838f
 
 body {
   background-color: #f8f9fa;
@@ -31,12 +35,19 @@ body {
 
 /* a {
   color: #007bff;
+<<<<<<< HEAD
 } */
 /* 
 a:hover {
   color: #0056b3;
 } */
+=======
+}
+a:hover {
+  color: #0056b3;
+} 
+>>>>>>> 89071a74a280a0d5c4ccc07b1f71c821e349838f
 
 /* .form-group label {
   color: #495057;
-} */
+}

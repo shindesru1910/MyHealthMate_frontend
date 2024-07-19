@@ -35,14 +35,14 @@ export default function RegistrationForm() {
         e.preventDefault();
         setIsLoading(true);
 
-        // let formdata = new FormData();
-        // formdata.append('phone', userData.phone)
-        // formdata.append('email', userData.email)
-        // formdata.append('first_name', userData.first_name)
-        // formdata.append('last_name', userData.last_name)
-        // formdata.append('date_of_birth', userData.date_of_birth)
-        // formdata.append('gender', userData.gender)
-        // formdata.append('password', userData.password)
+        let formdata = new FormData();
+        formdata.append('phone', userData.phone)
+        formdata.append('email', userData.email)
+        formdata.append('first_name', userData.first_name)
+        formdata.append('last_name', userData.last_name)
+        formdata.append('date_of_birth', userData.date_of_birth)
+        formdata.append('gender', userData.gender)
+        formdata.append('password', userData.password)
 
 
         localStorage.setItem('userData', JSON.stringify(userData));

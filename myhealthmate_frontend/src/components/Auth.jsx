@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './Style.css';
+// import './Style.css';
 
 function Auth() {
   const [isLogin, setIsLogin] = useState(true);

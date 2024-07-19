@@ -14,8 +14,6 @@ export default function UserData() {
     const [userData, setUserData] = useState(initialState);
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
-    // const token = localStorage.getItem("token");
-    // const user = jwt(token);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -53,6 +51,7 @@ export default function UserData() {
                 if (response.data.status === 200) {
                     // localStorage.setItem('token', response.data.token);
                     successtoast(response.data.msg);
+                    navigate('/userlogin');
                 } else {
                     errortoast(response.data.msg);
                 }

@@ -14,6 +14,9 @@ import UserData from './components/UserData';
 import DoctorTable from './components/DoctorTable';
 import Auth from './components/Auth';
 import Homepage from './components/Homepage';
+import UserManagement from './components/UserManagement';
+import DoctorManagement from './components/DoctorManagement';
+import AddDoctor from './components/AddDoctor';
 
 axios.defaults.baseURL = 'http://localhost:8000';
 
@@ -42,6 +45,9 @@ function App() {
           <Route path="/doctorlist" element={<DoctorTable/>} />
           <Route path="/register" element={<RegistrationForm/>} />
           <Route path="/userdata" element={<UserData/>} />
+          <Route path="/user-management" element={<UserManagement/>} />
+          <Route path="/doctor-management" element={<DoctorManagement/>} />
+          <Route path="/add-doctor" element={<AddDoctor/>} />
           <Route path="/auth" element={<Auth/>} />
         </Routes>
       </div>

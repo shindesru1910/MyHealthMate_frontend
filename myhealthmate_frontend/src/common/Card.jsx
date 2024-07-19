@@ -14,7 +14,7 @@ export default function Card(props) {
                     <h5 class="card-title" >{name}</h5>
                     <p class="card-text">{desc}</p>
                     {buttons.length > 0 && buttons.map((button, index) => (
-                        <button key={index} className="btn btn-success m-1">{button}</button>
+                        <button key={index} className="btn btn-primary m-1">{button}</button>
                     ))}
                 </div>
             </div>

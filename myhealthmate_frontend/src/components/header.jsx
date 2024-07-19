@@ -39,7 +39,8 @@ const Header = () => {
               <li><a href="#services">Services</a></li>
               <li><a href="#speciality">Speciality</a></li>
               <li><a href="#doctors">Doctors</a></li>
-              <li className="dropdown">
+
+              {/* <li className="dropdown">
                 <a href="#"><span>Dropdown</span> <i className="bi bi-chevron-down toggle-dropdown"></i></a>
                 <ul>
                   <li><a href="#">Dropdown 1</a></li>
@@ -57,7 +58,8 @@ const Header = () => {
                   <li><a href="#">Dropdown 3</a></li>
                   <li><a href="#">Dropdown 4</a></li>
                 </ul>
-              </li>
+              </li> */}
+              
               <li><a href="#contact">Contact</a></li>
             </ul>
             <i className="mobile-nav-toggle d-xl-none bi bi-list"></i>

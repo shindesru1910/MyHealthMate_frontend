@@ -22,7 +22,7 @@ export default function UserManagement() {
             </ul>
         </nav>
         <div className="container mt-3 d-flex flex-wrap justify-content-center">
-          <Card name="Add Users"  buttons={[]} color="#0096FF" />
+          <Card name="Add Users"  buttons={[]} color="#0096FF" to="/add-user" />
           <Card name="Edit Users"  buttons={[]} color="#0096FF"/>
           <Card name="User List"  buttons={[]} color="#0096FF" to="/userlist"/>
 

@@ -128,7 +128,7 @@ export default function RegistrationForm() {
                                         </button>
                                         :
                                         <button type="submit" className="btn btn-primary w-100">
-                                            Login
+                                            Submit
                                         </button>
                                     }
                                 </form>

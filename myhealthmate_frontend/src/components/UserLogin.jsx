@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import './UserLogin.css';
-// import {jwtDecode} from 'jwt-decode';
+import {jwtDecode} from 'jwt-decode';
 // import jwt from 'jwt-decode';
 
 const UserLogin = () => {
@@ -32,21 +32,25 @@ const UserLogin = () => {
     try {
       const response = await axios.post('/login', login_formdata); // Adjust the endpoint URL as per your Django API
       if (response.data.status === 200) {
-        const token = localStorage.setItem('token', response.data.token); // Store JWT token in localStorage
-        // console.log(response.data.token)
-        // const decodedToken = jwtDecode(token);
-        // const userFirstName = decodedToken.first_name; // Adjust this according to the actual key in your token
-        // localStorage.setItem('userFirstName', userFirstName); // Store user's first name in localStorage
-        navigate('/userpage'); // Redirect to /userpage on successful login
+        const token = response.data.token;
+        localStorage.setItem('token', token);
+
+        const decodedToken = jwtDecode(token);
+        const isAdmin = decodedToken.is_admin;
+
         setIsLoading(false);
+        if (isAdmin) {
+          navigate('/adminpage');
+        } else {
+          navigate('/userpage');
+        }
       } else {
         setIsLoading(false);
         console.log(response);
         Swal.fire('Error', response.data.msg, 'error'); // Show error message if login fails
-        
       }
     } catch (error) {
-      console.error(error)
+      console.error(error);
       setIsLoading(false);
       Swal.fire('Error', 'An error occurred while logging in', 'error'); // Catch any network or server errors
     }

@@ -1,84 +1,141 @@
-import React, { useState } from 'react';
+// src/components/RegistrationForm.js
+import React, { useEffect, useState } from "react";
+import './RegistrationForm.css';
 import axios from 'axios';
 import { ToastContainer } from 'react-toastify';
 import { errortoast, successtoast } from '../functions/toast';
+import { useNavigate } from 'react-router-dom';
 
 export default function AddUser() {
-  const initialState = { email: '', first_name: '', last_name: '', phone: '', address: '', password: '', confirm_password: '', is_admin: false };
-  const [userData, setUserData] = useState(initialState);
-  const [loading, setLoading] = useState(false);
+    const initialState = { email: '', phone: '', password: '', first_name: '', last_name: '', date_of_birth: '', gender: '' };
+    const [userData, setUserData] = useState(initialState);
+    const [isLoading, setIsLoading] = useState(false);
+    const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setUserData(prev => ({ ...prev, [name]: value }));
-  };
+    // useEffect(()=>{
+    //     let userInfo = JSON.parse(localStorage.getItem('userData'));
+    //     setUserData(prev=>({...prev,
+    //         email:userInfo.email,
+    //         password:userInfo.password,
+    //         phone:userInfo.phone,
+    //         first_name:userInfo.first_name,
+    //         last_name:userInfo.last_name,
+    //         date_of_birth:userInfo.date_of_birth,
+    //         gender:userInfo.gender,
+    //     }))
+    // },[])
 
-  const handleCheckboxChange = (e) => {
-    const { name, checked } = e.target;
-    setUserData(prev => ({ ...prev, [name]: checked }));
-  };
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setUserData(prev => ({ ...prev, [name]: value }));
+    };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setLoading(true);
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        setIsLoading(true);
 
-    axios.post("/user/create-user", userData)
-      .then((response) => {
-        if (response.data.status === 200) {
-          successtoast(response.data.msg);
-        } else {
-          errortoast(response.data.msg);
-        }
-      })
-      .catch(error => {
-        errortoast("An error occurred. Please try again.");
-      })
-      .finally(() => setLoading(false));
-  };
+        let formdata = new FormData();
+        formdata.append('phone', userData.phone)
+        formdata.append('email', userData.email)
+        formdata.append('first_name', userData.first_name)
+        formdata.append('last_name', userData.last_name)
+        formdata.append('date_of_birth', userData.date_of_birth)
+        formdata.append('gender', userData.gender)
+        formdata.append('password', userData.password)
 
-  return (
-    <>
-      <ToastContainer />
-      <form onSubmit={handleSubmit} className='needs-validation was-validated'>
-        <div className="container border mt-4 shadow p-4">
-          <h2 className="text-center mb-4">Add User</h2>
-          <div className="mb-3">
-            <label className="form-label">Email</label>
-            <input type="email" className="form-control" name="email" value={userData.email} onChange={handleChange} required />
-          </div>
-          <div className="mb-3">
-            <label className="form-label">First Name</label>
-            <input type="text" className="form-control" name="first_name" value={userData.first_name} onChange={handleChange} required />
-          </div>
-          <div className="mb-3">
-            <label className="form-label">Last Name</label>
-            <input type="text" className="form-control" name="last_name" value={userData.last_name} onChange={handleChange} required />
-          </div>
-          <div className="mb-3">
-            <label className="form-label">Phone Number</label>
-            <input type="tel" className="form-control" name="phone" value={userData.phone} onChange={handleChange} required />
-          </div>
-          <div className="mb-3">
-            <label className="form-label">Address</label>
-            <input type="text" className="form-control" name="address" value={userData.address} onChange={handleChange} />
-          </div>
-          <div className="mb-3">
-            <label className="form-label">Password</label>
-            <input type="password" className="form-control" name="password" value={userData.password} onChange={handleChange} required />
-          </div>
-          <div className="mb-3">
-            <label className="form-label">Confirm Password</label>
-            <input type="password" className="form-control" name="confirm_password" value={userData.confirm_password} onChange={handleChange} required />
-          </div>
-          <div className="mb-3 form-check">
-            <input type="checkbox" className="form-check-input" name="is_admin" checked={userData.is_admin} onChange={handleCheckboxChange} />
-            <label className="form-check-label">Is Admin?</label>
-          </div>
-          <div className="d-flex justify-content-center">
-            <button type="submit" className="btn btn-primary" disabled={loading}>{loading ? 'Loading...' : 'Submit'}</button>
-          </div>
-        </div>
-      </form>
-    </>
-  );
+
+        localStorage.setItem('userData', JSON.stringify(userData));
+        // successtoast(response.data.msg);
+        navigate('/userdata');
+    };
+
+    return (
+        <section className="vh-100 gradient-custom">
+            <ToastContainer />
+            <div className="container py-5 h-100">
+                <div className="row justify-content-center align-items-center h-100">
+                    <div className="col-12 col-lg-9 col-xl-7">
+                        <div className="card shadow-2-strong card-registration" style={{ borderRadius: 15 }}>
+                            <div className="card-body p-4 p-md-5">
+                                <h3 className="mb-4 pb-2 pb-md-0 mb-md-5">User Deatils Form</h3>
+                                <form onSubmit={handleSubmit}>
+                                    <div className="row">
+                                        <div className="col-md-6 mb-4">
+                                            <div className="form-outline">
+                                                <input type="text" id="firstName" name="first_name" className="form-control form-control-lg" onChange={handleChange} value={userData.first_name} />
+                                                <label className="form-label" htmlFor="firstName">First Name</label>
+                                            </div>
+                                        </div>
+                                        <div className="col-md-6 mb-4">
+                                            <div className="form-outline">
+                                                <input type="text" id="lastName" name="last_name" className="form-control form-control-lg" onChange={handleChange} value={userData.last_name} />
+                                                <label className="form-label" htmlFor="lastName">Last Name</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="row">
+                                        <div className="col-md-6 mb-4 d-flex align-items-center">
+                                            <div className="form-outline datepicker w-100">
+                                                <input type="date" className="form-control form-control-lg" id="birthdayDate" name="date_of_birth" onChange={handleChange} value={userData.date_of_birth} />
+                                                <label htmlFor="birthdayDate" className="form-label">Birthday</label>
+                                            </div>
+                                        </div>
+                                        <div className="col-md-6 mb-4">
+                                            <h6 className="mb-2 pb-1">Gender: </h6>
+                                            <div className="form-check form-check-inline">
+                                                <input className="form-check-input" type="radio" name="gender" id="femaleGender" value="female" checked={userData.gender === "female"} onChange={handleChange} />
+                                                <label className="form-check-label" htmlFor="femaleGender">Female</label>
+                                            </div>
+                                            <div className="form-check form-check-inline">
+                                                <input className="form-check-input" type="radio" name="gender" id="maleGender" value="male" checked={userData.gender === "male"} onChange={handleChange} />
+                                                <label className="form-check-label" htmlFor="maleGender">Male</label>
+                                            </div>
+                                            <div className="form-check form-check-inline">
+                                                <input className="form-check-input" type="radio" name="gender" id="otherGender" value="other" checked={userData.gender === "other"} onChange={handleChange} />
+                                                <label className="form-check-label" htmlFor="otherGender">Other</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="row">
+                                        <div className="col-md-6 mb-4 pb-2">
+                                            <div className="form-outline">
+                                                <input type="email" id="emailAddress" name="email" className="form-control form-control-lg" onChange={handleChange} value={userData.email} />
+                                                <label className="form-label" htmlFor="emailAddress">Email</label>
+                                            </div>
+                                        </div>
+                                        <div className="col-md-6 mb-4 pb-2">
+                                            <div className="form-outline">
+                                                <input type="tel" id="phoneNumber" name="phone" className="form-control form-control-lg" onChange={handleChange} value={userData.phone} />
+                                                <label className="form-label" htmlFor="phoneNumber">Phone Number</label>
+                                            </div>
+                                        </div>
+                                        <div className="col-md-6 mb-4 pb-2">
+                                            <div className="form-outline">
+                                                <input type="password" id="password" name="password" className="form-control form-control-lg" onChange={handleChange} value={userData.password} />
+                                                <label className="form-label" htmlFor="password">Password</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {isLoading ?
+                                        <button type="submit" className="btn btn-primary w-100" disabled>
+                                            <div className="spinner-border spinner-border-sm text-light me-2" role="status">
+                                            </div>
+                                            Loading...
+                                        </button>
+                                        :
+                                        <button type="submit" className="btn btn-primary w-100">
+                                            Submit
+                                        </button>
+                                    }
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
 }

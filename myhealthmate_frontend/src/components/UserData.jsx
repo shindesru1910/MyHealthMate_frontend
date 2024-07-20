@@ -114,14 +114,10 @@ export default function UserData() {
                                                     <option value="">Select Dietary Preference</option>
                                                     <option value="vegetarian">Vegetarian</option>
                                                     <option value="vegan">Vegan</option>
-                                                    <option value="pescatarian">Pescatarian</option>
                                                     <option value="gluten_free">Gluten-Free</option>
-                                                    <option value="keto">Keto</option>
-                                                    <option value="paleo">Paleo</option>
                                                     <option value="low_carb">Low-Carb</option>
                                                     <option value="high_protein">High-Protein</option>
                                                     <option value="diabetic_friendly">Diabetic-Friendly</option>
-                                                    <option value="low_sodium">Low-Sodium</option>
                                                     <option value="allergies">Allergies</option>
                                                 </select>
                                                 <label className="form-label" htmlFor="dietary_preferences">Dietary Preferences</label>
@@ -132,13 +128,32 @@ export default function UserData() {
                                     <div className="row">
                                         <div className="col-md-6 mb-4 pb-2">
                                             <div className="form-outline">
-                                                <input type="text" id="health_conditions" name="health_conditions" className="form-control form-control-lg" onChange={handleChange} value={userData.health_conditions} />
+                                                <select id="health_conditions" name="health_conditions" className="form-control form-control-lg" onChange={handleChange} value={userData.health_conditions}>
+                                                    <option value="">Select Health Condition</option>
+                                                    <option value="hypertension">Hypertension</option>
+                                                    <option value="diabetes">Diabetes</option>
+                                                    <option value="asthma">Asthma</option>
+                                                    <option value="heart_disease">Heart Disease</option>
+                                                    <option value="allergy">Allergy</option>
+                                                    <option value="arthritis">Arthritis</option>
+                                                    <option value="thyroid">Thyroid</option>
+                                                    <option value="cancer">Cancer</option>
+                                                    <option value="kidney_disease">Kidney Disease</option>
+                                                    <option value="none">None</option>
+                                                </select>
                                                 <label className="form-label" htmlFor="health_conditions">Health Conditions</label>
                                             </div>
                                         </div>
                                         <div className="col-md-6 mb-4 pb-2">
                                             <div className="form-outline">
-                                                <input type="text" id="medical_history" name="medical_history" className="form-control form-control-lg" onChange={handleChange} value={userData.medical_history} />
+                                                <select id="medical_history" name="medical_history" className="form-control form-control-lg" onChange={handleChange} value={userData.medical_history}>
+                                                    <option value="">Select Medical History</option>
+                                                    <option value="previous_surgeries">Previous Surgeries</option>
+                                                    <option value="chronic_illnesses">Chronic Illnesses</option>
+                                                    <option value="medications">Medications</option>
+                                                    <option value="allergies">Allergies</option>
+                                                    <option value="none">None</option>
+                                                </select>
                                                 <label className="form-label" htmlFor="medical_history">Medical History</label>
                                             </div>
                                         </div>

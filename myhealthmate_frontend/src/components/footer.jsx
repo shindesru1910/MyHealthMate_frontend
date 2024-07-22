@@ -39,11 +39,11 @@ const Footer = () => {
           <div className="col-lg-2 col-md-3 footer-links">
             <h4>Our Services</h4>
             <ul>
-              <li><a href="#"></a></li>
-              <li><a href="#"></a></li>
-              <li><a href="#"></a></li>
-              <li><a href="#"></a></li>
-              <li><a href="#"></a></li>
+              <li><a href="#">Health Consultations</a></li>
+              <li><a href="#">Appointment Scheduling</a></li>
+              <li><a href="#">Health Resources</a></li>
+              <li><a href="#">Nutritional Guidance</a></li>
+              <li><a href="#">Custom Exercise Plans</a></li>
             </ul>
           </div>
 

@@ -18,6 +18,7 @@ import UserManagement from './components/UserManagement';
 import DoctorManagement from './components/DoctorManagement';
 import AddDoctor from './components/AddDoctor';
 import Doctor from './components/Doctor';
+import PremiumPage from './components/PremiumPage';
 
 axios.defaults.baseURL = 'http://localhost:8000';
 
@@ -52,6 +53,7 @@ function App() {
           {/* <Route path="/add-user" element={<AddUser/>} /> */}
           <Route path="/doctor" element={<Doctor/>} />
           <Route path="/auth" element={<Auth/>} />
+          <Route path="/premiumpage" element={<PremiumPage/>} />
         </Routes>
       </div>
     </Router>

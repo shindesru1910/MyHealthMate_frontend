@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import {jwtDecode} from 'jwt-decode'; // Ensure correct import of jwt-decode
 import './UserLogin.css';
-import {jwtDecode} from 'jwt-decode';
-// import jwt from 'jwt-decode';
 
 const UserLogin = () => {
   const [formData, setFormData] = useState({
@@ -13,6 +12,17 @@ const UserLogin = () => {
   });
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const form = document.getElementById('loginForm');
+    form.addEventListener('submit', (event) => {
+      if (!form.checkValidity()) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+      form.classList.add('was-validated');
+    });
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -24,10 +34,10 @@ const UserLogin = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsLoading(true)
+    setIsLoading(true);
     let login_formdata = new FormData();
-    login_formdata.append('email', formData.email)
-    login_formdata.append('password', formData.password)
+    login_formdata.append('email', formData.email);
+    login_formdata.append('password', formData.password);
 
     try {
       const response = await axios.post('/login', login_formdata); // Adjust the endpoint URL as per your Django API
@@ -60,7 +70,7 @@ const UserLogin = () => {
     <div className="container mt-5">
       <div className="row justify-content-center">
         <div className="col-md-6">
-          <form onSubmit={handleSubmit} className="needs-validation border border-primary p-4 rounded" noValidate>
+          <form id="loginForm" onSubmit={handleSubmit} className="needs-validation border border-primary p-4 rounded" noValidate>
             <h2 className="text-center mb-4">Login</h2>
             <div className="mb-3">
               <label htmlFor="email" className="form-label">Email address</label>
@@ -73,7 +83,7 @@ const UserLogin = () => {
                 onChange={handleChange}
                 name="email"
                 required
-                />
+              />
               <div className="invalid-feedback">
                 Please enter a valid email address.
               </div>
@@ -90,17 +100,20 @@ const UserLogin = () => {
                 onChange={handleChange}
                 name="password"
                 required
+                minLength="4"
               />
+              <div className="invalid-feedback">
+                Password must be at least 4 characters long.
+              </div>
             </div>
             <div className="text-center mt-3">
-              <Link to="/forgot-password">Forgot Password?</Link>
+              <Link to="/reset-password-request">Forgot Password?</Link>
             </div>
             <div className="text-center mt-2">
               <span>Don't have an account? </span><Link to="/register">Register</Link>
               {isLoading ?
                 <button type="submit" className="btn btn-primary w-100" disabled>
-                  <div className="spinner-border spinner-border-sm text-light me-2" role="status">
-                  </div>
+                  <div className="spinner-border spinner-border-sm text-light me-2" role="status"></div>
                   Loading...
                 </button>
                 :
@@ -117,4 +130,3 @@ const UserLogin = () => {
 };
 
 export default UserLogin;
-

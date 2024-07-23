@@ -20,17 +20,17 @@ axios.defaults.baseURL = 'http://localhost:8000';
 // src/App.js or any other component
 // src/App.js or any other component
 //   ChatBot start
-import React from 'react';
-import Chatbot from './chatbot';
+// import React from 'react';
+// import Chatbot from './chatbot';
 
-function App() {
-  return (
-    <div className="App">
-      {/* Other components */}
-      <Chatbot />
-    </div>
-  );
-}
+// function App() {
+//   return (
+//     <div className="App">
+//       {/* Other components */}
+//       <Chatbot />
+//     </div>
+//   );
+// }
 //ChatBoat end
 
 

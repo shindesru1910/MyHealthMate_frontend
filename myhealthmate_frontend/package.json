@@ -12,12 +12,18 @@
     "@testing-library/user-event": "^13.5.0",
     "aos": "^2.3.4",
     "axios": "^1.7.2",
+    "body-parser": "^1.20.2",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
+    "express": "^4.19.2",
     "font-awesome": "^4.7.0",
     "gh-pages": "^6.1.1",
     "glightbox": "^3.3.0",
     "jwt-decode": "^4.0.0",
+<<<<<<< HEAD
+    "node-cron": "^3.0.3",
+=======
+>>>>>>> 0307894110070b644dec6786a9d7e6bf1cee518e
     "node-schedule": "^2.1.1",
     "react": "^18.3.1",
     "react-bootstrap": "^2.10.4",

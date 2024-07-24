@@ -1,6 +1,5 @@
 // new
 
-// src/App.js
 import React , { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 // import Home from './components/Home'
@@ -15,9 +14,11 @@ import Auth from './components/Auth';
 import Homepage from './components/Homepage';
 import axios from 'axios';
 import UserManagement from './components/UserManagement';
+// import ExerciseReminderApp from './components/exercisereminderapp';
 import DoctorManagement from './components/DoctorManagement';
 import AddDoctor from './components/AddDoctor';
 import Doctor from './components/Doctor';
+import ExerciseReminderForm from './components/exercisereminderform';
 
 axios.defaults.baseURL = 'http://localhost:8000';
 
@@ -47,6 +48,7 @@ function App() {
           <Route path="/register" element={<RegistrationForm/>} />
           <Route path="/userdata" element={<UserData/>} />
           <Route path="/user-management" element={<UserManagement/>} />
+          <Route path="/exercise-reminder" element={<ExerciseReminderForm/>} />
           <Route path="/doctor-management" element={<DoctorManagement/>} />
           <Route path="/add-doctor" element={<AddDoctor/>} />
           {/* <Route path="/add-user" element={<AddUser/>} /> */}

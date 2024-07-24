@@ -39,7 +39,7 @@ export default function UserPage() {
           {/* <Card name="Health Reports" desc="To manage doctors" buttons={["Upload New Report"]} /> */}
           <Card name="Membership Status" desc="Statistics of the system" buttons={[]} />
           <Card name="Upcoming Appointments" desc="To see the total number of appointments" buttons={["AppointmentForm.js","View Appointment"]} />
-          <Card name="Exercise Remainder" desc="Health reports management" buttons={["Edit", "Add New"]} />
+          <Card name="Exercise Reminder" desc="Health reports management" buttons={["Add New"]} to = "/exercise-reminder" />
           <Card name="Medical History" desc="Statistics of the system" buttons={["Add/Edit Information"]} />
           <Card name="Feedback" desc="Feedback viewer" buttons={["Submit Feedback"]} />
         </div>

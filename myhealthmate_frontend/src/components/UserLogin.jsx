@@ -107,7 +107,7 @@ const UserLogin = () => {
               </div>
             </div>
             <div className="text-center mt-3">
-              <Link to="/reset-password-request">Forgot Password?</Link>
+              <Link to="/forgot-password">Forgot Password?</Link>
             </div>
             <div className="text-center mt-2">
               <span>Don't have an account? </span><Link to="/register">Register</Link>

@@ -18,8 +18,8 @@ import DoctorManagement from './components/DoctorManagement';
 import AddDoctor from './components/AddDoctor';
 import Doctor from './components/Doctor';
 import User from './components/User';
+import ExerciseReminderForm from './components/exercisereminderform';
 import PremiumPage from './components/PremiumPage';
-
 
 axios.defaults.baseURL = 'http://localhost:8000';
 

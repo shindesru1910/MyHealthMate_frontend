@@ -10,29 +10,40 @@
     background: linear-gradient(to bottom right, rgba(240, 147, 251, 1), rgba(245, 87, 108, 1));
     min-height: 100vh;
 }
+body {
+    background: linear-gradient(to right, #00c6ff, #0072ff); /* Blue gradient */
+    min-height: 100vh;
+    /* display: flex; */
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    animation: gradient 5s ease infinite; /* Adding background gradient animation */
+}
+
 
 .card-login {
     border-radius: 15px;
     padding: 2rem;
-    background: #fff;
+    background: #ffffff;
 }
 
 .form-control {
-    border: 2px solid #f093fb;
+    border: 1px solid #2d2c2c;
 }
 
 .form-control:focus {
-    border-color: #f0576c;
+    border-color: #0b24b2;
     box-shadow: none;
 }
 
 .btn-primary {
-    background-color: #f0576c;
+    background-color: #5780f0;
     border: none;
 }
 
 .btn-primary:hover {
-    background-color: #f093fb;
+    background-color: #5433ba;
 }
 
 .text-light {

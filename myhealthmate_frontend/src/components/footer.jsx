@@ -13,7 +13,7 @@ const Footer = () => {
             <div className="footer-contact pt-3">
               <p>Ahmedabad, Gujarat-380001</p>
               <p className="mt-3"><strong>Phone:</strong> <span>+1 2345 67899 01</span></p>
-              <p><strong>Email:</strong> <span>Myhealthmate@gmail.com</span></p>
+              <p><strong>Email:</strong> <span>myhealthmate2002@gmail.com</span></p>
             </div>
             <div className="social-links d-flex mt-4">
               <a href=""><i className="bi bi-twitter-x"></i></a>

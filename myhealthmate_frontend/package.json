@@ -20,16 +20,13 @@
     "gh-pages": "^6.1.1",
     "glightbox": "^3.3.0",
     "jwt-decode": "^4.0.0",
-<<<<<<< HEAD
-    "node-cron": "^3.0.3",
-=======
->>>>>>> 0307894110070b644dec6786a9d7e6bf1cee518e
     "node-schedule": "^2.1.1",
     "react": "^18.3.1",
     "react-bootstrap": "^2.10.4",
     "react-chatbot-kit": "^2.2.2",
     "react-dom": "^18.3.1",
     "react-jwt": "^1.2.1",
+    "react-modal": "^3.16.1",
     "react-router-dom": "^6.24.1",
     "react-scripts": "^5.0.1",
     "react-toastify": "^10.0.5",

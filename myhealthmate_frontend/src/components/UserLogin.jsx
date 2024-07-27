@@ -70,7 +70,8 @@ const UserLogin = () => {
     <div className="container mt-5">
       <div className="row justify-content-center">
         <div className="col-md-6">
-          <form id="loginForm" onSubmit={handleSubmit} className="needs-validation border border-primary p-4 rounded" noValidate>
+      <h1 style={{color:'#FFFFFF',textAlign:'center'}}>MyHealthMate</h1>
+          <form style={{backgroundColor:'#FFFFFF'}} id="loginForm" onSubmit={handleSubmit} className="needs-validation border border-primary p-4 rounded" noValidate>
             <h2 className="text-center mb-4">Login</h2>
             <div className="mb-3">
               <label htmlFor="email" className="form-label">Email address</label>

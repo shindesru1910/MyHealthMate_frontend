@@ -20,6 +20,7 @@ import Doctor from './components/Doctor';
 import User from './components/User';
 import ExerciseReminderForm from './components/exercisereminderform';
 import PremiumPage from './components/PremiumPage';
+import ForgotPassword from './components/ForgotPassword';
 
 axios.defaults.baseURL = 'http://localhost:8000';
 
@@ -55,6 +56,7 @@ function App() {
           <Route path="/users" element={<User/>} />
           <Route path="/auth" element={<Auth/>} />
           <Route path="/premiumpage" element={<PremiumPage/>} />
+          <Route path="/password-reset" element={<ForgotPassword/>} />
         </Routes>
       </div>
     </Router>

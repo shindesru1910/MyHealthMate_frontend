@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Card from '../common/Card';
 import {jwtDecode} from 'jwt-decode';
 import axios from 'axios';
@@ -8,6 +9,7 @@ export default function UserPage() {
   const [membershipStatus, setMembershipStatus] = useState('');
   const [feedbackText, setFeedbackText] = useState('');
   const [userId, setUserId] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -15,7 +17,7 @@ export default function UserPage() {
       const decodedToken = jwtDecode(token);
       setUserFirstName(decodedToken.username);
       setMembershipStatus(decodedToken.membershipStatus);
-      setUserId(decodedToken.user_id); // Assuming `user_id` is part of the decoded token
+      setUserId(decodedToken.user_id);
     }
   }, []);
 
@@ -59,6 +61,10 @@ export default function UserPage() {
     }
   };
 
+  const handleAppointmentClick = () => {
+    navigate('/', { state: { scrollTo: 'appointment-section', userId: userId, userFirstName: userFirstName } });
+  };
+
   return (
     <>
       <div>
@@ -76,8 +82,8 @@ export default function UserPage() {
           <Card name="Health OverView" desc="Summary of health metrics" buttons={[]} />
           <Card name="Health Recommendation" desc="To see and manage recommendations" buttons={[]} />
           <Card name="Membership Status" desc={`Your current plan: Regular`} buttons={["✧Upgrade Plan"]} to="/premiumpage" />
-          <Card name="Upcoming Appointments" desc="To see the total number of appointments" buttons={["AppointmentForm.js", "View Appointment"]} />
-          <Card name="Exercise Remainder" desc="Health reports management" buttons={["Edit", "Add New"]} />
+          <Card name="Appointments" desc="To see the total number of appointments" buttons={[<button onClick={handleAppointmentClick}>View Appointment</button>]} to='/appointment-form' />
+          <Card name="Exercise Reminder" desc="Health reports management" buttons={["Edit", "Add New"]} />
           <Card name="Medical History" desc="Statistics of the system" buttons={["Add/Edit Information"]} />
           <Card name="Feedback" desc="Feedback viewer" buttons={[<button className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#feedbackModal">Submit Feedback</button>]} />
         </div>

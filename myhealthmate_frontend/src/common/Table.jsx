@@ -8,6 +8,10 @@ function toCamelCase(str) {
         .join(' ');
 }
 
+function getNestedValue(obj, path) {
+    return path.split('.').reduce((acc, part) => acc && acc[part], obj);
+}
+
 export default function Table(props) {
     const { column, data_access, data, setflag, setmodalshow, seteditdata, handledelete, title } = props;
 
@@ -38,9 +42,7 @@ export default function Table(props) {
                             <tr key={datum.id}>
                                 <th scope="row">{index + 1}</th>
                                 {data_access.map((datum_access, i) => (
-                                    <td key={i}>
-                                        {datum_access === 'is_admin' ? (datum?.[datum_access] ? 'Yes' : 'No') : datum?.[datum_access]}
-                                    </td>
+                                    <td key={i}>{getNestedValue(datum, datum_access)}</td>
                                 ))}
                                 <td>
                                     <i className="bi bi-pencil-square me-4" onClick={() => handleEdit(datum)} style={{ cursor: "pointer", color: 'blue' }}></i>

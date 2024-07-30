@@ -26,7 +26,7 @@ export default function AdminPage() {
           <Card name="Doctor Management" desc="To manage doctors" buttons={[]} to="/doctor"/>
           {/* <Card name="Health Recommendation Management" desc="To see and manage recommendations" buttons={["Overview Health Recommendations", "Add Recommendation"]} /> */}
           <Card name="Health Reports Management" desc="Health reports management" buttons={["Manage Health Reports", "View Reports"]} />
-          <Card name="Feedback Overview" desc="Feedback viewer" buttons={["View Feedback", "Respond to Feedback"]} />
+          <Card name="Feedback Overview" desc="Feedback viewer" buttons={["View Feedback"]} to='/get-feedback' />
           <Card name="System Statistics" desc="Statistics of the system" buttons={["View", "Download Report"]} />
         </div>
       </div>

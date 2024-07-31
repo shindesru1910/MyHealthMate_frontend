@@ -1,33 +1,77 @@
-import React from 'react';
-// import UserTable from './UserTable'; 
-import Card from '../common/Card';
+import React, { useState, useEffect } from "react";
+import { Button, Modal } from "react-bootstrap";
+import { ToastContainer } from 'react-toastify';
+import axios from 'axios';
+import Swal from 'sweetalert2';
+import Table from '../common/Table';
+import { errortoast, successtoast } from '../functions/toast';
 
-export default function UserManagement() {
-  const logout=()=>{
-    // console.log('Logout');
-    localStorage.clear();
-    window.location.replace('/');
-  }
-  return (
-    <>
-      <div>
-        <nav className="bg-primary d-flex justify-content-center" style={{ height: "50px", textAlign: 'center' }}>
-          <div className="container-fluid">
-            <span className="navbar-brand mb-0 h1" style={{ fontSize: '24px' }}>User Management</span>
-          </div>
-          <ul className="navbar-nav ms-auto">
-              <li>
-                <button className="btn btn-secondary nav-link active" style={{ width: "66px",height: "40px",background:'red'}} type="button" onClick={logout}>Logout</button>
-              </li>
-            </ul>
-        </nav>
-        <div className="container mt-3 d-flex flex-wrap justify-content-center">
-          <Card name="Add Users"  buttons={[]} color="#0096FF" to="/add-user" />
-          <Card name="Edit Users"  buttons={[]} color="#0096FF"/>
-          <Card name="User List"  buttons={[]} color="#0096FF" to="/userlist"/>
+function UserManagement(props) {
+    const { onHide, flag, handlesave, userData } = props;
 
-        </div>
-      </div>
-    </>
-  );
+    const [formData, setFormData] = useState({
+        first_name: '',
+        last_name: '',
+        phone: '',
+        email: '',
+        date_of_birth: '',
+        gender: '',
+        weight: '',
+        height: '',
+        activity_level: '',
+        dietary_preferences: '',
+        health_conditions: '',
+        medical_history: '',
+        health_goals: '',
+        membership_status: ''
+    });
+
+    useEffect(() => {
+        if (flag === 'edit' && userData) {
+            setFormData(userData);
+        }
+    }, [flag, userData]);
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({ ...prev, [name]: value }));
+    };
+
+    return (
+        <Modal
+            {...props}
+            size="lg"
+            backdrop="static"
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+        >
+            <Modal.Header closeButton>
+                <Modal.Title id="contained-modal-title-vcenter">
+                    {flag === 'add' ? 'Add User' : 'Edit User'}
+                </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <form>
+                    {Object.keys(formData).map((key) => (
+                        <div className="form-group" key={key}>
+                            <label>{key.replace('_', ' ').toUpperCase()}</label>
+                            <input
+                                type="text"
+                                name={key}
+                                className="form-control"
+                                value={formData[key]}
+                                onChange={handleChange}
+                            />
+                        </div>
+                    ))}
+                </form>
+            </Modal.Body>
+            <Modal.Footer>
+                <Button onClick={onHide}>Close</Button>
+                <Button onClick={() => handlesave(formData)}>Save</Button>
+            </Modal.Footer>
+        </Modal>
+    );
 }
+
+export default UserManagement;

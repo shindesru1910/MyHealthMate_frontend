@@ -7,7 +7,7 @@ const Header = () => {
         <div className="container d-flex justify-content-center justify-content-md-between">
           <div className="contact-info d-flex align-items-center">
             <i className="bi bi-envelope d-flex align-items-center">
-              <a href="mailto:contact@example.com">Myhealthmate@gmail.com</a>
+              <a href="mailto:contact@example.com">myhealthmate2002@gmail.com</a>
             </i>
             <i className="bi bi-phone d-flex align-items-center ms-4">
               <span>+1 2345 67899 01</span>

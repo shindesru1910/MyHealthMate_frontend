@@ -33,7 +33,7 @@ export default function UserTable() {
         </div>
       ) : (
         <div className="table-responsive">
-          <table className="table table-light table-striped">
+          <table className="table table-primary table-striped">
             <thead>
               <tr>
                 <th>ID</th>

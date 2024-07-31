@@ -1,18 +1,33 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Card from '../common/Card';
+import {jwtDecode} from 'jwt-decode';
 
 export default function UserPage() {
-  const logout=()=>{
-    // console.log('Logout');
+  const [userFirstName, setUserFirstName] = useState('');
+  const [membershipStatus, setMembershipStatus] = useState('');
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const decodedToken = jwtDecode(token);
+      console.log(decodedToken.username);
+      setUserFirstName(decodedToken.username);
+      setMembershipStatus(decodedToken.membershipStatus);
+    }
+  }, []);
+  
+  console.log({userFirstName});
+  console.log({membershipStatus});
+
+  const logout = () => {
     localStorage.clear();
     window.location.replace('/');
-  }
-  const userFirstName = localStorage.getItem('userFirstName');
+  };
   return (
     <>
       <div>
-        <nav className="bg-success d-flex justify-content-center" style={{ height: "50px", textAlign: 'center' }}>
-          <div className="container-fluid">
+        <nav className="bg-primary d-flex justify-content-center" style={{ height: "50px", textAlign: 'center' }}>
+          <div className="container-fluid ">
             <span className="navbar-brand mb-0 h1" style={{fontSize: '24px'}}>Welcome to MyHealthmate, {userFirstName}</span>
           </div>
           <ul className="navbar-nav ms-auto">
@@ -21,15 +36,15 @@ export default function UserPage() {
               </li>
             </ul>
         </nav>
-        <div className="container mt-3 d-flex flex-wrap justify-content-center">
+        <div className="container mt-3 d-flex flex-wrap justify-content-center" >
           <Card name="Health OverView" desc="Summary of health metrics  "buttons={[]} />
           <Card name="Health Recommendation" desc="To see and manage recommendations"buttons={[]} />
-          <Card name="Health Reports" desc="To manage doctors" buttons={["Upload New Report"]} />
-          <Card name="Feedback" desc="Feedback viewer" buttons={["Submit Feedback"]} />
-          <Card name="Upcoming Appointments" desc="To see the total number of appointments" buttons={["Book an Appointment", "View an Appointments"]} />
+          {/* <Card name="Health Reports" desc="To manage doctors" buttons={["Upload New Report"]} /> */}
+          <Card name="Membership Status" desc={`Your current plan:Regular `} buttons={["✧Upgrade Plan"]} to="/premiumpage" />
+          <Card name="Upcoming Appointments" desc="To see the total number of appointments" buttons={["AppointmentForm.js","View Appointment"]} />
           <Card name="Exercise Remainder" desc="Health reports management" buttons={["Edit", "Add New"]} />
           <Card name="Medical History" desc="Statistics of the system" buttons={["Add/Edit Information"]} />
-          <Card name="Membership Status" desc="Statistics of the system" buttons={[]} />
+          <Card name="Feedback" desc="Feedback viewer" buttons={["Submit Feedback"]} />
         </div>
       </div>
     </>

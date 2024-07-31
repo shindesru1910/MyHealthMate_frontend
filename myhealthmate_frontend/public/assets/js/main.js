@@ -7,7 +7,6 @@ import 'aos/dist/aos.css';
 import 'swiper/swiper-bundle.css';
 import 'glightbox/dist/css/glightbox.css';
 
-
 const MainScript = () => {
   useEffect(() => {
     const toggleScrolled = () => {

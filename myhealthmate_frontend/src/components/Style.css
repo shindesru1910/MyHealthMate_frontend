@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Auth.module.css */
+=======
+Auth.module.css
+>>>>>>> 89071a74a280a0d5c4ccc07b1f71c821e349838f
 
 body {
   background-color: #f8f9fa;
@@ -14,12 +18,12 @@ body {
   padding: 2rem;
 }
 
-h2 {
+/* h2 {
   color: #007bff;
   margin-bottom: 1.5rem;
-}
+} */
 
-.btn-primary {
+/* .btn-primary {
   background-color: #007bff;
   border-color: #007bff;
 }
@@ -27,16 +31,23 @@ h2 {
 .btn-primary:hover {
   background-color: #0056b3;
   border-color: #004085;
-}
+} */
 
-a {
+/* a {
   color: #007bff;
-}
-
+<<<<<<< HEAD
+} */
+/* 
 a:hover {
   color: #0056b3;
+} */
+=======
 }
+a:hover {
+  color: #0056b3;
+} 
+>>>>>>> 89071a74a280a0d5c4ccc07b1f71c821e349838f
 
-.form-group label {
+/* .form-group label {
   color: #495057;
 }

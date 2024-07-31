@@ -90,19 +90,4 @@ button {
 
 button:hover {
   background-color: #0056b3;
-<<<<<<< HEAD:myhealthmate_frontend/src/App.css
-} */
-/* src/App.css */
-
-/* .................css for chatboat................. */
-.App {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background-color: #f5f5f5;
-  font-family: Arial, sans-serif;
-}
-=======
 } 
->>>>>>> 079020d0468c3e29b96a6f575d923215bf46804c:myhealthmate_frontend/src/components/App.css

@@ -1,5 +1,4 @@
 import React from 'react';
-// import UserTable from './UserTable'; 
 import Card from '../common/Card';
 
 export default function AdminPage() {
@@ -11,7 +10,7 @@ export default function AdminPage() {
   return (
     <>
       <div>
-        <nav className="bg-success d-flex justify-content-center" style={{ height: "50px", textAlign: 'center' }}>
+        <nav className="bg-primary d-flex justify-content-center" style={{ height: "50px", textAlign: 'center' }}>
           <div className="container-fluid">
             <span className="navbar-brand mb-0 h1" style={{ fontSize: '24px' }}>Welcome to MyHealthmate, Admin</span>
           </div>
@@ -22,9 +21,9 @@ export default function AdminPage() {
             </ul>
         </nav>
         <div className="container mt-3 d-flex flex-wrap justify-content-center">
-          <Card name="User Management" desc="To manage users" buttons={["Add User", "Edit User", "Delete User"]} to="/userlist" />
+          <Card name="User Management" desc="To manage users" buttons={[]} to="/user-management" />
           <Card name="Appointments" desc="To see the total number of appointments" buttons={["Manage Appointments", "View Calendar"]} />
-          <Card name="Doctor Management" desc="To manage doctors" buttons={["Add Doctor", "Edit Doctor", "Remove Doctor"]} to="/doctorlist"/>
+          <Card name="Doctor Management" desc="To manage doctors" buttons={[]} to="/doctor"/>
           <Card name="Health Recommendation Management" desc="To see and manage recommendations" buttons={["Overview Health Recommendations", "Add Recommendation"]} />
           <Card name="Health Reports Management" desc="Health reports management" buttons={["Manage Health Reports", "View Reports"]} />
           <Card name="Feedback Overview" desc="Feedback viewer" buttons={["View Feedback", "Respond to Feedback"]} />

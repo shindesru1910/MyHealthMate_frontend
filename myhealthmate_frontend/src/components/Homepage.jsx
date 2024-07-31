@@ -19,9 +19,13 @@ import Footer from './footer';
 
 
 
+
+
+
 const Homepage = () => {
   return (
     <div>
+     
       <Header />
       <HeroSection />
       <AboutSection />
@@ -34,6 +38,7 @@ const Homepage = () => {
       <GallerySection />
       <ContactSection />
       <Footer />
+      
     </div>
   );
 }

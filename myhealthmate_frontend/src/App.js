@@ -1,9 +1,6 @@
-// new
-
 // src/App.js
-import React , { useEffect } from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-// import Home from './components/Home'
 import UserTable from './components/UserTable';
 import AdminPage from './components/AdminPage';
 import UserPage from './components/UserPage';
@@ -19,63 +16,39 @@ import DoctorManagement from './components/DoctorManagement';
 import AddDoctor from './components/AddDoctor';
 import Doctor from './components/Doctor';
 import PremiumPage from './components/PremiumPage';
-
+import ChatbotComponent from './components/ChatbotComponent';
+import ChatbotToggleButton from './components/ChatbotToggleButton';
 
 axios.defaults.baseURL = 'http://localhost:8000';
 
-// src/App.js or any other component
-// src/App.js or any other component
-//   ChatBot start
-// import React from 'react';
-// import Chatbot from './chatbot';
-
-// function App() {
-//   return (
-//     <div className="App">
-//       {/* Other components */}
-//       <Chatbot />
-//     </div>
-//   );
-// }
-//ChatBoat end
-
-
-
-
-
-
 function App() {
+  const [chatbotOpen, setChatbotOpen] = useState(false);
+
+  const toggleChatbot = () => {
+    setChatbotOpen(!chatbotOpen);
+  };
 
   return (
     <Router>
       <div className="App">
-        {/* <Header />
-        <HeroSection />
-        <AboutSection />
-        <StatsSection />
-        <ServicesSection />
-        <AppointmentSection />
-        <DoctorsSection />
-        <TestimonialSection />
-        <GallerySection />
-        <ContactSection />
-        <Footer /> */}
+        {chatbotOpen && <ChatbotComponent />}
+        <ChatbotToggleButton onClick={toggleChatbot} />
+        
         <Routes>
           <Route path="/" element={<Homepage />} />
           <Route path="/userlist" element={<UserTable />} />
-          <Route path="/adminpage" element={<AdminPage/>} />
-          <Route path="/Userpage" element={<UserPage/>} />
-          <Route path="/userlogin" element={<UserLogin/>} />
-          <Route path="/doctorlist" element={<DoctorTable/>} />
-          <Route path="/register" element={<RegistrationForm/>} />
-          <Route path="/userdata" element={<UserData/>} />
-          <Route path="/user-management" element={<UserManagement/>} />
-          <Route path="/doctor-management" element={<DoctorManagement/>} />
-          <Route path="/add-doctor" element={<AddDoctor/>} />
-          {/* <Route path="/add-user" element={<AddUser/>} /> */}
-          <Route path="/doctor" element={<Doctor/>} />
-          <Route path="/auth" element={<Auth/>} />
-          <Route path="/premiumpage" element={<PremiumPage/>} />
+          <Route path="/adminpage" element={<AdminPage />} />
+          <Route path="/Userpage" element={<UserPage />} />
+          <Route path="/userlogin" element={<UserLogin />} />
+          <Route path="/doctorlist" element={<DoctorTable />} />
+          <Route path="/register" element={<RegistrationForm />} />
+          <Route path="/userdata" element={<UserData />} />
+          <Route path="/user-management" element={<UserManagement />} />
+          <Route path="/doctor-management" element={<DoctorManagement />} />
+          <Route path="/add-doctor" element={<AddDoctor />} />
+          <Route path="/doctor" element={<Doctor />} />
+          <Route path="/auth" element={<Auth />} />
+          <Route path="/premiumpage" element={<PremiumPage />} />
         </Routes>
       </div>
     </Router>
@@ -83,6 +56,3 @@ function App() {
 }
 
 export default App;
-
-
-

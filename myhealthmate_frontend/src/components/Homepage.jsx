@@ -14,6 +14,15 @@ import GallerySection from './gallerysection';
 import ContactSection from './contactsection';
 import Footer from './footer';
 
+<<<<<<< HEAD
+
+
+
+
+
+
+=======
+>>>>>>> 20f3d56c32e8c4262fc5bff9cb1064cfed9ce8e1
 const Homepage = () => {
   const location = useLocation();
 
@@ -28,6 +37,7 @@ const Homepage = () => {
 
   return (
     <div>
+     
       <Header />
       <HeroSection />
       <AboutSection />
@@ -40,6 +50,7 @@ const Homepage = () => {
       <GallerySection />
       <ContactSection />
       <Footer />
+      
     </div>
   );
 }

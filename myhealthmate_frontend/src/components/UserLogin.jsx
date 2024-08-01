@@ -47,6 +47,8 @@ const UserLogin = () => {
 
         const decodedToken = jwtDecode(token);
         const isAdmin = decodedToken.is_admin;
+        console.log(decodedToken)
+        console.log(isAdmin)
 
         setIsLoading(false);
         if (isAdmin) {

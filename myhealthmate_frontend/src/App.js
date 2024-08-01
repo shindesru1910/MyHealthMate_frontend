@@ -21,6 +21,12 @@ import User from './components/User';
 import ExerciseReminderForm from './components/exercisereminderform';
 import PremiumPage from './components/PremiumPage';
 import ForgotPassword from './components/ForgotPassword';
+import GetFeedback from './components/GetFeedback';
+import AppointmentSection from './components/appointmentsection';
+import ChangeRoute from './common/ChangeRoute';
+import UserRoute from './common/UserRoute';
+import AdminRoute from './common/AdminRoute';
+
 
 axios.defaults.baseURL = 'http://localhost:8000';
 
@@ -41,22 +47,26 @@ function App() {
         <ContactSection />
         <Footer /> */}
         <Routes>
+        {/* <Route path="/" element={<ChangeRoute/>} /> */}
           <Route path="/" element={<Homepage />} />
-          <Route path="/userlist" element={<UserTable />} />
-          <Route path="/adminpage" element={<AdminPage/>} />
-          <Route path="/Userpage" element={<UserPage/>} />
+          <Route path="/userlist" element={<AdminRoute><UserTable /></AdminRoute>} />
+          <Route path="/adminpage" element={<AdminRoute><AdminPage/></AdminRoute>} />
+          {/* <Route path="/userpage" element={<UserPage/>} /> */}
+          <Route path="/userpage" element={<UserRoute><UserPage/></UserRoute>} />
           <Route path="/userlogin" element={<UserLogin/>} />
-          <Route path="/doctorlist" element={<DoctorTable/>} />
+          <Route path="/doctorlist" element={<AdminRoute><DoctorTable/></AdminRoute>} />
           <Route path="/register" element={<RegistrationForm/>} />
           <Route path="/userdata" element={<UserData/>} />
-          <Route path="/user-management" element={<UserManagement/>} />
-          <Route path="/doctor-management" element={<DoctorManagement/>} />
+          <Route path="/user-management" element={<AdminRoute><UserManagement/></AdminRoute>} />
+          <Route path="/doctor-management" element={<AdminRoute><DoctorManagement/></AdminRoute>} />
           <Route path="/add-doctor" element={<AddDoctor/>} />
           <Route path="/doctor" element={<Doctor/>} />
           <Route path="/users" element={<User/>} />
           <Route path="/auth" element={<Auth/>} />
           <Route path="/premiumpage" element={<PremiumPage/>} />
           <Route path="/password-reset" element={<ForgotPassword/>} />
+          <Route path="/get-feedback" element={<GetFeedback/>} />
+          <Route path="/appointment-form" element={<AppointmentSection/>} />
         </Routes>
       </div>
     </Router>

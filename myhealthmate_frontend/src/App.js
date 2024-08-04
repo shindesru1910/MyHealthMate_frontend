@@ -23,9 +23,9 @@ import PremiumPage from './components/PremiumPage';
 import ForgotPassword from './components/ForgotPassword';
 import GetFeedback from './components/GetFeedback';
 import AppointmentSection from './components/appointmentsection';
-import ChangeRoute from './common/ChangeRoute';
 import UserRoute from './common/UserRoute';
 import AdminRoute from './common/AdminRoute';
+import Exercise from './components/Exercise';
 
 
 axios.defaults.baseURL = 'http://localhost:8000';
@@ -67,6 +67,7 @@ function App() {
           <Route path="/password-reset" element={<ForgotPassword/>} />
           <Route path="/get-feedback" element={<GetFeedback/>} />
           <Route path="/appointment-form" element={<AppointmentSection/>} />
+          <Route path="/exercise" element={<Exercise/>} />
         </Routes>
       </div>
     </Router>

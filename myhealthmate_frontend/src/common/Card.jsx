@@ -1,10 +1,10 @@
 import React from "react";
 import './Card.css';
-import { useNavigate } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 
 
 export default function Card(props) {
-    const { name, desc, buttons, to, img, color } = props;
+    const { name, desc, buttons, to, img, color} = props;
     // console.log(button);
     let navigate = useNavigate();
 
@@ -17,9 +17,12 @@ export default function Card(props) {
                     <p class="card-text">{desc}</p>
                     {buttons.length > 0 && buttons.map((button, index) => (
                         <button key={index}
-                         className="btn btn-primary m-1" >{button}
+                         className="btn btn-primary m-1" 
+                        >
+                        {button}
                         </button>
                     ))}
+                
                 </div>
             </div>
         </div>

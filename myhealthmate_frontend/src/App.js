@@ -23,6 +23,9 @@ import PremiumPage from './components/PremiumPage';
 import ChatbotComponent from './components/ChatbotComponent';
 import ChatbotToggleButton from './components/ChatbotToggleButton';
 import ForgotPassword from './components/ForgotPassword';
+import AdminRoute from './common/AdminRoute';
+import chatbotOpen from './components/chatbotOpen';
+import toggleChatbot from './components/toggleChatbot';
 
 axios.defaults.baseURL = 'http://localhost:8000';
 
@@ -30,9 +33,10 @@ function App() {
 
   return (
     <Router>
-      <div className="App">
+       <div className="App">
         {chatbotOpen && <ChatbotComponent />}
         <ChatbotToggleButton onClick={toggleChatbot} />
+        
         
         <Routes>
         {/* <Route path="/" element={<ChangeRoute/>} /> */}

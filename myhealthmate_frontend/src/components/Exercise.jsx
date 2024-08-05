@@ -212,6 +212,7 @@ import {jwtDecode} from 'jwt-decode';
 import Swal from 'sweetalert2';
 import { Card, Container, Row, Col, Button } from 'react-bootstrap';
 import styled, { keyframes } from 'styled-components';
+import Diet from './Diet';
 
 // Define keyframes for animations
 const fadeIn = keyframes`
@@ -287,8 +288,9 @@ const Exercise = () => {
                 if (!token) {
                     throw new Error("Token not found in local storage.");
                 }
-
+                
                 const decodedToken = jwtDecode(token);
+                console.log("Decoded Token:", decodedToken);
                 const activityLevel = decodedToken.activity_level;
 
                 if (!activityLevel) {
@@ -329,6 +331,8 @@ const Exercise = () => {
     }
 
     return (
+        <>
+        <Diet/>
         <StyledContainer>
             <StyledHeading>
                 Your Personalized Path to Fitness Starts Here!
@@ -396,6 +400,7 @@ const Exercise = () => {
                 <p className="text-center">No recommendations available for the selected activity level.</p>
             )}
         </StyledContainer>
+</>
     );
 };
 

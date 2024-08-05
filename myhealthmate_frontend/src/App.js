@@ -26,6 +26,7 @@ import AppointmentSection from './components/appointmentsection';
 import UserRoute from './common/UserRoute';
 import AdminRoute from './common/AdminRoute';
 import Exercise from './components/Exercise';
+import Diet from './components/Diet';
 
 
 axios.defaults.baseURL = 'http://localhost:8000';
@@ -68,6 +69,7 @@ function App() {
           <Route path="/get-feedback" element={<GetFeedback/>} />
           <Route path="/appointment-form" element={<AppointmentSection/>} />
           <Route path="/exercise" element={<Exercise/>} />
+          <Route path="/diet" element={<Diet/>} />
         </Routes>
       </div>
     </Router>

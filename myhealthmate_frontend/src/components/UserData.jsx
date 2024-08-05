@@ -117,7 +117,6 @@ export default function UserData() {
                                                     <option value="low_carb">Low-Carb</option>
                                                     <option value="high_protein">High-Protein</option>
                                                     <option value="diabetic_friendly">Diabetic-Friendly</option>
-                                                    <option value="allergies">Allergies</option>
                                                 </select>
                                                 <label className="form-label" htmlFor="dietary_preferences">Dietary Preferences</label>
                                             </div>
@@ -132,7 +131,6 @@ export default function UserData() {
                                                     <option value="diabetes">Diabetes</option>
                                                     <option value="asthma">Asthma</option>
                                                     <option value="heart_disease">Heart Disease</option>
-                                                    <option value="allergy">Allergy</option>
                                                     <option value="thyroid">Thyroid</option>
                                                     <option value="cancer">Cancer</option>
                                                     <option value="kidney_disease">Kidney Disease</option>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Card from '../common/Card';
 import {jwtDecode} from 'jwt-decode';
+import ReminderForm from './exercisereminderform';
 
 export default function UserPage() {
   const [userFirstName, setUserFirstName] = useState('');
@@ -23,6 +24,9 @@ export default function UserPage() {
     localStorage.clear();
     window.location.replace('/');
   };
+
+
+  
   return (
     <>
       <div>
@@ -42,7 +46,8 @@ export default function UserPage() {
           {/* <Card name="Health Reports" desc="To manage doctors" buttons={["Upload New Report"]} /> */}
           <Card name="Membership Status" desc={`Your current plan:Regular `} buttons={["✧Upgrade Plan"]} to="/premiumpage" />
           <Card name="Upcoming Appointments" desc="To see the total number of appointments" buttons={["AppointmentForm.js","View Appointment"]} />
-          <Card name="Exercise Reminder" desc="Health reports management" buttons={["Add New"]} to = "/exercise-reminder" />
+          <Card name="Exercise Reminder" desc="Health reports management" buttons={["Add New"]} to = "/reminder-form" />
+          
           <Card name="Medical History" desc="Statistics of the system" buttons={["Add/Edit Information"]} />
           <Card name="Feedback" desc="Feedback viewer" buttons={["Submit Feedback"]} />
         </div>

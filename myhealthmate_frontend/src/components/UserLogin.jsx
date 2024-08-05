@@ -98,7 +98,7 @@ const UserLogin = () => {
                 placeholder="Password"
                 value={formData.password}
                 onChange={handleChange}
-                name="password"
+                name="password" 
                 required
                 minLength="4"
               />

@@ -29,7 +29,7 @@ function AddEditUserModal(props) {
     axios.post(url, userData)
       .then(response => {
         if (response.data.status === 200) {
-          successtoast(response.data.msg);
+          // successtoast(response.data.msg);
           onHide();
         } else {
           errortoast(response.data.msg);

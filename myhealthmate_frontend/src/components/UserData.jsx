@@ -102,7 +102,6 @@ export default function UserData() {
                                                     <option value="lightly_active">Lightly Active</option>
                                                     <option value="moderately_active">Moderately Active</option>
                                                     <option value="very_active">Very Active</option>
-                                                    <option value="super_active">Super Active</option>
                                                 </select>
                                                 <label className="form-label" htmlFor="activity_level">Activity Level</label>
                                             </div>
@@ -130,12 +129,10 @@ export default function UserData() {
                                             <div className="form-outline">
                                                 <select id="health_conditions" name="health_conditions" className="form-control form-control-lg" onChange={handleChange} value={userData.health_conditions}>
                                                     <option value="">Select Health Condition</option>
-                                                    <option value="hypertension">Hypertension</option>
                                                     <option value="diabetes">Diabetes</option>
                                                     <option value="asthma">Asthma</option>
                                                     <option value="heart_disease">Heart Disease</option>
                                                     <option value="allergy">Allergy</option>
-                                                    <option value="arthritis">Arthritis</option>
                                                     <option value="thyroid">Thyroid</option>
                                                     <option value="cancer">Cancer</option>
                                                     <option value="kidney_disease">Kidney Disease</option>
@@ -166,11 +163,9 @@ export default function UserData() {
                                                     <option value="">Select Health Goal</option>
                                                     <option value="weight_loss">Weight Loss</option>
                                                     <option value="muscle_gain">Muscle Gain</option>
-                                                    <option value="endurance">Endurance</option>
                                                     <option value="flexibility">Flexibility</option>
                                                     <option value="general_fitness">General Fitness</option>
                                                     <option value="stress_relief">Stress Relief</option>
-                                                    <option value="healthy_eating">Healthy Eating</option>
                                                 </select>
                                                 <label className="form-label" htmlFor="health_goals">Health Goals</label>
                                             </div>

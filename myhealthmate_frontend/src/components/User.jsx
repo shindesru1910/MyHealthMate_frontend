@@ -45,7 +45,7 @@ function User() {
             axios.post("/update-user", formData)
                 .then((response) => {
                     if (response.data.status === 200) {
-                        successtoast(response.data.msg);
+                        // successtoast(response.data.msg);
                         setModalShow(false);
                         setUsers(users.map(user => user.id === userData.id ? userData : user));
                     } else {

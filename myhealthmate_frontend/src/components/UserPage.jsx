@@ -80,9 +80,9 @@ export default function UserPage() {
         </nav>
         <div className="container mt-3 d-flex flex-wrap justify-content-center">
           <Card name="Health OverView" desc="Summary of health metrics" buttons={[]} />
-          <Card name="Health Recommendation" desc="To see and manage recommendations" buttons={[]} />
+          <Card name="Health Recommendation" desc="To see and manage recommendations" buttons={[]} to='/exercise' />
           <Card name="Membership Status" desc={`Your current plan: Regular`} buttons={["✧Upgrade Plan"]} to="/premiumpage" />
-          <Card name="Appointments" desc="To see the total number of appointments" buttons={[<button onClick={handleAppointmentClick}>View Appointment</button>]} to='/appointment-form' />
+          <Card name="Appointments" desc="To see the total number of appointments" buttons={[<button onClick={handleAppointmentClick}>Book an Appointment</button>]} to='/appointment-form' />
           <Card name="Exercise Reminder" desc="Health reports management" buttons={["Edit", "Add New"]} />
           <Card name="Medical History" desc="Statistics of the system" buttons={["Add/Edit Information"]} />
           <Card name="Feedback" desc="Feedback viewer" buttons={[<button className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#feedbackModal">Submit Feedback</button>]} />

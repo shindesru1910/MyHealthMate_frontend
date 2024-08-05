@@ -19,6 +19,7 @@
     "font-awesome": "^4.7.0",
     "gh-pages": "^6.1.1",
     "glightbox": "^3.3.0",
+    "jsonwebtoken": "^9.0.2",
     "jwt-decode": "^4.0.0",
     "node-schedule": "^2.1.1",
     "react": "^18.3.1",
@@ -31,7 +32,7 @@
     "react-scripts": "^5.0.1",
     "react-toastify": "^10.0.5",
     "styled-components": "^6.1.12",
-    "sweetalert2": "^11.12.2",
+    "sweetalert2": "^11.12.4",
     "swiper": "^11.1.5",
     "web-vitals": "^2.1.4"
   },

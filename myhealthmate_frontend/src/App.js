@@ -1,11 +1,8 @@
-<<<<<<< HEAD
 // src/App.js
 import React, { useState } from 'react';
-=======
 // new
 
-import React , { useEffect } from 'react';
->>>>>>> 20f3d56c32e8c4262fc5bff9cb1064cfed9ce8e1
+import  { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import UserTable from './components/UserTable';
 import AdminPage from './components/AdminPage';
@@ -24,12 +21,9 @@ import Doctor from './components/Doctor';
 import User from './components/User';
 import ExerciseReminderForm from './components/exercisereminderform';
 import PremiumPage from './components/PremiumPage';
-<<<<<<< HEAD
 import ChatbotComponent from './components/ChatbotComponent';
 import ChatbotToggleButton from './components/ChatbotToggleButton';
-=======
 import ForgotPassword from './components/ForgotPassword';
->>>>>>> 20f3d56c32e8c4262fc5bff9cb1064cfed9ce8e1
 
 axios.defaults.baseURL = 'http://localhost:8000';
 
@@ -43,13 +37,13 @@ function App() {
   return (
     <Router>
       <div className="App">
+       
         {chatbotOpen && <ChatbotComponent />}
         <ChatbotToggleButton onClick={toggleChatbot} />
         
         <Routes>
           <Route path="/" element={<Homepage />} />
           <Route path="/userlist" element={<UserTable />} />
-<<<<<<< HEAD
           <Route path="/adminpage" element={<AdminPage />} />
           <Route path="/Userpage" element={<UserPage />} />
           <Route path="/userlogin" element={<UserLogin />} />
@@ -62,7 +56,6 @@ function App() {
           <Route path="/doctor" element={<Doctor />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/premiumpage" element={<PremiumPage />} />
-=======
           <Route path="/adminpage" element={<AdminPage/>} />
           <Route path="/Userpage" element={<UserPage/>} />
           <Route path="/userlogin" element={<UserLogin/>} />
@@ -77,7 +70,6 @@ function App() {
           <Route path="/auth" element={<Auth/>} />
           <Route path="/premiumpage" element={<PremiumPage/>} />
           <Route path="/password-reset" element={<ForgotPassword/>} />
->>>>>>> 20f3d56c32e8c4262fc5bff9cb1064cfed9ce8e1
         </Routes>
       </div>
     </Router>

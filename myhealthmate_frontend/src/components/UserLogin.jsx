@@ -47,6 +47,8 @@ const UserLogin = () => {
 
         const decodedToken = jwtDecode(token);
         const isAdmin = decodedToken.is_admin;
+        console.log(decodedToken)
+        console.log(isAdmin)
 
         setIsLoading(false);
         if (isAdmin) {
@@ -70,7 +72,8 @@ const UserLogin = () => {
     <div className="container mt-5">
       <div className="row justify-content-center">
         <div className="col-md-6">
-          <form id="loginForm" onSubmit={handleSubmit} className="needs-validation border border-primary p-4 rounded" noValidate>
+      <h1 style={{color:'#FFFFFF',textAlign:'center'}}>MyHealthMate</h1>
+          <form style={{backgroundColor:'#FFFFFF'}} id="loginForm" onSubmit={handleSubmit} className="needs-validation border border-primary p-4 rounded" noValidate>
             <h2 className="text-center mb-4">Login</h2>
             <div className="mb-3">
               <label htmlFor="email" className="form-label">Email address</label>
@@ -107,7 +110,7 @@ const UserLogin = () => {
               </div>
             </div>
             <div className="text-center mt-3">
-              <Link to="/reset-password-request">Forgot Password?</Link>
+              <Link to="/password-reset">Forgot Password?</Link>
             </div>
             <div className="text-center mt-2">
               <span>Don't have an account? </span><Link to="/register">Register</Link>

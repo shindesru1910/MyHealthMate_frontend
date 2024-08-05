@@ -51,7 +51,7 @@ const AppointmentForm = () => {
     try {
       const formData = new FormData(event.target);
   
-      const response = await fetch('http://127.0.0.1:8000/submit-appointment/', {
+      const response = await fetch('http://127.0.0.1:8000/submit-appointment', {
         method: 'POST',
         body: formData,
         headers: {
@@ -141,7 +141,7 @@ const AppointmentForm = () => {
             </div>
           </div>
           <div className="col-12 text-center">
-            <button type="submit" className="btn btn-primary">Submit</button>
+            <button type="submit" className="btn btn-primary" to='/userlogin'>Submit</button>
           </div>
         </div>
 

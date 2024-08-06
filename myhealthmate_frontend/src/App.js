@@ -1,5 +1,3 @@
-// new
-
 import React , { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 // import Home from './components/Home'
@@ -20,29 +18,26 @@ import Doctor from './components/Doctor';
 import User from './components/User';
 import PremiumPage from './components/PremiumPage';
 import ChatbotComponent from './components/ChatbotComponent';
+import chatbotOpen from './components/ChatbotComponent';
 import ChatbotToggleButton from './components/ChatbotToggleButton';
+import toggleChatbot from './components/ChatbotToggleButton';
 import ForgotPassword from './components/ForgotPassword';
 import AdminRoute from './common/AdminRoute';
-import chatbotOpen from './components/chatbotOpen';
-import toggleChatbot from './components/toggleChatbot';
-
+import Exercise from './components/Exercise';
+import AppointmentSection from './components/appointmentsection';
+ 
 axios.defaults.baseURL = 'http://localhost:8000';
-
+ 
 function App() {
-
+ 
   return (
     <Router>
-<<<<<<< HEAD
-       <div className="App">
-=======
       <div className="App">
        
-
->>>>>>> 6846900044668240c9e5feb837d8371bc6f80ed4
+ 
         {chatbotOpen && <ChatbotComponent />}
         <ChatbotToggleButton onClick={toggleChatbot} />
-        
-        
+       
         <Routes>
         {/* <Route path="/" element={<ChangeRoute/>} /> */}
           <Route path="/" element={<Homepage />} />
@@ -75,13 +70,13 @@ function App() {
           <Route path="/auth" element={<Auth/>} />
           <Route path="/premiumpage" element={<PremiumPage/>} />
           <Route path="/password-reset" element={<ForgotPassword/>} />
+          <Route path="/exercise" element={<Exercise/>} />
+          <Route path="/appointment-form" element={<AppointmentSection />} />
         </Routes>
       </div>
     </Router>
   );
 }
-
+ 
 export default App;
-
-
-
+ 

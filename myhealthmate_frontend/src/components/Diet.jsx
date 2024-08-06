@@ -2,8 +2,13 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import {jwtDecode} from 'jwt-decode';
 import Swal from 'sweetalert2';
+import Slider from 'react-slick';
 import { Card, Container, Row, Col } from 'react-bootstrap';
 import styled, { keyframes } from 'styled-components';
+
+// Import the slick-carousel styles
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";
 
 // Define keyframes for animations
 const fadeIn = keyframes`
@@ -40,11 +45,6 @@ const StyledCardTitle = styled(Card.Title)`
     color: #007bff;
 `;
 
-const StyledCardText = styled.p`
-    margin-bottom: 8px;
-    animation: ${fadeIn} 0.5s ease-in-out;
-`;
-
 const StyledHeading = styled.h1`
     font-family: 'Arial', sans-serif;
     text-align: center;
@@ -59,7 +59,6 @@ const Diet = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // Function to fetch diet recommendations
         const fetchRecommendations = async () => {
             try {
                 const token = localStorage.getItem('token');
@@ -99,7 +98,6 @@ const Diet = () => {
             }
         };
 
-        // Call the fetchRecommendations function when the component mounts
         fetchRecommendations();
     }, []);
 
@@ -111,11 +109,58 @@ const Diet = () => {
         return <p>Error: {error}</p>;
     }
 
+    const sliderSettings = {
+        dots: true,
+        infinite: true,
+        speed: 300,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        adaptiveHeight: true,
+        autoplay: true,        // Enable autoplay
+        autoplaySpeed: 3000,   // Slide change speed (3 seconds)
+    };
+
+    const imageStyle = {
+        width: '100%',         // Ensure the image takes up full width
+        height: '400px',       // Set a fixed height for all images
+        objectFit: 'cover',    // Ensure the image covers the entire area without distortion
+        borderRadius: '8px',
+        marginTop: '8px',
+    };
+
     return (
         <StyledContainer>
-            <StyledHeading>
-                Your Personalized Diet Recommendations
-            </StyledHeading>
+            <StyledHeading>Explore Your Personalized Diet Journey</StyledHeading>
+
+            {/* Image Slider */}
+            <Slider {...sliderSettings}>
+                <div>
+                    <img src="/assets/img/diet/oatmeal1.png" alt="Oatmeal 1" style={imageStyle} />
+                </div>
+                <div>
+                    <img src="/assets/img/diet/oatmeal2.png" alt="Oatmeal 2" style={imageStyle} />
+                </div>
+                <div>
+                    <img src="/assets/img/diet/oatmeal3.png" alt="Oatmeal 3" style={imageStyle} />
+                </div>
+                <div>
+                    <img src="/assets/img/diet/oatmeal4.png" alt="Oatmeal 4" style={imageStyle} />
+                </div>
+                <div>
+                    <img src="/assets/img/diet/oatmeal5.png" alt="Oatmeal 5" style={imageStyle} />
+                </div>
+                <div>
+                    <img src="/assets/img/diet/oatmeal6.png" alt="Oatmeal 6" style={imageStyle} />
+                </div>
+                <div>
+                    <img src="/assets/img/diet/oatmeal7.png" alt="Oatmeal 7" style={imageStyle} />
+                </div>
+                <div>
+                    <img src="/assets/img/diet/oatmeal8.png" alt="Oatmeal 8" style={imageStyle} />
+                </div>
+            </Slider>
+
+            {/* Diet Recommendation Cards */}
             {recommendations && typeof recommendations === 'object' ? (
                 <div>
                     <Row>
@@ -125,22 +170,9 @@ const Diet = () => {
                                     <Card.Body>
                                         <StyledCardTitle>{mealTime}</StyledCardTitle>
                                         <ul>
-                                            {Array.isArray(meals) ? (
-                                                meals.map((meal, i) => (
-                                                    <li key={i}>
-                                                        {typeof meal === 'string' ? (
-                                                            meal
-                                                        ) : (
-                                                            <>
-                                                                <strong>{meal.name}</strong>: {meal.description}
-                                                                {meal.image && <img src={meal.image} alt={meal.name} style={{ width: '100%', borderRadius: '8px', marginTop: '8px' }} />}
-                                                            </>
-                                                        )}
-                                                    </li>
-                                                ))
-                                            ) : (
-                                                <p>No meals available for this time.</p>
-                                            )}
+                                            {meals.map((meal, i) => (
+                                                <li key={i}>{meal}</li>
+                                            ))}
                                         </ul>
                                     </Card.Body>
                                 </StyledCard>

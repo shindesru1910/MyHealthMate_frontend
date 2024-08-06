@@ -65,7 +65,7 @@ export default function UserPage() {
   };
  
   const handleAppointmentClick = () => {
-    navigate('/', { state: { scrollTo: 'appointment-section', userId: userId, userFirstName: userFirstName } });
+    navigate('/userpage', { state: { scrollTo: 'appointment-section', userId: userId, userFirstName: userFirstName } });
   };
   return (
     <>

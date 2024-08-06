@@ -1,6 +1,5 @@
-import React , { useEffect } from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-// import Home from './components/Home'
 import UserTable from './components/UserTable';
 import AdminPage from './components/AdminPage';
 import UserPage from './components/UserPage';
@@ -22,56 +21,49 @@ import chatbotOpen from './components/ChatbotComponent';
 import ChatbotToggleButton from './components/ChatbotToggleButton';
 import toggleChatbot from './components/ChatbotToggleButton';
 import ForgotPassword from './components/ForgotPassword';
+import GetFeedback from './components/GetFeedback';
+import AppointmentSection from './components/appointmentsection';
+import UserRoute from './common/UserRoute';
 import AdminRoute from './common/AdminRoute';
 import Exercise from './components/Exercise';
-import AppointmentSection from './components/appointmentsection';
- 
+import Diet from './components/Diet';
+
 axios.defaults.baseURL = 'http://localhost:8000';
  
 function App() {
- 
+  const [chatbotOpen, setChatbotOpen] = useState(false);
+
+  const toggleChatbot = () => {
+    setChatbotOpen(prevState => !prevState);
+  };
+
   return (
     <Router>
       <div className="App">
-       
- 
         {chatbotOpen && <ChatbotComponent />}
         <ChatbotToggleButton onClick={toggleChatbot} />
        
         <Routes>
-        {/* <Route path="/" element={<ChangeRoute/>} /> */}
           <Route path="/" element={<Homepage />} />
           <Route path="/userlist" element={<UserTable />} />
           <Route path="/adminpage" element={<AdminPage />} />
           <Route path="/Userpage" element={<UserPage />} />
           <Route path="/userlogin" element={<UserLogin />} />
-          <Route path="/doctorlist" element={<DoctorTable />} />
+          <Route path="/doctorlist" element={<AdminRoute><DoctorTable/></AdminRoute>} />
           <Route path="/register" element={<RegistrationForm />} />
           <Route path="/userdata" element={<UserData />} />
-          <Route path="/user-management" element={<UserManagement />} />
-          <Route path="/doctor-management" element={<DoctorManagement />} />
-          <Route path="/add-doctor" element={<AddDoctor />} />
-          <Route path="/doctor" element={<Doctor />} />
-          <Route path="/auth" element={<Auth />} />
-          <Route path="/premiumpage" element={<PremiumPage />} />
-          <Route path="/adminpage" element={<AdminPage/>} />
-          <Route path="/Userpage" element={<UserPage/>} />
-          <Route path="/userlogin" element={<UserLogin/>} />
-          <Route path="/doctorlist" element={<AdminRoute><DoctorTable/></AdminRoute>} />
-          <Route path="/register" element={<RegistrationForm/>} />
-          <Route path="/userdata" element={<UserData/>} />
-          <Route path="/user-management" element={<UserManagement/>} />
-          <Route path="/doctor-management" element={<DoctorManagement/>} />
           <Route path="/user-management" element={<AdminRoute><UserManagement/></AdminRoute>} />
           <Route path="/doctor-management" element={<AdminRoute><DoctorManagement/></AdminRoute>} />
-          <Route path="/add-doctor" element={<AddDoctor/>} />
-          <Route path="/doctor" element={<Doctor/>} />
-          <Route path="/users" element={<User/>} />
-          <Route path="/auth" element={<Auth/>} />
-          <Route path="/premiumpage" element={<PremiumPage/>} />
-          <Route path="/password-reset" element={<ForgotPassword/>} />
-          <Route path="/exercise" element={<Exercise/>} />
+          <Route path="/add-doctor" element={<AddDoctor />} />
+          <Route path="/doctor" element={<Doctor />} />
+          <Route path="/users" element={<User />} />
+          <Route path="/auth" element={<Auth />} />
+          <Route path="/premiumpage" element={<PremiumPage />} />
+          <Route path="/password-reset" element={<ForgotPassword />} />
+          <Route path="/get-feedback" element={<GetFeedback />} />
           <Route path="/appointment-form" element={<AppointmentSection />} />
+          <Route path="/exercise" element={<Exercise />} />
+          <Route path="/diet" element={<Diet />} />
         </Routes>
       </div>
     </Router>
@@ -79,4 +71,3 @@ function App() {
 }
  
 export default App;
- 

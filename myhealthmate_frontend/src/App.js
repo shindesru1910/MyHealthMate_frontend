@@ -17,7 +17,9 @@ import Doctor from './components/Doctor';
 import User from './components/User';
 import PremiumPage from './components/PremiumPage';
 import ChatbotComponent from './components/ChatbotComponent';
+import chatbotOpen from './components/ChatbotComponent';
 import ChatbotToggleButton from './components/ChatbotToggleButton';
+import toggleChatbot from './components/ChatbotToggleButton';
 import ForgotPassword from './components/ForgotPassword';
 import GetFeedback from './components/GetFeedback';
 import AppointmentSection from './components/appointmentsection';
@@ -27,7 +29,7 @@ import Exercise from './components/Exercise';
 import Diet from './components/Diet';
 
 axios.defaults.baseURL = 'http://localhost:8000';
-
+ 
 function App() {
   const [chatbotOpen, setChatbotOpen] = useState(false);
 
@@ -40,7 +42,7 @@ function App() {
       <div className="App">
         {chatbotOpen && <ChatbotComponent />}
         <ChatbotToggleButton onClick={toggleChatbot} />
-        
+       
         <Routes>
           <Route path="/" element={<Homepage />} />
           <Route path="/userlist" element={<UserTable />} />
@@ -67,5 +69,5 @@ function App() {
     </Router>
   );
 }
-
+ 
 export default App;

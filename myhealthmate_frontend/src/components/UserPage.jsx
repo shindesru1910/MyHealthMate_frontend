@@ -11,7 +11,7 @@ export default function UserPage() {
   const [feedbackText, setFeedbackText] = useState('');
   const [userId, setUserId] = useState('');
   const navigate = useNavigate();
-
+ 
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
@@ -21,7 +21,7 @@ export default function UserPage() {
       setUserId(decodedToken.user_id);
     }
   }, []);
-
+ 
   const logout = () => {
     localStorage.clear();
     window.location.replace('/');
@@ -32,18 +32,18 @@ export default function UserPage() {
   const handleFeedbackChange = (e) => {
     setFeedbackText(e.target.value);
   };
-
+ 
   const handleSubmitFeedback = async () => {
     const token = localStorage.getItem('token');
     if (!token) {
       console.error('No token found');
       return;
     }
-
+ 
     const formData = new URLSearchParams();
     formData.append('user_id', userId);
     formData.append('feedback_text', feedbackText);
-
+ 
     try {
       const response = await axios.post('/create-feedback', formData, {
         headers: {
@@ -51,7 +51,7 @@ export default function UserPage() {
           'Authorization': `Token ${token}`,
         }
       });
-
+ 
       if (response.status === 200) {
         alert('Feedback submitted successfully');
         setFeedbackText('');
@@ -63,11 +63,10 @@ export default function UserPage() {
       console.error('Error submitting feedback:', error);
     }
   };
-
+ 
   const handleAppointmentClick = () => {
     navigate('/', { state: { scrollTo: 'appointment-section', userId: userId, userFirstName: userFirstName } });
   };
-
   return (
     <>
       <div>
@@ -91,7 +90,7 @@ export default function UserPage() {
           <Card name="Feedback" desc="Feedback viewer" buttons={[<button className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#feedbackModal">Submit Feedback</button>]} />
         </div>
       </div>
-
+ 
       {/* Feedback Modal */}
       <div className="modal fade" id="feedbackModal" tabIndex="-1" aria-labelledby="feedbackModalLabel" aria-hidden="true">
         <div className="modal-dialog">
@@ -118,3 +117,4 @@ export default function UserPage() {
     </>
   );
 }
+ 

@@ -18,7 +18,6 @@ import DoctorManagement from './components/DoctorManagement';
 import AddDoctor from './components/AddDoctor';
 import Doctor from './components/Doctor';
 import User from './components/User';
-import ExerciseReminderForm from './components/exercisereminderform';
 import PremiumPage from './components/PremiumPage';
 import ChatbotComponent from './components/ChatbotComponent';
 import ChatbotToggleButton from './components/ChatbotToggleButton';
@@ -33,7 +32,13 @@ function App() {
 
   return (
     <Router>
+<<<<<<< HEAD
        <div className="App">
+=======
+      <div className="App">
+       
+
+>>>>>>> 6846900044668240c9e5feb837d8371bc6f80ed4
         {chatbotOpen && <ChatbotComponent />}
         <ChatbotToggleButton onClick={toggleChatbot} />
         
@@ -60,6 +65,8 @@ function App() {
           <Route path="/doctorlist" element={<AdminRoute><DoctorTable/></AdminRoute>} />
           <Route path="/register" element={<RegistrationForm/>} />
           <Route path="/userdata" element={<UserData/>} />
+          <Route path="/user-management" element={<UserManagement/>} />
+          <Route path="/doctor-management" element={<DoctorManagement/>} />
           <Route path="/user-management" element={<AdminRoute><UserManagement/></AdminRoute>} />
           <Route path="/doctor-management" element={<AdminRoute><DoctorManagement/></AdminRoute>} />
           <Route path="/add-doctor" element={<AddDoctor/>} />

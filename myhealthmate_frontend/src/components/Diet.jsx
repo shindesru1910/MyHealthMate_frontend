@@ -6,9 +6,15 @@ import Slider from 'react-slick';
 import { Card, Container, Row, Col } from 'react-bootstrap';
 import styled, { keyframes } from 'styled-components';
 
+
 // Import the slick-carousel styles
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
+
+const DietContainer = styled.div`
+    background-color: transparent; /* Ensure component has no background */
+    padding: 20px; /* Adjust padding as needed */
+`;
 
 // Define keyframes for animations
 const fadeIn = keyframes`
@@ -26,6 +32,7 @@ const fadeIn = keyframes`
 const StyledContainer = styled(Container)`
     max-width: 900px;
     margin-top: 50px;
+    margin-left: 220px; /* Adjust margin to account for sidebar width */
     animation: ${fadeIn} 1s ease-in-out;
 `;
 
@@ -116,19 +123,21 @@ const Diet = () => {
         slidesToShow: 1,
         slidesToScroll: 1,
         adaptiveHeight: true,
-        autoplay: true,        // Enable autoplay
-        autoplaySpeed: 3000,   // Slide change speed (3 seconds)
+        autoplay: true,
+        autoplaySpeed: 2000,
     };
 
     const imageStyle = {
-        width: '100%',         // Ensure the image takes up full width
-        height: '400px',       // Set a fixed height for all images
-        objectFit: 'cover',    // Ensure the image covers the entire area without distortion
+        width: '100%',
+        height: '400px',
+        objectFit: 'cover',
         borderRadius: '8px',
         marginTop: '8px',
+        marginBottom: '20px',
     };
 
     return (
+        <DietContainer>
         <StyledContainer>
             <StyledHeading>Explore Your Personalized Diet Journey</StyledHeading>
 
@@ -184,6 +193,7 @@ const Diet = () => {
                 <p className="text-center">No recommendations available for your dietary preferences and health condition.</p>
             )}
         </StyledContainer>
+        </DietContainer>
     );
 };
 

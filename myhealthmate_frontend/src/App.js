@@ -27,11 +27,28 @@ import UserRoute from './common/UserRoute';
 import AdminRoute from './common/AdminRoute';
 import Exercise from './components/Exercise';
 import Diet from './components/Diet';
-import HealthOverview from './components/HealthOverview';
+import Sidebar from './components/Sidebar';
+import HealthRecommendation from './components/HealthRecommedation';
+import { createGlobalStyle } from 'styled-components';
+
+const GlobalStyle = createGlobalStyle`
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    body {
+        background-color: transparent; /* Ensure body background is transparent */
+    }
+    section {
+        background-color: transparent; /* Ensure section background is transparent */
+    }
+`;
 
 axios.defaults.baseURL = 'http://localhost:8000';
  
 function App() {
+  
   const [chatbotOpen, setChatbotOpen] = useState(false);
 
   const toggleChatbot = () => {
@@ -43,7 +60,7 @@ function App() {
       <div className="App">
         {chatbotOpen && <ChatbotComponent />}
         <ChatbotToggleButton onClick={toggleChatbot} />
-       
+        <GlobalStyle />
         <Routes>
           <Route path="/" element={<Homepage />} />
           <Route path="/userlist" element={<UserTable />} />
@@ -65,7 +82,8 @@ function App() {
           <Route path="/appointment-form" element={<AppointmentSection />} />
           <Route path="/exercise" element={<Exercise />} />
           <Route path="/diet" element={<Diet />} />
-          <Route path="/healthoverview" element={<HealthOverview />} />
+          <Route path="/sidebar" element={<Sidebar />} />
+          <Route path="/health-recommendation" element={<HealthRecommendation />} />
         </Routes>
       </div>
     </Router>

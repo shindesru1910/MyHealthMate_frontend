@@ -86,7 +86,7 @@ export default function UserPage() {
           </ul>
         </nav>
         <div className="container mt-3 d-flex flex-wrap justify-content-center">
-          <Card name="Health OverView" desc="Summary of health metrics" buttons={[]} />
+          <Card name="Health OverView" desc="Summary of health metrics" buttons={[]} to='/healthoverview' />
           <Card name="Health Recommendation" desc="To see and manage recommendations" buttons={[]} to='/health-recommendation' />
           <Card name="Membership Status" desc={`Your current plan: Regular`} buttons={["✧Upgrade Plan"]} to="/premiumpage" />
           {/* <Card name="Appointments" desc="To see the total number of appointments" buttons={[<button onClick={handleAppointmentClick}>Book an Appointment</button>]} to='/appointment-form' /> */}

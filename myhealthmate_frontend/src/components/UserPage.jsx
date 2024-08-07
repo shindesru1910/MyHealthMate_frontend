@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Card from '../common/Card';
-import { jwtDecode } from 'jwt-decode';
-// import ReminderForm from './exercisereminderform';
+import {jwtDecode} from 'jwt-decode';
 import axios from 'axios';
-// import { useHistory } from 'react-router-dom';
 
 export default function UserPage() {
   const [userFirstName, setUserFirstName] = useState('');
@@ -30,6 +28,7 @@ export default function UserPage() {
   };
 
 
+  
 
   const handleFeedbackChange = (e) => {
     setFeedbackText(e.target.value);
@@ -72,6 +71,11 @@ export default function UserPage() {
   const handleViewAppointmentClick = () => {
     navigate('/view-appointments');
   };
+
+  const handleMedicalHistoryClick = () => {
+    navigate('/file-upload');
+  };
+
   return (
     <>
       <div>
@@ -89,7 +93,7 @@ export default function UserPage() {
           <Card name="Health OverView" desc="Summary of health metrics" buttons={[]} to='/healthoverview' />
           <Card name="Health Recommendation" desc="To see and manage recommendations" buttons={[]} to='/health-recommendation' />
           <Card name="Membership Status" desc={`Your current plan: Regular`} buttons={["✧Upgrade Plan"]} to="/premiumpage" />
-          {/* <Card name="Appointments" desc="To see the total number of appointments" buttons={[<button onClick={handleAppointmentClick}>Book an Appointment</button>]} to='/appointment-form' /> */}
+          <Card name="Medical History" desc="Statistics of the system" buttons={[<button onClick={handleMedicalHistoryClick}>Add/Edit Information</button>]} to='/file-upload'/>
           <Card
             name="Appointments"
             desc="To see the total number of appointments"
@@ -106,13 +110,13 @@ export default function UserPage() {
               <button key="add-new" className="btn btn-primary">Add New</button>
             ]}
           />
-          <Card
+          {/* <Card
             name="Medical History"
             desc="Statistics of the system"
             buttons={[
               <button key="add-edit" className="btn btn-primary">Add/Edit Information</button>
             ]}
-          />
+          /> */}
           <Card name="Feedback" desc="Feedback viewer" buttons={[<button className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#feedbackModal">Submit Feedback</button>]} />
         </div>
       </div>

@@ -20,8 +20,15 @@ import Doctor from './components/Doctor';
 import User from './components/User';
 import PremiumPage from './components/PremiumPage';
 import ChatbotComponent from './components/ChatbotComponent';
+import chatbotOpen from './components/ChatbotComponent';
 import ChatbotToggleButton from './components/ChatbotToggleButton';
+import toggleChatbot from './components/ChatbotToggleButton';
 import ForgotPassword from './components/ForgotPassword';
+import AdminRoute from './common/AdminRoute';
+import Exercise from './components/Exercise';
+import AppointmentSection from './components/appointmentsection';
+import FileUpload from './components/medicalfileupload';
+import UserFiles from './components/usermedicalfiles';
 
 axios.defaults.baseURL = 'http://localhost:8000';
 
@@ -67,6 +74,10 @@ function App() {
           <Route path="/auth" element={<Auth/>} />
           <Route path="/premiumpage" element={<PremiumPage/>} />
           <Route path="/password-reset" element={<ForgotPassword/>} />
+          <Route path="/exercise" element={<Exercise/>} />
+          <Route path="/appointment-form" element={<AppointmentSection />} />
+          <Route path="/file-upload" element={<FileUpload />} />
+          <Route path="/user-files" element={<UserFiles />} />
         </Routes>
       </div>
     </Router>

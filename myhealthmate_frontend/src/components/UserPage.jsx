@@ -10,6 +10,7 @@ export default function UserPage() {
   const [feedbackText, setFeedbackText] = useState('');
   const [userId, setUserId] = useState('');
   const navigate = useNavigate();
+  // const history = useHistory();
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -28,6 +29,7 @@ export default function UserPage() {
 
 
   
+
   const handleFeedbackChange = (e) => {
     setFeedbackText(e.target.value);
   };
@@ -64,7 +66,10 @@ export default function UserPage() {
   };
 
   const handleAppointmentClick = () => {
-    navigate('/', { state: { scrollTo: 'appointment-section', userId: userId, userFirstName: userFirstName } });
+    navigate('/userpage', { state: { scrollTo: 'appointment-section', userId: userId, userFirstName: userFirstName } });
+  };
+  const handleViewAppointmentClick = () => {
+    navigate('/view-appointments');
   };
 
   const handleMedicalHistoryClick = () => {
@@ -85,12 +90,33 @@ export default function UserPage() {
           </ul>
         </nav>
         <div className="container mt-3 d-flex flex-wrap justify-content-center">
-          <Card name="Health OverView" desc="Summary of health metrics" buttons={[]} />
-          <Card name="Health Recommendation" desc="To see and manage recommendations" buttons={[]} to='/exercise' />
+          <Card name="Health OverView" desc="Summary of health metrics" buttons={[]} to='/healthoverview' />
+          <Card name="Health Recommendation" desc="To see and manage recommendations" buttons={[]} to='/health-recommendation' />
           <Card name="Membership Status" desc={`Your current plan: Regular`} buttons={["✧Upgrade Plan"]} to="/premiumpage" />
-          <Card name="Appointments" desc="To see the total number of appointments" buttons={[<button onClick={handleAppointmentClick}>Book an Appointment</button>]} to='/appointment-form' />
-          {/* <Card name="Medical History" desc="Statistics of the system" buttons={["Add/Edit Information"]} /> */}
           <Card name="Medical History" desc="Statistics of the system" buttons={[<button onClick={handleMedicalHistoryClick}>Add/Edit Information</button>]} to='/file-upload'/>
+          <Card
+            name="Appointments"
+            desc="To see the total number of appointments"
+            buttons={[
+              <button className="btn btn-primary" onClick={() => navigate('/appointment-form')}>Book an Appointment</button>,
+              <button className="btn btn-primary" onClick={() => navigate('/view-appointments')}>View Your Appointments</button>
+            ]}
+          />
+          <Card
+            name="Exercise Reminder"
+            desc="Health reports management"
+            buttons={[
+              <button key="edit" className="btn btn-primary">Edit</button>,
+              <button key="add-new" className="btn btn-primary">Add New</button>
+            ]}
+          />
+          {/* <Card
+            name="Medical History"
+            desc="Statistics of the system"
+            buttons={[
+              <button key="add-edit" className="btn btn-primary">Add/Edit Information</button>
+            ]}
+          /> */}
           <Card name="Feedback" desc="Feedback viewer" buttons={[<button className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#feedbackModal">Submit Feedback</button>]} />
         </div>
       </div>
@@ -121,3 +147,4 @@ export default function UserPage() {
     </>
   );
 }
+

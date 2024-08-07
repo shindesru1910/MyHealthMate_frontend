@@ -1,8 +1,5 @@
-// new
-
-import React , { useEffect } from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-// import Home from './components/Home'
 import UserTable from './components/UserTable';
 import AdminPage from './components/AdminPage';
 import UserPage from './components/UserPage';
@@ -29,43 +26,55 @@ import Exercise from './components/Exercise';
 import AppointmentSection from './components/appointmentsection';
 import FileUpload from './components/medicalfileupload';
 import UserFiles from './components/usermedicalfiles';
+import GetFeedback from './components/GetFeedback';
+import UserRoute from './common/UserRoute';
+import Diet from './components/Diet';
+import Sidebar from './components/Sidebar';
+import HealthRecommendation from './components/HealthRecommedation';
+import { createGlobalStyle } from 'styled-components';
+import ViewAppointment from './components/ViewAppointment';
+import healthoverview from './components/HealthOverview';
+import HealthOverview from './components/HealthOverview';
+
+const GlobalStyle = createGlobalStyle`
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    body {
+        background-color: transparent; /* Ensure body background is transparent */
+    }
+    section {
+        background-color: transparent; /* Ensure section background is transparent */
+    }
+`;
 
 axios.defaults.baseURL = 'http://localhost:8000';
-
+ 
 function App() {
+  
+  const [chatbotOpen, setChatbotOpen] = useState(false);
+
+  const toggleChatbot = () => {
+    setChatbotOpen(prevState => !prevState);
+  };
 
   return (
     <Router>
       <div className="App">
-       
-
         {chatbotOpen && <ChatbotComponent />}
         <ChatbotToggleButton onClick={toggleChatbot} />
-        
+        <GlobalStyle />
         <Routes>
-        {/* <Route path="/" element={<ChangeRoute/>} /> */}
           <Route path="/" element={<Homepage />} />
           <Route path="/userlist" element={<UserTable />} />
           <Route path="/adminpage" element={<AdminPage />} />
           <Route path="/Userpage" element={<UserPage />} />
           <Route path="/userlogin" element={<UserLogin />} />
-          <Route path="/doctorlist" element={<DoctorTable />} />
+          <Route path="/doctorlist" element={<AdminRoute><DoctorTable/></AdminRoute>} />
           <Route path="/register" element={<RegistrationForm />} />
           <Route path="/userdata" element={<UserData />} />
-          <Route path="/user-management" element={<UserManagement />} />
-          <Route path="/doctor-management" element={<DoctorManagement />} />
-          <Route path="/add-doctor" element={<AddDoctor />} />
-          <Route path="/doctor" element={<Doctor />} />
-          <Route path="/auth" element={<Auth />} />
-          <Route path="/premiumpage" element={<PremiumPage />} />
-          <Route path="/adminpage" element={<AdminPage/>} />
-          <Route path="/Userpage" element={<UserPage/>} />
-          <Route path="/userlogin" element={<UserLogin/>} />
-          <Route path="/doctorlist" element={<AdminRoute><DoctorTable/></AdminRoute>} />
-          <Route path="/register" element={<RegistrationForm/>} />
-          <Route path="/userdata" element={<UserData/>} />
-          <Route path="/user-management" element={<UserManagement/>} />
-          <Route path="/doctor-management" element={<DoctorManagement/>} />
           <Route path="/user-management" element={<AdminRoute><UserManagement/></AdminRoute>} />
           <Route path="/doctor-management" element={<AdminRoute><DoctorManagement/></AdminRoute>} />
           <Route path="/add-doctor" element={<AddDoctor/>} />
@@ -78,13 +87,19 @@ function App() {
           <Route path="/appointment-form" element={<AppointmentSection />} />
           <Route path="/file-upload" element={<FileUpload />} />
           <Route path="/user-files" element={<UserFiles />} />
+          <Route path="/get-feedback" element={<GetFeedback />} />
+          <Route path="/appointment-form" element={<AppointmentSection />} />
+          <Route path="/exercise" element={<Exercise />} />
+          <Route path="/diet" element={<Diet />} />
+          <Route path="/sidebar" element={<Sidebar />} />
+          <Route path="/health-recommendation" element={<HealthRecommendation />} />
+          <Route path="/view-appointments" element={<ViewAppointment />} />
+          <Route path="/healthoverview" element={<HealthOverview />} />
+
         </Routes>
       </div>
     </Router>
   );
 }
-
+ 
 export default App;
-
-
-

@@ -35,7 +35,7 @@
   margin-bottom: 10px;
   padding: 10px;
   border-radius: 10px;
-  max-width: 80%;
+  max-width: 100%;
   width: fit-content;
   word-wrap: break-word;
 }
@@ -138,6 +138,7 @@
 /* src/components/ChatbotComponent.css */
 
 /* Add styles to ensure links are visually clear and accessible */
+/* Chatbot message links */
 .chatbot-message a {
   color: #007bff;
   text-decoration: none;
@@ -147,7 +148,9 @@
   text-decoration: underline;
 }
 
-.chatbot-button {
+/* Style for buttons in messages */
+.chatbot-message .chatbot-button {
+  display: inline-block;
   border: 2px solid blue; /* Blue border */
   background-color: transparent; /* Transparent background */
   color: blue; /* Blue text color */
@@ -156,15 +159,34 @@
   cursor: pointer; /* Pointer cursor on hover */
   margin: 5px; /* Space between buttons */
   transition: background-color 0.3s ease; /* Smooth transition */
+  width: 300px; /* Fixed width for uniformity */
+  text-align: center; /* Center align text */
+  text-overflow: ellipsis; /* Handle overflow text */
+  overflow: hidden; /* Hide overflow text */
 }
 
-.chatbot-button:hover {
+.chatbot-message .chatbot-button:hover {
   background-color: blue; /* Blue background on hover */
   color: white; /* White text color on hover */
 }
 
+/* Style for buttons in the input area */
+.chatbot-input button {
+  margin-left: 10px;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  width: 120px; /* Same width for input buttons */
+}
 
-/* Add this to ChatbotComponent.css */
+.chatbot-input button:hover {
+  background-color: #0056b3;
+}
+
+/* Doctor table styles */
 #doctor-table table {
   width: 100%;
   border-collapse: collapse;

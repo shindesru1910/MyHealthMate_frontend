@@ -27,6 +27,7 @@ import UserRoute from './common/UserRoute';
 import AdminRoute from './common/AdminRoute';
 import Exercise from './components/Exercise';
 import Diet from './components/Diet';
+import HealthOverview from './components/HealthOverview';
 
 axios.defaults.baseURL = 'http://localhost:8000';
  
@@ -64,6 +65,7 @@ function App() {
           <Route path="/appointment-form" element={<AppointmentSection />} />
           <Route path="/exercise" element={<Exercise />} />
           <Route path="/diet" element={<Diet />} />
+          <Route path="/healthoverview" element={<HealthOverview />} />
         </Routes>
       </div>
     </Router>

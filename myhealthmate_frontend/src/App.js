@@ -30,7 +30,7 @@ import Diet from './components/Diet';
 import Sidebar from './components/Sidebar';
 import HealthRecommendation from './components/HealthRecommedation';
 import { createGlobalStyle } from 'styled-components';
-
+import ViewAppointment from './components/ViewAppointment';
 const GlobalStyle = createGlobalStyle`
     * {
         margin: 0;
@@ -84,6 +84,7 @@ function App() {
           <Route path="/diet" element={<Diet />} />
           <Route path="/sidebar" element={<Sidebar />} />
           <Route path="/health-recommendation" element={<HealthRecommendation />} />
+          <Route path="/view-appointments" element={<ViewAppointment />} />
         </Routes>
       </div>
     </Router>

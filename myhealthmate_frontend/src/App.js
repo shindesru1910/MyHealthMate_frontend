@@ -21,15 +21,18 @@ import chatbotOpen from './components/ChatbotComponent';
 import ChatbotToggleButton from './components/ChatbotToggleButton';
 import toggleChatbot from './components/ChatbotToggleButton';
 import ForgotPassword from './components/ForgotPassword';
-import GetFeedback from './components/GetFeedback';
-import AppointmentSection from './components/appointmentsection';
-import UserRoute from './common/UserRoute';
 import AdminRoute from './common/AdminRoute';
 import Exercise from './components/Exercise';
+import AppointmentSection from './components/appointmentsection';
+import FileUpload from './components/medicalfileupload';
+import UserFiles from './components/usermedicalfiles';
+import GetFeedback from './components/GetFeedback';
+import UserRoute from './common/UserRoute';
 import Diet from './components/Diet';
 import Sidebar from './components/Sidebar';
 import HealthRecommendation from './components/HealthRecommedation';
 import { createGlobalStyle } from 'styled-components';
+import ViewAppointment from './components/ViewAppointment';
 import healthoverview from './components/HealthOverview';
 import HealthOverview from './components/HealthOverview';
 
@@ -74,18 +77,23 @@ function App() {
           <Route path="/userdata" element={<UserData />} />
           <Route path="/user-management" element={<AdminRoute><UserManagement/></AdminRoute>} />
           <Route path="/doctor-management" element={<AdminRoute><DoctorManagement/></AdminRoute>} />
-          <Route path="/add-doctor" element={<AddDoctor />} />
-          <Route path="/doctor" element={<Doctor />} />
-          <Route path="/users" element={<User />} />
-          <Route path="/auth" element={<Auth />} />
-          <Route path="/premiumpage" element={<PremiumPage />} />
-          <Route path="/password-reset" element={<ForgotPassword />} />
+          <Route path="/add-doctor" element={<AddDoctor/>} />
+          <Route path="/doctor" element={<Doctor/>} />
+          <Route path="/users" element={<User/>} />
+          <Route path="/auth" element={<Auth/>} />
+          <Route path="/premiumpage" element={<PremiumPage/>} />
+          <Route path="/password-reset" element={<ForgotPassword/>} />
+          <Route path="/exercise" element={<Exercise/>} />
+          <Route path="/appointment-form" element={<AppointmentSection />} />
+          <Route path="/file-upload" element={<FileUpload />} />
+          <Route path="/user-files" element={<UserFiles />} />
           <Route path="/get-feedback" element={<GetFeedback />} />
           <Route path="/appointment-form" element={<AppointmentSection />} />
           <Route path="/exercise" element={<Exercise />} />
           <Route path="/diet" element={<Diet />} />
           <Route path="/sidebar" element={<Sidebar />} />
           <Route path="/health-recommendation" element={<HealthRecommendation />} />
+          <Route path="/view-appointments" element={<ViewAppointment />} />
           <Route path="/healthoverview" element={<HealthOverview />} />
 
         </Routes>

@@ -1,12 +1,22 @@
 import React from 'react';
 import Card from '../common/Card';
+import { useNavigate } from 'react-router-dom';
+
 
 export default function AdminPage() {
+
+  const navigate = useNavigate();
+
   const logout=()=>{
     // console.log('Logout');
     localStorage.clear();
     window.location.replace('/');
   }
+
+  const handleMedicalFilesClick = () => {
+    navigate('/user-files');
+  };
+
   return (
     <>
       <div>
@@ -25,7 +35,7 @@ export default function AdminPage() {
           {/* <Card name="Appointments" desc="To see the total number of appointments" buttons={["Manage Appointments", "View Calendar"]} /> */}
           <Card name="Doctor Management" desc="To manage doctors" buttons={[]} to="/doctor"/>
           {/* <Card name="Health Recommendation Management" desc="To see and manage recommendations" buttons={["Overview Health Recommendations", "Add Recommendation"]} /> */}
-          <Card name="Health Reports Management" desc="Health reports management" buttons={["Manage Health Reports", "View Reports"]} />
+          <Card name="Health Reports Management" desc="Health reports management" buttons={[<button onClick={handleMedicalFilesClick}>View Medical files</button>]} to='/user-files/'/>
           <Card name="Feedback Overview" desc="Feedback viewer" buttons={["View Feedback"]} to='/get-feedback' />
           <Card name="System Statistics" desc="Statistics of the system" buttons={["View", "Download Report"]} />
         </div>

@@ -8,20 +8,35 @@ import Swal from 'sweetalert2';
 
 function User() {
     const [users, setUsers] = useState([]);
+    const [filteredUsers, setFilteredUsers] = useState([]);
     const [modalShow, setModalShow] = useState(false);
     const [flag, setFlag] = useState("");
     const [editUserData, setEditUserData] = useState(null);
+    const [searchQuery, setSearchQuery] = useState("");
 
     useEffect(() => {
         axios.get("/get-user")
             .then((response) => {
                 if (response.data.status === 200) {
                     setUsers(response.data.data);
+                    setFilteredUsers(response.data.data); // Initial set
                 } else {
                     errortoast(response.data.msg);
                 }
             });
     }, []);
+
+    useEffect(() => {
+        // Filter users based on search query
+        const filtered = users.filter(user => {
+            const lowercasedQuery = searchQuery.toLowerCase();
+            return Object.keys(user).some(key => {
+                const value = typeof user[key] === 'string' ? user[key].toLowerCase() : '';
+                return value.includes(lowercasedQuery);
+            });
+        });
+        setFilteredUsers(filtered);
+    }, [searchQuery, users]);
 
     const handleSave = (userData) => {
         let formData = new FormData();
@@ -36,6 +51,7 @@ function User() {
                         successtoast(response.data.msg);
                         setModalShow(false);
                         setUsers([...users, response.data.data]);
+                        setSearchQuery(""); // Reset search query after adding a user
                     } else {
                         errortoast(response.data.msg);
                     }
@@ -45,9 +61,9 @@ function User() {
             axios.post("/update-user", formData)
                 .then((response) => {
                     if (response.data.status === 200) {
-                        // successtoast(response.data.msg);
                         setModalShow(false);
                         setUsers(users.map(user => user.id === userData.id ? userData : user));
+                        setSearchQuery(""); // Reset search query after updating a user
                     } else {
                         errortoast(response.data.msg);
                     }
@@ -72,6 +88,7 @@ function User() {
                     .then((response) => {
                         if (response.data.status === 200) {
                             setUsers(users.filter(user => user.id !== userData.id));
+                            setSearchQuery(""); // Reset search query after deletion
                             Swal.fire('Deleted!', 'User has been deleted.', 'success');
                         } else {
                             errortoast(response.data.msg);
@@ -94,9 +111,30 @@ function User() {
                 />
             )}
             <div className="container mt-2">
-                <button className='btn btn-primary float-end' onClick={() => { setFlag("add"); setEditUserData(null); setModalShow(true); }}>
-                    <i className="bi bi-plus-lg me-1"></i>Add User
-                </button>
+                <div className="d-flex justify-content-between align-items-center mb-3">
+                    <h2></h2>
+                    <div className="d-flex align-items-center">
+                        <div className="input-group me-3">
+                            <div className="form-outline" data-mdb-input-init>
+                                <input 
+                                    type="search" 
+                                    id="form1" 
+                                    className="form-control me-4" 
+                                    placeholder="Search"
+                                    value={searchQuery}
+                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                />
+                                {/* <label className="form-label" htmlFor="form1">Search</label> */}
+                            </div>
+                            {/* <button type="button" className="btn btn-primary ms-3" data-mdb-ripple-init>
+                                <i className="fas fa-search"></i>
+                            </button> */}
+                        </div>
+                        <button className='btn btn-primary' onClick={() => { setFlag("add"); setEditUserData(null); setModalShow(true); }}>
+                            <i className="bi bi-plus-lg me-1"></i>Add User
+                        </button>
+                    </div>
+                </div>
             </div>
             <Table
                 title="Users"
@@ -117,7 +155,7 @@ function User() {
                     { key: "membership_status", label: "Membership Status" }
                 ]}
                 data_access={['first_name', 'last_name', 'phone', 'email', 'date_of_birth', 'gender', 'weight', 'height', 'activity_level', 'dietary_preferences', 'health_conditions', 'medical_history', 'health_goals', 'membership_status']}
-                data={users}
+                data={filteredUsers} // Use filteredUsers instead of users
                 setflag={setFlag}
                 setmodalshow={setModalShow}
                 seteditdata={setEditUserData}

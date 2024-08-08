@@ -1,0 +1,123 @@
+/* .navbar-custom {
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+  }
+  
+  .welcome-text {
+    font-size: 1.5rem;
+    color: #ffffff;
+  }
+  
+  .btn-danger {
+    background-color: #dc3545;
+    border: none;
+  }
+  
+  .card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    margin: 15px;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+  
+  .modal-content {
+    border-radius: 8px;
+  }
+  
+  .modal-header {
+    background-color: #007bff;
+    color: #fff;
+  }
+  
+  .modal-footer .btn-secondary {
+    background-color: #6c757d;
+  }
+  
+  @media (max-width: 768px) {
+    .container {
+      flex-direction: column;
+    }
+  
+    .card {
+      width: 100%;
+      margin: 10px 0;
+    }
+  }
+   */
+   /* Navbar Styles */
+.navbarCustom {
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  background-color: #007bff; /* Change as needed */
+}
+
+.welcomeText {
+  font-size: 1.5rem;
+  color: #ffffff;
+}
+
+/* Button Styles */
+.btnDanger {
+  background-color: #dc3545;
+  border-radius: 7px;
+  margin: 10px;
+  padding: 7px;
+
+}
+
+/* Card Styles */
+.card {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  margin: 15px;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Modal Styles */
+.modalContent {
+  border-radius: 8px;
+}
+
+.modalHeader {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.modalFooter .btnSecondary {
+  background-color: #6c757d;
+}
+
+/* Container Styles */
+.container {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Feedback Modal Styles */
+.modalBody {
+  padding: 20px;
+}
+
+.formLabel {
+  font-weight: bold;
+}
+
+.formControl {
+  width: 100%;
+}

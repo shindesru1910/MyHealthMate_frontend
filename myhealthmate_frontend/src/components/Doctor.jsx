@@ -8,20 +8,35 @@ import Swal from 'sweetalert2';
 
 function Doctor() {
   const [doctors, setDoctors] = useState([]);
+  const [filteredDoctors, setFilteredDoctors] = useState([]);
   const [modalShow, setModalShow] = useState(false);
   const [editUserData, setEditUserData] = useState(null);
   const [flag, setFlag] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     axios.get("/get-doctor")
       .then((response) => {
         if (response.data.status === 200) {
           setDoctors(response.data.data);
+          setFilteredDoctors(response.data.data); // Initial set
         } else {
           errortoast(response.data.msg);
         }
       });
   }, []);
+
+  useEffect(() => {
+    // Filter doctors based on search query
+    const filtered = doctors.filter(doctor => {
+      const lowercasedQuery = searchQuery.toLowerCase();
+      return Object.keys(doctor).some(key => {
+        const value = typeof doctor[key] === 'string' ? doctor[key].toLowerCase() : '';
+        return value.includes(lowercasedQuery);
+      });
+    });
+    setFilteredDoctors(filtered);
+  }, [searchQuery, doctors]);
 
   const handleSave = (userData) => {
     let formdata = new FormData();
@@ -38,7 +53,8 @@ function Doctor() {
           if (response.data.status === 200) {
             successtoast(response.data.msg);
             setModalShow(false);
-            window.location.reload();
+            setDoctors([...doctors, response.data.data]);
+            setSearchQuery(""); // Reset search query after adding a doctor
           } else {
             errortoast(response.data.msg);
           }
@@ -50,7 +66,8 @@ function Doctor() {
           if (response.status === 200) {
             successtoast(response.data.msg);
             setModalShow(false);
-            window.location.reload();
+            setDoctors(doctors.map(doctor => doctor.id === userData.id ? userData : doctor));
+            setSearchQuery(""); // Reset search query after updating a doctor
           } else {
             errortoast(response.data.msg);
           }
@@ -74,9 +91,9 @@ function Doctor() {
         axios.post("/delete-doctor", formdata)
           .then((response) => {
             if (response.status === 200) {
-              setModalShow(false);
-              Swal.fire('Deleted!', 'Your file has been deleted.', 'success');
-              window.location.reload();
+              setDoctors(doctors.filter(doctor => doctor.id !== userData.id));
+              setSearchQuery(""); // Reset search query after deletion
+              Swal.fire('Deleted!', 'Doctor has been deleted.', 'success');
             } else {
               errortoast(response.data.msg);
             }
@@ -97,22 +114,39 @@ function Doctor() {
         />
       )}
       <div className="container mt-2">
-        <button className='btn btn-primary float-end' onClick={() => { setFlag("add"); setEditUserData(null); setModalShow(true); }}>
-          <i className="bi bi-plus-lg me-1"></i>Add Doctor
-        </button>
+        <div className="d-flex justify-content-between align-items-center mb-3">
+          <h2></h2>
+          <div className="d-flex align-items-center">
+            <div className="input-group me-3">
+              <div className="form-outline">
+                <input 
+                  type="search" 
+                  id="search" 
+                  className="form-control me-4" 
+                  placeholder="Search"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+              </div>
+            </div>
+            <button className='btn btn-primary' onClick={() => { setFlag("add"); setEditUserData(null); setModalShow(true); }}>
+              <i className="bi bi-plus-lg me-1"></i>Add Doctor
+            </button>
+          </div>
+        </div>
       </div>
       <Table
         title="Doctors"
         column={[
-          { key: "first_name", lable: "First Name" },
-          { key: 'last_name', lable: 'Last Name' },
-          { key: 'specialty', lable: 'Specialty' },
-          { key: "contact_info", lable: "Phone" },
-          { key: "reviews", lable: "Reviews" },
-          { key: "location", lable: "Location" }
+          { key: "first_name", label: "First Name" },
+          { key: 'last_name', label: 'Last Name' },
+          { key: 'specialty', label: 'Specialty' },
+          { key: "contact_info", label: "Phone" },
+          { key: "reviews", label: "Reviews" },
+          { key: "location", label: "Location" }
         ]}
         data_access={['first_name', 'last_name', 'specialty', 'contact_info', 'reviews', 'location']}
-        data={doctors}
+        data={filteredDoctors} // Use filteredDoctors instead of doctors
         setflag={setFlag}
         setmodalshow={setModalShow}
         seteditdata={setEditUserData}

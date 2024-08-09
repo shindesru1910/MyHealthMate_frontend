@@ -34,7 +34,7 @@ export default function AdminPage() {
           <Card name="Health Reports Management" desc="Health reports management" buttons={[<button className="btn btn-primary" onClick={handleMedicalFilesClick}>View Medical files</button>]} to='/user-files/' />
           <Card name="Feedback Overview" desc="Feedback viewer" buttons={[<button className="btn btn-primary" onClick={handleMedicalFilesClick}>View Feedback</button>]} to='/get-feedback' />
           <Card name="Appointments" desc="see the appointmets history" buttons={[<button className="btn btn-primary" onClick={handleMedicalFilesClick}>View Appointment</button>]} to='/get-appointments' />
-          <Card name="System Statistics" desc="Statistics of the system" buttons={["View", "Download Report"]} to='/system-static' />
+          <Card name="System Statistics" desc="Statistics of the system" buttons={[<button className="btn btn-primary" onClick={handleMedicalFilesClick}>View</button>]} to='/system-static' />
         </div>
       </div>
     </>

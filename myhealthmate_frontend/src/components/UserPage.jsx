@@ -215,7 +215,7 @@ export default function UserPage() {
       <div>
         <nav className={styles.navbarCustom}>
           <div className="container-fluid">
-            <span className={styles.welcomeText}>Welcome back, {userFirstName}</span>
+            <span className={styles.welcomeText}>Welcome to MyHealthMate, {userFirstName}</span>
           </div>
           <ul className="navbar-nav ms-auto">
             <li>

@@ -48,7 +48,7 @@ const Appointments = () => {
                 const formData = new FormData();
                 formData.append('id', id);
 
-                const response = await axios.post('http://localhost:8000/api/delete-appointment', formData, {
+                const response = await axios.post('http://localhost:8000/delete-appointment', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
@@ -85,7 +85,8 @@ const Appointments = () => {
                             userName,
                             doctorName: doctor ? `${doctor.first_name} ${doctor.last_name}` : 'Unknown',
                             doctorSpecialty: doctor ? doctor.specialty : 'Unknown',
-                            doctorLocation: doctor ? doctor.location : 'Unknown'
+                            doctorLocation: doctor ? doctor.location : 'Unknown',
+                            isUpcoming: new Date(appointment.appointment_date) > new Date(), // Add this property
                         };
                     })
                 );
@@ -113,19 +114,8 @@ const Appointments = () => {
         { key: 'appointment_date', label: 'Appointment Date' },
         { key: 'status', label: 'Status' },
         { key: 'created_at', label: 'Created At' },
-        { key: 'updated_at', label: 'Last Updated' }
-    ];
-
-    const data_access = [
-        'id',
-        'userName',
-        'doctorName',
-        'doctorSpecialty',
-        'doctorLocation',
-        'appointment_date',
-        'status',
-        'created_at',
-        'updated_at'
+        { key: 'updated_at', label: 'Last Updated' },
+        { key: 'actions', label: 'Actions' },
     ];
 
     const handleDelete = (appointment) => {
@@ -140,13 +130,43 @@ const Appointments = () => {
         minHeight: '100vh',
     };
 
+    const renderActionButton = (appointment) => {
+        return (
+            appointment.isUpcoming ? 
+            <button 
+                className="btn btn-success btn-sm"
+            >
+                Upcoming Appointment
+            </button> :
+            <button 
+                className="btn btn-secondary btn-sm"
+            >
+                Completed
+            </button>
+        );
+    };
+
     return (
         <div style={containerStyle}>
             <h2></h2>
             <Table
                 column={columns}
-                data={appointments}
-                data_access={data_access}
+                data={appointments.map(appointment => ({
+                    ...appointment,
+                    actions: renderActionButton(appointment),
+                }))}
+                data_access={[
+                    'id',
+                    'userName',
+                    'doctorName',
+                    'doctorSpecialty',
+                    'doctorLocation',
+                    'appointment_date',
+                    'status',
+                    'created_at',
+                    'updated_at',
+                    'actions'
+                ]}
                 title="Appointments"
                 handledelete={handleDelete}
                 setflag={() => {}}

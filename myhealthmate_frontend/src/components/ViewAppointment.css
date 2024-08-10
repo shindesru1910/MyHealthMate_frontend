@@ -1,49 +1,8 @@
-/* .appointments-container {
-    padding: 20px;
-    background-color: #f9f9f9;
-  }
-  
-  .appointments-list {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .appointment-item {
-    background-color: #fff;
-    padding: 15px;
-    margin-bottom: 10px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .appointment-item p {
-    margin: 0 0 5px 0;
-    font-size: 1rem;
-    color: #333;
-  }
-  .cancel-button {
-    background-color: #ff4c4c;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 15px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: background-color 0.3s;
-  }
-  
-  .cancel-button:hover {
-    background-color: #e43c3c;
-  }
-  
-  .loading-button {
-    background-color: #ccc;
-    cursor: not-allowed;
-  }  */
+
 
   .appointments-container {
     padding: 20px;
-    background-color: #f9f9f9;
+    background-color: #00B4DB;
 }
 
 .appointments-list {

@@ -1,4 +1,5 @@
 // UserMedicalFiles.jsx
+//user's medical files for Admin
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
@@ -8,8 +9,8 @@ const UserFiles = () => {
   useEffect(() => {
     const fetchUserFiles = async () => {
       try {
-        const response = await axios.get('get-user-files');
-        setUserFiles(response.data.user_files);
+        const response = await axios.get('get-user-files'); 
+        setUserFiles(response.data);
       } catch (error) {
         console.error('Error fetching user files', error);
       }
@@ -22,17 +23,15 @@ const UserFiles = () => {
     <div>
       <h1>Health Reports</h1>
       <ul>
-        {userFiles.map((user) => (
-          <li key={user.username}>
-            <h2>{user.username}</h2>
+        {userFiles.map((file) => (
+          <li key={file.id}>
+            <h2>{file.user.first_name} {file.user.last_name}</h2>
             <ul>
-              {user.files.map((file) => (
-                <li key={file.name}>
-                  <a href={file.url} target="_blank" rel="noopener noreferrer">
-                    {file.name}
-                  </a>
-                </li>
-              ))}
+              <li key={file.file}>
+                <a href={file.file} target="_blank" rel="noopener noreferrer">
+                  {file.file.split('/').pop()}
+                </a>
+              </li>
             </ul>
           </li>
         ))}
@@ -42,3 +41,4 @@ const UserFiles = () => {
 };
 
 export default UserFiles;
+

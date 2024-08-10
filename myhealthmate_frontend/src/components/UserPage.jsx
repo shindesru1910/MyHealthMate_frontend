@@ -93,7 +93,6 @@ export default function UserPage() {
           <Card name="Health OverView" desc="Summary of health metrics" buttons={[]} to='/healthoverview' />
           <Card name="Health Recommendation" desc="To see and manage recommendations" buttons={[]} to='/health-recommendation' />
           <Card name="Membership Status" desc={`Your current plan: Regular`} buttons={["✧Upgrade Plan"]} to="/premiumpage" />
-          <Card name="Medical History" desc="Statistics of the system" buttons={[<button onClick={handleMedicalHistoryClick}>Add/Edit Information</button>]} to='/file-upload'/>
           <Card
             name="Appointments"
             desc="To see the total number of appointments"
@@ -103,20 +102,13 @@ export default function UserPage() {
             ]}
           />
           <Card
-            name="Exercise Reminder"
-            desc="Health reports management"
+            name="Medical History"
+            desc="Your medical history track."
             buttons={[
-              <button key="edit" className="btn btn-primary">Edit</button>,
-              <button key="add-new" className="btn btn-primary">Add New</button>
+              <button className="btn btn-primary" onClick={() => navigate('/file-upload')}>Upload medical files</button>
             ]}
           />
-          {/* <Card
-            name="Medical History"
-            desc="Statistics of the system"
-            buttons={[
-              <button key="add-edit" className="btn btn-primary">Add/Edit Information</button>
-            ]}
-          /> */}
+          
           <Card name="Feedback" desc="Feedback viewer" buttons={[<button className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#feedbackModal">Submit Feedback</button>]} />
         </div>
       </div>

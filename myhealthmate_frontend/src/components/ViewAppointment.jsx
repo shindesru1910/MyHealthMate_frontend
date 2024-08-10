@@ -123,14 +123,18 @@ const ViewAppointment = () => {
                 {isUpcoming && (
                   <button className="upcoming-button">Upcoming Appointment</button>
                 )}
-                <p><strong>Appointment ID:</strong> {appointment.id}</p>
-                <p><strong>Date:</strong> {appointmentDate.toLocaleDateString()}</p>
-                <p><strong>Status:</strong> {appointment.status}</p>
-                <p><strong>Doctor:</strong> {appointment.doctorName}</p>
-                <p><strong>Specialty:</strong> {appointment.doctorSpecialty}</p>
-                <p><strong>Location:</strong> {appointment.doctorLocation}</p>
-                <p><strong>Created At:</strong> {new Date(appointment.created_at).toLocaleString()}</p>
-                <p><strong>Last Updated:</strong> {new Date(appointment.updated_at).toLocaleString()}</p>
+                <div className="appointment-details">
+                  <div className="top-row">
+                    <p><strong>Appointment ID:</strong> {appointment.id}</p>
+                    <p><strong>Date:</strong> {appointmentDate.toLocaleDateString()}</p>
+                    <p><strong>Status:</strong> {appointment.status}</p>
+                  </div>
+                  <div className="bottom-row">
+                    <p><strong>Doctor:</strong> {appointment.doctorName}</p>
+                    <p><strong>Specialty:</strong> {appointment.doctorSpecialty}</p>
+                  </div>
+                    <p><i className="fas fa-map-marker-alt icon"></i> <strong>Location : </strong>{appointment.doctorLocation}</p>
+                </div>
                 {isUpcoming && (
                   <button 
                     className={`cancel-button ${loadingAppointment === appointment.id ? 'loading-button' : ''}`} 

@@ -1,74 +1,133 @@
 
-
-  .appointments-container {
-    padding: 20px;
-    background-color: #00B4DB;
+.appointments-container h2 {
+  position: relative; /* Establishes a positioning context for pseudo-elements */
+  text-align: center;
+  color: #fff;
+  font-family: 'Arial', sans-serif;
+  margin-bottom: 60px; /* Adjust as needed */
+  font-size: 3rem;
+  font-weight: bold;
 }
 
+.appointments-container h2::before,
+.appointments-container h2::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 30%; /* Adjust width of lines */
+  height: 1px; /* Adjust thickness of lines */
+  background: #fff; /* Color of the lines */
+  transform: translateY(-50%);
+}
+
+.appointments-container h2::before {
+  left: 0; /* Line on the left side */
+}
+
+.appointments-container h2::after {
+  right: 0; /* Line on the right side */
+}
+
+
+/* List of appointments in a grid layout */
 .appointments-list {
-    list-style-type: none;
-    padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Grid with 300px minimum width items */
+  gap: 70px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
+/* Individual appointment item */
 .appointment-item {
-    background-color: #fff;
-    padding: 15px;
-    margin-bottom: 10px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    position: relative; /* Position context for the button */
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  display: grid;
+  grid-template-columns: 1fr; /* Single column layout */
+  gap: 20px;
+  position: relative; /* Make the container relative for absolute positioning of the label */
+  transition: background 0.3s, transform 0.3s;
 }
 
-.appointment-item p {
-    margin: 0 0 5px 0;
-    font-size: 1rem;
-    color: #333;
-}
-
-.cancel-button {
-    background-color: #ff4c4c;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 15px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: background-color 0.3s;
-    position: absolute; /* Position button absolutely */
-    right: 15px; /* Distance from the right edge */
-    bottom: 15px; /* Distance from the bottom edge */
-}
-
-.cancel-button:hover {
-    background-color: #e43c3c;
-}
-
-.loading-button {
-    background-color: #ccc;
-    cursor: not-allowed;
-}
-.appointment-item {
-  position: relative; /* Ensure the button is positioned relative to the appointment item */
-  padding: 10px;
-  border: 1px solid #ddd;
-  margin-bottom: 10px;
-  border-radius: 5px;
-}
-
+/* Upcoming appointment label styling */
 .upcoming-button {
   position: absolute;
   top: 10px;
   right: 10px;
-  background-color: #4CAF50; /* Green color */
-  color: white;
-  border: none;
+  background-color: #28a745; /* Green color */
+  color: #fff;
   padding: 5px 10px;
   border-radius: 5px;
-  cursor: pointer;
+  font-size: 0.9rem;
+  font-family: 'Arial', sans-serif;
+  border: none;
+  cursor: default;
 }
 
-.upcoming-button:hover {
-  background-color: #45a049; /* Darker green on hover */
+/* Appointment details styling */
+.appointment-details {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+/* Top row styling for appointment details */
+.top-row {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Three columns layout */
+  gap: 20px;
+}
+/* .bottom-row{
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 10px;
+} */
+
+/* Button styling */
+.cancel-button {
+  border: none;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: 'Arial', sans-serif;
+  font-size: 0.9rem;
+  background-color: #dc3545; /* Red color */
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+/* Hover effect for buttons */
+.cancel-button:hover {
+  opacity: 0.9;
+  transform: scale(1.05);
+}
+
+/* Button text when loading */
+.loading-button {
+  background-color: #aaa;
+  cursor: not-allowed;
+}
+
+/* Button text when loading */
+.loading-button:disabled {
+  color: #fff;
+}
+
+/* Text styling for appointment details */
+.appointment-item p {
+  margin: 5px 0;
+  font-family: 'Arial', sans-serif;
+  font-size: 1rem;
+}
+
+/* For better layout on smaller screens */
+@media (max-width: 600px) {
+  .appointments-list {
+    grid-template-columns: 1fr; /* Single column layout on small screens */
+  }
 }

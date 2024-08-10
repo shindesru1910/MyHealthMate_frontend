@@ -73,6 +73,7 @@ const UserLogin = () => {
       <div className="row justify-content-center">
         <div className="col-md-6">
       <h1 style={{color:'#FFFFFF',textAlign:'center'}}>MyHealthMate</h1>
+      <br/>
           <form style={{backgroundColor:'#FFFFFF'}} id="loginForm" onSubmit={handleSubmit} className="needs-validation border border-primary p-4 rounded" noValidate>
             <h2 className="text-center mb-4">Login</h2>
             <div className="mb-3">

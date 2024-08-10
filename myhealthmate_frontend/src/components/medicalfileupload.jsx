@@ -1,5 +1,7 @@
-// FileUpload.jsx
-import React, { useCallback, useState } from 'react';
+// // FileUpload.jsx
+// //uploading file page by the user
+
+import React, { useCallback, useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import styled from 'styled-components';
 import axios from 'axios';
@@ -82,9 +84,36 @@ const FileItem = styled.li`
   }
 `;
 
+const SuccessMessage = styled.div`
+  background-color: #e6ffe6;
+  color: #4caf50;
+  padding: 10px;
+  border-radius: 4px;
+  margin-top: 20px;
+  width: 100%;
+  text-align: center;
+`;
+
+
 const FileUpload = () => {
   const [files, setFiles] = useState([]);
   const [uploading, setUploading] = useState(false);
+  const [successFiles, setSuccessFiles] = useState([]);
+  const [uploadedFiles, setUploadedFiles] = useState([]);
+
+  // Fetch previously uploadedfiles
+  const fetchUploadedFiles = async () => {
+    try {
+      const response = await axios.get('get-user-files');
+      setUploadedFiles(response.data.files);
+    } catch (error) {
+      console.error('Error fetching uploaded files', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchUploadedFiles();
+  }, []);
 
   const onDrop = useCallback((acceptedFiles) => {
     setFiles((prevFiles) => [...prevFiles, ...acceptedFiles]);
@@ -92,24 +121,45 @@ const FileUpload = () => {
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
-    accept: 'image/*,.pdf', // Add any other file types you want to accept
+    accept: 'image/*,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain',
   });
+
+  const getCsrfToken = () => {
+    const name = 'csrftoken';
+    const cookies = document.cookie.split(';');
+    for (let cookie of cookies) {
+      const [key, value] = cookie.trim().split('=');
+      if (key === name) {
+        return decodeURIComponent(value);
+      }
+    }
+    return null;
+  };
 
   const handleUpload = async () => {
     setUploading(true);
     const formData = new FormData();
 
     files.forEach((file) => {
-      formData.append('files', file);
+      formData.append('file', file);
     });
 
     try {
       const response = await axios.post('upload-file', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
+          'X-CSRFToken': getCsrfToken(),
         },
       });
       console.log('File uploaded successfully', response.data);
+      setSuccessFiles(files.map((file) => file.name));
+      setUploadedFiles((prevFiles) => [
+        ...prevFiles,
+        ...files.map((file) => ({
+          name: file.name, url: response.data.file_urls.find((url) => url.includes(file.name))
+        }))
+      ]);
+      setFiles([]);
     } catch (error) {
       console.error('Error uploading file', error);
     } finally {
@@ -139,8 +189,24 @@ const FileUpload = () => {
       <UploadButton onClick={handleUpload} disabled={uploading || files.length === 0}>
         {uploading ? 'Uploading...' : 'Upload Files'}
       </UploadButton>
+      {successFiles.length > 0 && (
+        <SuccessMessage>
+          Files uploaded successfully: {successFiles.join(', ')}
+        </SuccessMessage>
+      )}
+      <br />
+      <h4>Uploaded Files</h4>
+      <FileList>
+        {uploadedFiles.map((file) => (
+          <FileItem key={file.name}>
+            <span>{file.name}</span>
+            <a href={file.url} target="_blank" rel="noopener noreferrer">View</a>
+          </FileItem>
+        ))}
+      </FileList>
     </Container>
   );
 };
 
 export default FileUpload;
+

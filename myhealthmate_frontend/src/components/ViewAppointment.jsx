@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { jwtDecode } from 'jwt-decode';
+import {jwtDecode} from 'jwt-decode'; // Correct import
 import Swal from 'sweetalert2';
 import './ViewAppointment.css';
 
 const ViewAppointment = () => {
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [loadingAppointment, setLoadingAppointment] = useState(null); // To track which appointment is loading
+  const [loadingAppointment, setLoadingAppointment] = useState(null);
   const [error, setError] = useState(null);
 
   // Fetch doctor details based on doctorId
@@ -23,7 +23,6 @@ const ViewAppointment = () => {
 
   // Cancel appointment function
   const cancelAppointment = async (appointmentId) => {
-    // Show confirmation dialog
     const result = await Swal.fire({
       title: 'Are you sure?',
       text: "Do you want to cancel this appointment?",
@@ -36,7 +35,7 @@ const ViewAppointment = () => {
 
     if (result.isConfirmed) {
       try {
-        setLoadingAppointment(appointmentId); // Set loading for the specific appointment
+        setLoadingAppointment(appointmentId);
         const formData = new FormData();
         formData.append('id', appointmentId);
 
@@ -47,7 +46,6 @@ const ViewAppointment = () => {
         });
 
         if (response.data.status === 200) {
-          // Remove the canceled appointment from the state
           setAppointments(appointments.filter(appointment => appointment.id !== appointmentId));
           Swal.fire('Cancelled!', 'Your appointment has been cancelled.', 'success');
         } else {
@@ -58,7 +56,7 @@ const ViewAppointment = () => {
         setError(`Failed to cancel appointment: ${err.message}`);
         Swal.fire('Failed!', `Failed to cancel appointment: ${err.message}`, 'error');
       } finally {
-        setLoadingAppointment(null); // Reset loading state
+        setLoadingAppointment(null);
       }
     }
   };
@@ -73,19 +71,16 @@ const ViewAppointment = () => {
         const decodedToken = jwtDecode(token);
         const userId = decodedToken.user_id;
 
-        // Check if userId is available
         if (!userId) {
           throw new Error('User ID is not available');
         }
 
-        // Fetch appointments for the user with user_id as query parameter
         const response = await axios.get('http://localhost:8000/get-appointments-by-user', {
           params: { user_id: userId }
         });
 
         const data = response.data.data;
 
-        // Fetch doctor details and enrich appointment data
         const userAppointments = await Promise.all(
           data.map(async (appointment) => {
             const doctor = await fetchDoctorDetails(appointment.doctor);
@@ -119,25 +114,35 @@ const ViewAppointment = () => {
         <p>No appointments found.</p>
       ) : (
         <ul className="appointments-list">
-          {appointments.map((appointment) => (
-            <li key={appointment.id} className="appointment-item">
-              <p><strong>Appointment ID:</strong> {appointment.id}</p>
-              <p><strong>Date:</strong> {new Date(appointment.appointment_date).toLocaleDateString()}</p>
-              <p><strong>Status:</strong> {appointment.status}</p>
-              <p><strong>Doctor:</strong> {appointment.doctorName}</p>
-              <p><strong>Specialty:</strong> {appointment.doctorSpecialty}</p>
-              <p><strong>Location:</strong> {appointment.doctorLocation}</p>
-              <p><strong>Created At:</strong> {new Date(appointment.created_at).toLocaleString()}</p>
-              <p><strong>Last Updated:</strong> {new Date(appointment.updated_at).toLocaleString()}</p>
-              <button 
-                className={`cancel-button ${loadingAppointment === appointment.id ? 'loading-button' : ''}`} 
-                onClick={() => cancelAppointment(appointment.id)}
-                disabled={loadingAppointment === appointment.id}
-              >
-                {loadingAppointment === appointment.id ? 'Canceling...' : 'Cancel Appointment'}
-              </button>
-            </li>
-          ))}
+          {appointments.map((appointment) => {
+            const appointmentDate = new Date(appointment.appointment_date);
+            const isUpcoming = appointmentDate > new Date(); // Check if the appointment date is in the future
+
+            return (
+              <li key={appointment.id} className="appointment-item">
+                {isUpcoming && (
+                  <button className="upcoming-button">Upcoming Appointment</button>
+                )}
+                <p><strong>Appointment ID:</strong> {appointment.id}</p>
+                <p><strong>Date:</strong> {appointmentDate.toLocaleDateString()}</p>
+                <p><strong>Status:</strong> {appointment.status}</p>
+                <p><strong>Doctor:</strong> {appointment.doctorName}</p>
+                <p><strong>Specialty:</strong> {appointment.doctorSpecialty}</p>
+                <p><strong>Location:</strong> {appointment.doctorLocation}</p>
+                <p><strong>Created At:</strong> {new Date(appointment.created_at).toLocaleString()}</p>
+                <p><strong>Last Updated:</strong> {new Date(appointment.updated_at).toLocaleString()}</p>
+                {isUpcoming && (
+                  <button 
+                    className={`cancel-button ${loadingAppointment === appointment.id ? 'loading-button' : ''}`} 
+                    onClick={() => cancelAppointment(appointment.id)}
+                    disabled={loadingAppointment === appointment.id}
+                  >
+                    {loadingAppointment === appointment.id ? 'Canceling...' : 'Cancel Appointment'}
+                  </button>
+                )}
+              </li>
+            );
+          })}
         </ul>
       )}
     </div>

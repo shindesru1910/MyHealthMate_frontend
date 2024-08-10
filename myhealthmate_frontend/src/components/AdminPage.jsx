@@ -11,8 +11,8 @@ export default function AdminPage() {
     window.location.replace('/');
   };
 
-  const handleMedicalFilesClick = () => {
-    navigate('/user-files');
+  const handleNavigation = (path) => {
+    navigate(path);
   };
 
   return (
@@ -31,10 +31,10 @@ export default function AdminPage() {
         <div className="container mt-3 d-flex flex-wrap justify-content-center">
           <Card name="User Management" desc="To manage users" buttons={[]} to="/users" />
           <Card name="Doctor Management" desc="To manage doctors" buttons={[]} to="/doctor" />
-          <Card name="Health Reports Management" desc="Health reports management" buttons={[<button className="btn btn-primary" onClick={handleMedicalFilesClick}>View Medical files</button>]} to='/user-files/' />
-          <Card name="Feedback Overview" desc="Feedback viewer" buttons={[<button className="btn btn-primary" onClick={handleMedicalFilesClick}>View Feedback</button>]} to='/get-feedback' />
-          <Card name="Appointments" desc="see the appointmets history" buttons={[<button className="btn btn-primary" onClick={handleMedicalFilesClick}>View Appointment</button>]} to='/get-appointments' />
-          <Card name="System Statistics" desc="Statistics of the system" buttons={[<button className="btn btn-primary" onClick={handleMedicalFilesClick}>View</button>]} to='/system-static' />
+          <Card name="Health Reports Management" desc="Health reports management" buttons={[<button className="btn btn-primary" onClick={() => handleNavigation('/user-files')}>View Medical files</button>]} to='/user-files/' />
+          <Card name="Feedback Overview" desc="Feedback viewer" buttons={[<button className="btn btn-primary" onClick={() => handleNavigation('/get-feedback')}>View Feedback</button>]} to='/get-feedback' />
+          <Card name="Appointments" desc="see the appointmets history" buttons={[<button className="btn btn-primary" onClick={() => handleNavigation('/get-appointments')}>View Appointment</button>]} to='/get-appointments' />
+          <Card name="System Statistics" desc="Statistics of the system" buttons={[<button className="btn btn-primary" onClick={() => handleNavigation('/system-static')}>View</button>]} to='/system-static' />
         </div>
       </div>
     </>

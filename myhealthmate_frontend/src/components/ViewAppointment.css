@@ -1,4 +1,96 @@
+/* 
 
+  .appointments-container {
+    padding: 20px;
+    background-color: #00B4DB;
+}
+
+.appointments-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.appointment-item {
+    background-color: #fff;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    position: relative; 
+}
+
+.appointment-item p {
+    margin: 0 0 5px 0;
+    font-size: 1rem;
+    color: #333;
+}
+
+.cancel-button {
+    background-color: #ff4c4c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+    position: absolute; 
+    right: 15px; 
+    bottom: 15px; 
+}
+
+.cancel-button:hover {
+    background-color: #e43c3c;
+}
+
+.loading-button {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+.appointment-item {
+  position: relative; 
+  padding: 10px;
+  border: 1px solid #ddd;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+.upcoming-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #4CAF50; 
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.upcoming-button:hover {
+  background-color: #45a049; 
+} */
+/* Container for the appointments */
+.appointments-container {
+  background: linear-gradient(to right, #00c6ff, #094798);
+  color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+/* Title styling */
+/* .appointments-container h2 {
+  text-align: center;
+  color: #fff;
+  font-family: 'Arial', sans-serif;
+  margin-bottom: 80px;
+  font-size: 3rem;
+  font-weight: bold;
+} */
 .appointments-container h2 {
   position: relative; /* Establishes a positioning context for pseudo-elements */
   text-align: center;

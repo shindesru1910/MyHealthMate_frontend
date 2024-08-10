@@ -7,6 +7,8 @@ import Swal from 'sweetalert2';
 
 function GetFeedback() {
     const [feedbacks, setFeedbacks] = useState([]);
+    const [filteredFeedbacks, setFilteredFeedbacks] = useState([]);
+    const [searchQuery, setSearchQuery] = useState("");
     const [flag, setFlag] = useState("");
     const [editFeedbackData, setEditFeedbackData] = useState(null);
 
@@ -15,11 +17,29 @@ function GetFeedback() {
             .then((response) => {
                 if (response.data.status === 200) {
                     setFeedbacks(response.data.data);
+                    setFilteredFeedbacks(response.data.data); // Initial set
                 } else {
                     errortoast(response.data.msg);
                 }
             });
     }, []);
+
+    useEffect(() => {
+        // Filter feedbacks based on search query
+        const filtered = feedbacks.filter(feedback => {
+            const lowercasedQuery = searchQuery.toLowerCase();
+            // Extract user details from feedback
+            const firstName = feedback.user?.first_name?.toLowerCase() || '';
+            const lastName = feedback.user?.last_name?.toLowerCase() || '';
+            const createdAt = feedback.created_at?.toLowerCase() || '';
+    
+            // Check if any of the fields include the search query
+            return firstName.includes(lowercasedQuery) ||
+                   lastName.includes(lowercasedQuery) ||
+                   createdAt.includes(lowercasedQuery);
+        });
+        setFilteredFeedbacks(filtered);
+    }, [searchQuery, feedbacks])
 
     const handleDelete = (feedbackData) => {
         Swal.fire({
@@ -38,6 +58,7 @@ function GetFeedback() {
                     .then((response) => {
                         if (response.data.status === 200) {
                             setFeedbacks(feedbacks.filter(feedback => feedback.id !== feedbackData.id));
+                            setSearchQuery(""); // Reset search query after deletion
                             Swal.fire('Deleted!', 'Feedback has been deleted.', 'success');
                         } else {
                             errortoast(response.data.msg);
@@ -51,6 +72,23 @@ function GetFeedback() {
         <>
             <ToastContainer />
             <div className="container mt-2">
+                <div className="d-flex justify-content-between align-items-center mb-3">
+                    <h2></h2>
+                    <div className="d-flex align-items-center">
+                        <div className="input-group me-3">
+                            <div className="form-outline" data-mdb-input-init>
+                                <input 
+                                    type="search" 
+                                    id="form1" 
+                                    className="form-control me-4" 
+                                    placeholder="Search"
+                                    value={searchQuery}
+                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <Table
                     title="Feedbacks"
                     column={[
@@ -61,7 +99,7 @@ function GetFeedback() {
                         { key: 'created_at', label: 'Created At' }
                     ]}
                     data_access={['id', 'user.first_name', 'user.last_name', 'feedback_text', 'created_at']}
-                    data={feedbacks}
+                    data={filteredFeedbacks} // Use filteredFeedbacks instead of feedbacks
                     setflag={setFlag}
                     seteditdata={setEditFeedbackData}
                     handledelete={handleDelete}

@@ -1,0 +1,95 @@
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .filters {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+  
+  .filters button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .filters button:hover {
+    background-color: #0056b3;
+  }
+  
+  .charts {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .pie-chart, .bar-chart {
+    flex: 1;
+    min-width: 300px;
+    max-width: 600px;
+  }
+  
+  .pie-chart {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .bar-chart {
+    display: flex;
+    justify-content: center;
+  }
+  
+  @media (max-width: 768px) {
+    .filters {
+      flex-direction: column;
+    }
+  
+    .filters button {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+  
+    .charts {
+      flex-direction: column;
+    }
+  
+    .pie-chart, .bar-chart {
+      max-width: 100%;
+    }
+  }
+  .pie-chart {
+    animation: fadeIn 1.5s ease-in-out;
+  }
+  
+  .bar-chart {
+    animation: fadeIn 1.5s ease-in-out;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+    

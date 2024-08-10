@@ -90,3 +90,26 @@
     background-color: #ccc;
     cursor: not-allowed;
 }
+.appointment-item {
+  position: relative; /* Ensure the button is positioned relative to the appointment item */
+  padding: 10px;
+  border: 1px solid #ddd;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+.upcoming-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #4CAF50; /* Green color */
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.upcoming-button:hover {
+  background-color: #45a049; /* Darker green on hover */
+}

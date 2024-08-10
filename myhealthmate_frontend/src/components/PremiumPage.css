@@ -24,4 +24,9 @@
   .premium-page .premium-text-uppercase {
     letter-spacing: 0.2em;
   }
+  .premium-page .card-equal-height {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
   

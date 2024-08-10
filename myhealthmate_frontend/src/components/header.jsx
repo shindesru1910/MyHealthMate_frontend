@@ -32,7 +32,7 @@ const Header = () => {
             <h1 className="sitename">My Health Mate</h1>
           </a>
 
-          <nav id="navmenu" className="navmenu">
+          <nav id="navmenu" className="navmenu" style={{ backgroundColor: 'white' }}>
             <ul>
               <li><a href="#hero" className="active">Home</a></li>
               <li><a href="#about">About</a></li>

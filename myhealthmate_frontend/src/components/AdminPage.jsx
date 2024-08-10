@@ -1,43 +1,38 @@
 import React from 'react';
 import Card from '../common/Card';
 import { useNavigate } from 'react-router-dom';
-
+import './AdminPage.css'; // Import the CSS file
 
 export default function AdminPage() {
-
   const navigate = useNavigate();
 
-  const logout=()=>{
-    // console.log('Logout');
+  const logout = () => {
     localStorage.clear();
     window.location.replace('/');
-  }
+  };
 
-  const handleMedicalFilesClick = () => {
-    navigate('/user-files');
+  const handleNavigation = (path) => {
+    navigate(path);
   };
 
   return (
     <>
       <div>
-        <nav className="bg-primary d-flex justify-content-center" style={{ height: "50px", textAlign: 'center' }}>
-          <div className="container-fluid">
-            <span className="navbar-brand mb-0 h1" style={{ fontSize: '24px' }}>Welcome to MyHealthmate, Admin</span>
+        <nav className="navbarCustom">
+          <div className="welcomeText">
+            Welcome to MyHealthmate, Admin
           </div>
-          <ul className="navbar-nav ms-auto">
-              <li>
-                <button className="btn btn-secondary nav-link active" style={{ width: "66px",height: "40px",background:'red'}} type="button" onClick={logout}>Logout</button>
-              </li>
-            </ul>
+          <button className="btnDanger" type="button" onClick={logout}>
+            Logout
+          </button>
         </nav>
-        <div className="container mt-3 d-flex flex-wrap justify-content-center">
+        <div className="containerCustom">
           <Card name="User Management" desc="To manage users" buttons={[]} to="/users" />
-          {/* <Card name="Appointments" desc="To see the total number of appointments" buttons={["Manage Appointments", "View Calendar"]} /> */}
-          <Card name="Doctor Management" desc="To manage doctors" buttons={[]} to="/doctor"/>
-          {/* <Card name="Health Recommendation Management" desc="To see and manage recommendations" buttons={["Overview Health Recommendations", "Add Recommendation"]} /> */}
-          <Card name="Health Reports Management" desc="Health reports management" buttons={[<button onClick={handleMedicalFilesClick}>View Medical files</button>]} to='/user-files/'/>
-          <Card name="Feedback Overview" desc="Feedback viewer" buttons={["View Feedback"]} to='/get-feedback' />
-          <Card name="System Statistics" desc="Statistics of the system" buttons={["View", "Download Report"]} />
+          <Card name="Doctor Management" desc="To manage doctors" buttons={[]} to="/doctor" />
+          <Card name="Health Reports Management" desc="Health reports management" buttons={[<button className="btn btn-primary" onClick={() => handleNavigation('/user-files')}>View Medical files</button>]} to='/user-files/' />
+          <Card name="Feedback Overview" desc="Feedback viewer" buttons={[<button className="btn btn-primary" onClick={() => handleNavigation('/get-feedback')}>View Feedback</button>]} to='/get-feedback' />
+          <Card name="Appointments" desc="See the appointments history" buttons={[<button className="btn btn-primary" onClick={() => handleNavigation('/get-appointments')}>View Appointment</button>]} to='/get-appointments' />
+          <Card name="System Statistics" desc="Statistics of the system" buttons={[<button className="btn btn-primary" onClick={() => handleNavigation('/system-static')}>View</button>]} to='/system-static' />
         </div>
       </div>
     </>

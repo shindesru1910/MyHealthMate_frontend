@@ -35,6 +35,8 @@ import { createGlobalStyle } from 'styled-components';
 import ViewAppointment from './components/ViewAppointment';
 import healthoverview from './components/HealthOverview';
 import HealthOverview from './components/HealthOverview';
+import SystemStatistics from './components/SystemStatistics';
+import Appointments from './components/Appointments';
 
 const GlobalStyle = createGlobalStyle`
     * {
@@ -95,6 +97,8 @@ function App() {
           <Route path="/health-recommendation" element={<HealthRecommendation />} />
           <Route path="/view-appointments" element={<ViewAppointment />} />
           <Route path="/healthoverview" element={<HealthOverview />} />
+          <Route path="/system-static" element={<SystemStatistics />} />
+          <Route path="/get-appointments" element={<Appointments />} />
 
         </Routes>
       </div>

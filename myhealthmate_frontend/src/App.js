@@ -24,8 +24,6 @@ import ForgotPassword from './components/ForgotPassword';
 import AdminRoute from './common/AdminRoute';
 import Exercise from './components/Exercise';
 import AppointmentSection from './components/appointmentsection';
-import FileUpload from './components/medicalfileupload';
-import UserFiles from './components/usermedicalfiles';
 import GetFeedback from './components/GetFeedback';
 import UserRoute from './common/UserRoute';
 import Diet from './components/Diet';
@@ -89,8 +87,6 @@ function App() {
           <Route path="/password-reset" element={<ForgotPassword/>} />
           <Route path="/exercise" element={<Exercise/>} />
           <Route path="/appointment-form" element={<AppointmentSection />} />
-          <Route path="/file-upload" element={<FileUpload />} />
-          <Route path="/user-files" element={<UserFiles />} />
           <Route path="/get-feedback" element={<GetFeedback />} />
           <Route path="/appointment-form" element={<AppointmentSection />} />
           <Route path="/exercise" element={<Exercise />} />

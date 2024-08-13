@@ -35,6 +35,8 @@ import healthoverview from './components/HealthOverview';
 import HealthOverview from './components/HealthOverview';
 import SystemStatistics from './components/SystemStatistics';
 import Appointments from './components/Appointments';
+import AdminFileManagement from './components/AdminFileManagement';
+import FileUpload2 from './components/FileUpload2';
 
 const GlobalStyle = createGlobalStyle`
     * {
@@ -95,6 +97,8 @@ function App() {
           <Route path="/healthoverview" element={<HealthOverview />} />
           <Route path="/system-static" element={<SystemStatistics />} />
           <Route path="/get-appointments" element={<Appointments />} />
+          <Route path="/file" element={<FileUpload2 />} />
+          <Route path="/admin-file-management" element={<AdminFileManagement />} />
 
         </Routes>
       </div>

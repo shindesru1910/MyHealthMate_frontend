@@ -77,7 +77,7 @@ export default function UserPage() {
           <Card name="Health OverView" desc="Summary of Health Metrics" buttons={[]} to='/healthoverview' />
           <Card name="Health Recommendation" desc="Get Your personalized Diet and Exercise recommendations" buttons={[]} to='/health-recommendation' />
           <Card name="Membership Status" desc={`Your current plan: Regular`} buttons={[<button className="btn btn-primary" onClick={() => navigate('/premiumpage')}> ✧Upgrade Plan</button>]} />
-          <Card name="Medical History" desc="Manage your medical files, Your medical history track." buttons={[<button className="btn btn-primary" onClick={() => navigate('/file-upload')}>Upload a File</button>]} />
+          <Card name="Medical History" desc="Manage your medical files, Your medical history track." buttons={[<button className="btn btn-primary" onClick={() => navigate('/file')}>Upload a File</button>]} />
           <Card
             name="Appointments"
             desc="Manage your appointments"

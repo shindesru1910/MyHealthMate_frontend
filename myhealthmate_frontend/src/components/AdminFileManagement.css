@@ -98,3 +98,8 @@
 .delete-btn:active {
     box-shadow: 0 0.3em 1em -0.5em #c82333;
 }
+.search-bar-right {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px; /* Adjust spacing as needed */
+}

@@ -123,22 +123,27 @@ const AdminFileManagement = () => {
     };
 
     // Filter files based on search query across all relevant fields
-    const filteredFiles = files.filter(file => 
-        file.filename.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        file.username.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    const filteredFiles = files.filter(file => {
+        const lowerCaseQuery = searchQuery.toLowerCase();
+        const fileNameMatch = file.filename.toLowerCase().includes(lowerCaseQuery);
+        const userNameMatch = file.username.toLowerCase().includes(lowerCaseQuery);
+        const uploadDateMatch = file.upload_date
+            ? file.upload_date.toLowerCase().includes(lowerCaseQuery)
+            : false; // Handle cases where upload_date is undefined
+
+        return fileNameMatch || userNameMatch || uploadDateMatch;
+    });
 
     return (
         <div className="admin-file-management">
             <h2 className="heading">Uploaded Files</h2>
-
             {/* Search Bar positioned to the right */}
             <div className="input-group search-bar-right">
                 <div className="form-outline">
-                    <input 
-                        type="search" 
-                        id="form1" 
-                        className="form-control" 
+                    <input
+                        type="search"
+                        id="form1"
+                        className="form-control"
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)} // Update search query
                         placeholder="Search by filename or uploaded by"
@@ -155,6 +160,7 @@ const AdminFileManagement = () => {
                         <th>#</th>
                         <th>Filename</th>
                         <th>Uploaded By</th>
+                        <th>Upload Date</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -164,6 +170,7 @@ const AdminFileManagement = () => {
                             <td>{index + 1}</td>
                             <td>{file.filename}</td>
                             <td>{file.username}</td>
+                            <td>{file.upload_date}</td>
                             <td>
                                 <div className="button-group">
                                     <button

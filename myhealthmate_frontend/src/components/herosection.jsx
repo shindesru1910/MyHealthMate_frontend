@@ -10,7 +10,7 @@ const HeroSection = () => {
         
         <div className="container position-relative">
           <div className="welcome position-relative"  data-aos-delay="100">
-            <h2>WELCOME TO MY HEALTH MATE</h2>
+            <h2 style={{textAlign:"left"}}>WELCOME TO MY HEALTH MATE</h2>
             <p>Your Comprehensive Health Companion</p>
           </div>
           {/* End Welcome */}

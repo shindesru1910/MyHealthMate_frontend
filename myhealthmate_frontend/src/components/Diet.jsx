@@ -6,15 +6,9 @@ import Slider from 'react-slick';
 import { Card, Container, Row, Col } from 'react-bootstrap';
 import styled, { keyframes } from 'styled-components';
 
-
 // Import the slick-carousel styles
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
-
-const DietContainer = styled.div`
-    background-color: transparent; /* Ensure component has no background */
-    padding: 20px; /* Adjust padding as needed */
-`;
 
 // Define keyframes for animations
 const fadeIn = keyframes`
@@ -28,16 +22,28 @@ const fadeIn = keyframes`
     }
 `;
 
-// Styled components with animations
+// Styled components with animations and background images
+const DietWrapper = styled.div`
+    background-color: #f9f9f9;
+    background-size: cover;
+    background-position: center;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    color: #ffffff; /* Ensure text is readable */
+    margin-left: 200px; /* Adjust if necessary */
+`;
+
 const StyledContainer = styled(Container)`
     max-width: 900px;
     margin-top: 50px;
-    margin-left: 220px; /* Adjust margin to account for sidebar width */
     animation: ${fadeIn} 1s ease-in-out;
 `;
 
 const StyledCard = styled(Card)`
+    margin-top:50px;
     border-radius: 15px;
+    background-color:#dddddd;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease-in-out;
 
@@ -48,16 +54,22 @@ const StyledCard = styled(Card)`
 
 const StyledCardTitle = styled(Card.Title)`
     font-weight: bold;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     color: #007bff;
 `;
 
 const StyledHeading = styled.h1`
     font-family: 'Arial', sans-serif;
     text-align: center;
-    margin-bottom: 4rem;
-    color: #2c3e50;
+    margin-bottom: 1rem;
+    margin-top: 0.1rem;
+    color: #2c3e50; /* Adjust color for readability against the background */
     animation: ${fadeIn} 1s ease-in-out;
+`;
+
+const DietContainer = styled.div`
+    background-color: transparent; /* Ensure component has no background */
+    padding: 20px; /* Adjust padding as needed */
 `;
 
 const Diet = () => {
@@ -137,63 +149,63 @@ const Diet = () => {
     };
 
     return (
-        <DietContainer>
-        <StyledContainer>
-            <StyledHeading>Explore Your Personalized Diet Journey</StyledHeading>
+        <DietWrapper>
+            <StyledContainer>
+                <StyledHeading>Explore Your Personalized Diet Journey</StyledHeading>
 
-            {/* Image Slider */}
-            <Slider {...sliderSettings}>
-                <div>
-                    <img src="/assets/img/diet/oatmeal1.png" alt="Oatmeal 1" style={imageStyle} />
-                </div>
-                <div>
-                    <img src="/assets/img/diet/oatmeal2.png" alt="Oatmeal 2" style={imageStyle} />
-                </div>
-                <div>
-                    <img src="/assets/img/diet/oatmeal3.png" alt="Oatmeal 3" style={imageStyle} />
-                </div>
-                <div>
-                    <img src="/assets/img/diet/oatmeal4.png" alt="Oatmeal 4" style={imageStyle} />
-                </div>
-                <div>
-                    <img src="/assets/img/diet/oatmeal5.png" alt="Oatmeal 5" style={imageStyle} />
-                </div>
-                <div>
-                    <img src="/assets/img/diet/oatmeal6.png" alt="Oatmeal 6" style={imageStyle} />
-                </div>
-                <div>
-                    <img src="/assets/img/diet/oatmeal7.png" alt="Oatmeal 7" style={imageStyle} />
-                </div>
-                <div>
-                    <img src="/assets/img/diet/oatmeal8.png" alt="Oatmeal 8" style={imageStyle} />
-                </div>
-            </Slider>
+                {/* Image Slider */}
+                <Slider {...sliderSettings}>
+                    <div>
+                        <img src="/assets/img/diet/oatmeal1.png" alt="Oatmeal 1" style={imageStyle} />
+                    </div>
+                    <div>
+                        <img src="/assets/img/diet/oatmeal2.png" alt="Oatmeal 2" style={imageStyle} />
+                    </div>
+                    <div>
+                        <img src="/assets/img/diet/oatmeal3.png" alt="Oatmeal 3" style={imageStyle} />
+                    </div>
+                    <div>
+                        <img src="/assets/img/diet/oatmeal4.png" alt="Oatmeal 4" style={imageStyle} />
+                    </div>
+                    <div>
+                        <img src="/assets/img/diet/oatmeal5.png" alt="Oatmeal 5" style={imageStyle} />
+                    </div>
+                    <div>
+                        <img src="/assets/img/diet/oatmeal6.png" alt="Oatmeal 6" style={imageStyle} />
+                    </div>
+                    <div>
+                        <img src="/assets/img/diet/oatmeal7.png" alt="Oatmeal 7" style={imageStyle} />
+                    </div>
+                    <div>
+                        <img src="/assets/img/diet/oatmeal8.png" alt="Oatmeal 8" style={imageStyle} />
+                    </div>
+                </Slider>
 
-            {/* Diet Recommendation Cards */}
-            {recommendations && typeof recommendations === 'object' ? (
-                <div>
-                    <Row>
-                        {Object.entries(recommendations).map(([mealTime, meals], index) => (
-                            <Col md={6} lg={4} key={index} className="mb-4">
-                                <StyledCard>
-                                    <Card.Body>
-                                        <StyledCardTitle>{mealTime}</StyledCardTitle>
-                                        <ul>
-                                            {meals.map((meal, i) => (
-                                                <li key={i}>{meal}</li>
-                                            ))}
-                                        </ul>
-                                    </Card.Body>
-                                </StyledCard>
-                            </Col>
-                        ))}
-                    </Row>
-                </div>
-            ) : (
-                <p className="text-center">No recommendations available for your dietary preferences and health condition.</p>
-            )}
-        </StyledContainer>
-        </DietContainer>
+                {/* Diet Recommendation Cards */}
+                {recommendations && typeof recommendations === 'object' ? (
+                    <div>
+                        <Row>
+                            {Object.entries(recommendations).map(([mealTime, meals], index) => (
+                                <Col md={6} lg={4} key={index} className="mb-4">
+                                    <StyledCard>
+                                        <Card.Body>
+                                            <StyledCardTitle>{mealTime}</StyledCardTitle>
+                                            <ul>
+                                                {meals.map((meal, i) => (
+                                                    <li key={i}>{meal}</li>
+                                                ))}
+                                            </ul>
+                                        </Card.Body>
+                                    </StyledCard>
+                                </Col>
+                            ))}
+                        </Row>
+                    </div>
+                ) : (
+                    <p className="text-center">No recommendations available for your dietary preferences and health condition.</p>
+                )}
+            </StyledContainer>
+        </DietWrapper>
     );
 };
 

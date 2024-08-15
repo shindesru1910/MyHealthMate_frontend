@@ -33,6 +33,7 @@ const Sidebar = () => {
         <SidebarContainer>
             <SidebarItem href="#diet">Diet</SidebarItem>
             <SidebarItem href="#exercise">Exercises</SidebarItem>
+            <SidebarItem href="#blogs">Blogs</SidebarItem>
             {/* Add more sidebar items here */}
         </SidebarContainer>
     );

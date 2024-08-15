@@ -37,6 +37,7 @@ import SystemStatistics from './components/SystemStatistics';
 import Appointments from './components/Appointments';
 import AdminFileManagement from './components/AdminFileManagement';
 import FileUpload from './components/FileUpload';
+import Blogs from './components/Blogs';
 
 const GlobalStyle = createGlobalStyle`
     * {
@@ -99,6 +100,7 @@ function App() {
           <Route path="/get-appointments" element={<Appointments />} />
           <Route path="/file" element={<FileUpload />} />
           <Route path="/admin-file-management" element={<AdminFileManagement />} />
+          <Route path="/blogs" element={<Blogs />} />
 
         </Routes>
       </div>

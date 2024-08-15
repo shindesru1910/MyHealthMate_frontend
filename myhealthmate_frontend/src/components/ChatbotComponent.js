@@ -16,7 +16,7 @@ const ChatbotComponent = () => {
   const introMessage = `
     Hello !!<br>I'm your friendly health assistant. How can I help you today?<br>
     <button class="chatbot-button" onclick="window.open('http://localhost:3000/userlogin', '_blank')">Login</button><br>
-    <button class="chatbot-button" onclick="window.open('http://localhost:3000/appointment', '_blank')">Book Appointment</button><br>
+    <button class="chatbot-button" onclick="window.open('http://localhost:3000/appointment-form', '_blank')">Book Appointment</button><br>
     <button class="chatbot-button" onclick="window.open('http://localhost:8000/get-doctor', '_blank')">Doctors</button><br>
     <button class="chatbot-button" onclick="window.open('http://localhost:3000/diet-plans', '_blank')">Diet Plans</button><br>
     <button class="chatbot-button" onclick="window.open('https://www.example.com/exercise-plans', '_blank')">Exercise Plans</button>

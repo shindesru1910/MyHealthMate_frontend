@@ -16,14 +16,16 @@ const AppointmentForm = () => {
       try {
         // Fetch specialties
         const specialtiesResponse = await axios.get('http://127.0.0.1:8000/get-specialties');
-        setSpecialties(specialtiesResponse.data.specialties);
+        setSpecialties(specialtiesResponse.data.specialties || []);
 
         // Fetch doctors
         const doctorsResponse = await axios.get('http://127.0.0.1:8000/get-doctor');
-        setDoctors(doctorsResponse.data.data);
+        setDoctors(doctorsResponse.data.data || []);
       } catch (error) {
         console.error('Error fetching data:', error);
-        // setError('Failed to fetch data.');
+        setError('Failed to fetch data.');
+        setSpecialties([]);  // Initialize to empty array if error occurs
+        setDoctors([]);      // Initialize to empty array if error occurs
       }
     };
 
@@ -77,7 +79,6 @@ const AppointmentForm = () => {
       setLoading(false);
     }
   };
-  
 
   return (
     <div className="container">
@@ -113,7 +114,7 @@ const AppointmentForm = () => {
                 value={selectedSpecialty}
               >
                 <option value="">Select Speciality</option>
-                {specialties.map((specialty) => (
+                {specialties.length > 0 && specialties.map((specialty) => (
                   <option key={specialty} value={specialty}>{specialty}</option>
                 ))}
               </select>
@@ -129,7 +130,7 @@ const AppointmentForm = () => {
                 onChange={(e) => setSelectedDoctor(e.target.value)}
               >
                 <option value="">Select Doctor</option>
-                {filteredDoctors.map((doctor) => (
+                {filteredDoctors.length > 0 && filteredDoctors.map((doctor) => (
                   <option key={doctor.id} value={doctor.id}>{`${doctor.first_name} ${doctor.last_name}`}</option>
                 ))}
               </select>
@@ -141,7 +142,7 @@ const AppointmentForm = () => {
             </div>
           </div>
           <div className="col-12 text-center">
-            <button type="submit" className="btn btn-primary" to='/userlogin'>Submit</button>
+            <button type="submit" className="btn btn-primary">Submit</button>
           </div>
         </div>
 
@@ -154,6 +155,3 @@ const AppointmentForm = () => {
 };
 
 export default AppointmentForm;
-
-
-

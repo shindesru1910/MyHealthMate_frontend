@@ -52,7 +52,7 @@ function User() {
                         successtoast(response.data.msg);
                         setModalShow(false);
                         setUsers([...users, response.data.data]);
-                        setSearchQuery(""); 
+                        setSearchQuery("");
                     } else {
                         errortoast(response.data.msg);
                     }
@@ -89,7 +89,7 @@ function User() {
                     .then((response) => {
                         if (response.data.status === 200) {
                             setUsers(users.filter(user => user.id !== userData.id));
-                            setSearchQuery(""); 
+                            setSearchQuery("");
                             Swal.fire('Deleted!', 'User has been deleted.', 'success');
                         } else {
                             errortoast(response.data.msg);
@@ -105,17 +105,17 @@ function User() {
             unit: 'pt',
             format: 'A4'
         });
-    
+
         doc.setFontSize(18);
         doc.text("User Data", 40, 30); // Adjust the position of the title
-    
+
         const tableColumn = [
-            'First Name', 'Last Name', 'Phone', 'Email', 'Date of Birth', 
-            'Gender', 'Weight', 'Height', 'Activity Level', 
-            'Dietary Preferences', 'Health Conditions', 
+            'First Name', 'Last Name', 'Phone', 'Email', 'Date of Birth',
+            'Gender', 'Weight', 'Height', 'Activity Level',
+            'Dietary Preferences', 'Health Conditions',
             'Medical History', 'Health Goals', 'Membership Status'
         ];
-    
+
         const tableRows = filteredUsers.map(user => [
             user.first_name,
             user.last_name,
@@ -132,7 +132,7 @@ function User() {
             user.health_goals,
             user.membership_status
         ]);
-    
+
         doc.autoTable({
             startY: 50,
             head: [tableColumn],
@@ -166,10 +166,10 @@ function User() {
                 }
             }
         });
-    
+
         doc.save('user_data.pdf');
     };
-    
+
 
     return (
         <>
@@ -189,17 +189,20 @@ function User() {
                     <div className="d-flex align-items-center">
                         <div className="input-group me-3">
                             <div className="form-outline" data-mdb-input-init>
-                                <input 
-                                    type="search" 
-                                    id="form1" 
-                                    className="form-control me-4" 
+                                <input
+                                    type="search"
+                                    id="form1"
+                                    className="form-control me-4"
                                     placeholder="Search"
                                     value={searchQuery}
                                     onChange={(e) => setSearchQuery(e.target.value)}
                                 />
                             </div>
+                            <button type="button" className="btn btn-primary ms-2 mt-0">
+                                <i className="fas fa-search"></i>
+                            </button>
                         </div>
-                        <button className='btn btn-primary' onClick={() => { setFlag("add"); setEditUserData(null); setModalShow(true); }}>
+                        <button className='btn btn-light' onClick={() => { setFlag("add"); setEditUserData(null); setModalShow(true); }}>
                             <i className="bi bi-plus-lg me-1"></i>Add User
                         </button>
                     </div>

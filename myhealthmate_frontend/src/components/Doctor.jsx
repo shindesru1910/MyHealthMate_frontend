@@ -148,9 +148,12 @@ function Doctor() {
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
               </div>
+                <button type="button" className="btn btn-primary ms-2 mt-0">
+                    <i className="fas fa-search"></i>
+                </button>
             </div>
             
-            <button className='btn btn-primary' onClick={() => { setFlag("add"); setEditUserData(null); setModalShow(true); }}>
+            <button className='btn btn-light' onClick={() => { setFlag("add"); setEditUserData(null); setModalShow(true); }}>
               <i className="bi bi-plus-lg me-1"></i>Add Doctor
             </button>
           </div>

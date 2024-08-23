@@ -58,12 +58,12 @@ const HealthOverview = () => {
 
   return (
     <div style={{ width: '100%', padding: 20 }}>
-      <h2>Health Monitoring Dashboard</h2>
 
       <HealthForm onSubmit={handleFormSubmit} />
+      <h2 style={{marginTop:"10px"}}>Health Monitoring Dashboard</h2>
 
       <div>
-        <label>View Data:</label>
+        <label style={{marginRight:"10px"}}>View Data:</label>
         <select value={timeframe} onChange={(e) => setTimeframe(e.target.value)}>
           <option value="weekly">Weekly</option>
           <option value="monthly">Monthly</option>
@@ -71,7 +71,7 @@ const HealthOverview = () => {
       </div>
 
       <div style={{ width: '100%', height: 300, marginBottom: 20 }}>
-        <h3>Heart Rate</h3>
+        <h3><i class="bi bi-heart-pulse" style={{color:"red"}}></i>Heart Rate</h3>
         <ResponsiveContainer>
           <LineChart data={healthData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
             <CartesianGrid strokeDasharray="3 3" />
@@ -85,7 +85,7 @@ const HealthOverview = () => {
       </div>
 
       <div style={{ width: '100%', height: 300, marginBottom: 20 }}>
-        <h3>Blood Pressure</h3>
+        <h3><i class="bi bi-droplet" style={{color:"Red"}}></i>Blood Pressure</h3>
         <ResponsiveContainer>
           <LineChart data={healthData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
             <CartesianGrid strokeDasharray="3 3" />
@@ -100,7 +100,7 @@ const HealthOverview = () => {
       </div>
 
       <div style={{ width: '100%', height: 300, marginBottom: 20 }}>
-        <h3>Step Count</h3>
+        <h3><i class="bi bi-person-walking"></i>Step Count</h3>
         <ResponsiveContainer>
           <BarChart data={healthData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
             <CartesianGrid strokeDasharray="3 3" />

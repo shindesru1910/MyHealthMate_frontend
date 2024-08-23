@@ -89,6 +89,7 @@ const HealthForm = ({ onSubmit }) => {
             color: '#333'
           }}
         >
+            
           Heart Rate:
         </label>
         <input
@@ -233,3 +234,4 @@ const HealthForm = ({ onSubmit }) => {
 };
 
 export default HealthForm;
+

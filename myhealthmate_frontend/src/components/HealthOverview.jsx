@@ -1,5 +1,5 @@
-// src/components/HealthOverview.js
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import {
   LineChart,
   Line,
@@ -12,56 +12,74 @@ import {
   Legend,
   ResponsiveContainer
 } from 'recharts';
-
-// Sample data
-const heartRateData = [
-  { name: 'Jan', heartRate: 65 },
-  { name: 'Feb', heartRate: 70 },
-  { name: 'Mar', heartRate: 68 },
-  { name: 'Apr', heartRate: 72 },
-  { name: 'May', heartRate: 75 },
-  { name: 'Jun', heartRate: 78 },
-  { name: 'Jul', heartRate: 80 },
-];
-
-const bloodPressureData = [
-  { name: 'Jan', systolic: 120, diastolic: 80 },
-  { name: 'Feb', systolic: 122, diastolic: 82 },
-  { name: 'Mar', systolic: 118, diastolic: 78 },
-  { name: 'Apr', systolic: 125, diastolic: 85 },
-  { name: 'May', systolic: 130, diastolic: 88 },
-  { name: 'Jun', systolic: 135, diastolic: 90 },
-  { name: 'Jul', systolic: 140, diastolic: 95 },
-];
-
-const stepCountData = [
-  { name: 'Jan', steps: 8000 },
-  { name: 'Feb', steps: 8500 },
-  { name: 'Mar', steps: 9000 },
-  { name: 'Apr', steps: 9500 },
-  { name: 'May', steps: 10000 },
-  { name: 'Jun', steps: 11000 },
-  { name: 'Jul', steps: 12000 },
-];
+import HealthForm from './HealthForm';
 
 const HealthOverview = () => {
+  const [healthData, setHealthData] = useState([]);
+  const [timeframe, setTimeframe] = useState('monthly');
+
+  // Extract the user ID from local storage
+  const getUserIdFromToken = () => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const decodedToken = JSON.parse(atob(token.split('.')[1]));
+      return decodedToken.user_id;
+    }
+    return null;
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const userId = getUserIdFromToken();
+      if (!userId) {
+        console.error('User ID not found');
+        return;
+      }
+
+      try {
+        const response = await axios.get(`/fetch-health-data/`, {
+          params: {
+            user_id: userId,
+            timeframe: timeframe
+          }
+        });
+        setHealthData(response.data);
+      } catch (error) {
+        console.error('Error fetching health data:', error);
+      }
+    };
+    
+    fetchData();
+  }, [timeframe]);
+
+  const handleFormSubmit = () => {
+    setTimeframe(timeframe); // re-fetch data after form submission
+  };
+
   return (
     <div style={{ width: '100%', padding: 20 }}>
       <h2>Health Monitoring Dashboard</h2>
-      
+
+      <HealthForm onSubmit={handleFormSubmit} />
+
+      <div>
+        <label>View Data:</label>
+        <select value={timeframe} onChange={(e) => setTimeframe(e.target.value)}>
+          <option value="weekly">Weekly</option>
+          <option value="monthly">Monthly</option>
+        </select>
+      </div>
+
       <div style={{ width: '100%', height: 300, marginBottom: 20 }}>
         <h3>Heart Rate</h3>
         <ResponsiveContainer>
-          <LineChart
-            data={heartRateData}
-            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-          >
+          <LineChart data={healthData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
+            <XAxis dataKey="date" />
             <YAxis />
             <Tooltip />
             <Legend />
-            <Line type="monotone" dataKey="heartRate" stroke="#8884d8" />
+            <Line type="monotone" dataKey="heart_rate" stroke="#8884d8" />
           </LineChart>
         </ResponsiveContainer>
       </div>
@@ -69,12 +87,9 @@ const HealthOverview = () => {
       <div style={{ width: '100%', height: 300, marginBottom: 20 }}>
         <h3>Blood Pressure</h3>
         <ResponsiveContainer>
-          <LineChart
-            data={bloodPressureData}
-            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-          >
+          <LineChart data={healthData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
+            <XAxis dataKey="date" />
             <YAxis />
             <Tooltip />
             <Legend />
@@ -87,16 +102,13 @@ const HealthOverview = () => {
       <div style={{ width: '100%', height: 300, marginBottom: 20 }}>
         <h3>Step Count</h3>
         <ResponsiveContainer>
-          <BarChart
-            data={stepCountData}
-            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-          >
+          <BarChart data={healthData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
+            <XAxis dataKey="date" />
             <YAxis />
             <Tooltip />
             <Legend />
-            <Bar dataKey="steps" fill="#8884d8" />
+            <Bar dataKey="step_count" fill="#8884d8" />
           </BarChart>
         </ResponsiveContainer>
       </div>

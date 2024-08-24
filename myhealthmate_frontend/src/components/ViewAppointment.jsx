@@ -93,7 +93,16 @@ const ViewAppointment = () => {
           })
         );
 
-        setAppointments(userAppointments);
+        // Separate and sort appointments
+        const upcomingAppointments = userAppointments
+          .filter(appointment => new Date(appointment.appointment_date) > new Date())
+          .sort((a, b) => new Date(a.appointment_date) - new Date(b.appointment_date));
+
+        const completedAppointments = userAppointments
+          .filter(appointment => new Date(appointment.appointment_date) <= new Date())
+          .sort((a, b) => new Date(b.appointment_date) - new Date(a.appointment_date));
+
+        setAppointments({ upcoming: upcomingAppointments, completed: completedAppointments });
         setLoading(false);
       } catch (err) {
         setError(`Failed to load appointments: ${err.message}`);
@@ -107,36 +116,34 @@ const ViewAppointment = () => {
   if (loading) return <p>Loading appointments...</p>;
   if (error) return <p>{error}</p>;
 
+  const { upcoming, completed } = appointments;
+
   return (
     <div className="appointments-container">
       <h2>Your Appointments</h2>
-      {appointments.length === 0 ? (
-        <p>No appointments found.</p>
-      ) : (
-        <ul className="appointments-list">
-          {appointments.map((appointment) => {
-            const appointmentDate = new Date(appointment.appointment_date);
-            const isUpcoming = appointmentDate > new Date(); // Check if the appointment date is in the future
-
-            return (
-              <li key={appointment.id} className="appointment-item">
-                {isUpcoming && (
+      
+      {upcoming.length > 0 && (
+        <div className="appointments-section">
+          <h3>Upcoming Appointments</h3>
+          <ul className="appointments-list">
+            {upcoming.map((appointment) => {
+              const appointmentDate = new Date(appointment.appointment_date);
+              return (
+                <li key={appointment.id} className="appointment-item">
                   <button className="upcoming-button">Upcoming Appointment</button>
-                )}
-                <div className="appointment-details">
-                  <div className="top-row">
-                    <p><strong>Appointment ID:</strong> {appointment.id}</p>
-                    <p><strong>Date:</strong> {appointmentDate.toLocaleDateString()}</p>
-                    <p><strong>Time:</strong> {appointment.time_slot || 'Not Available'}</p> {/* Display time_slot */}
-                    <p><strong>Status:</strong> {appointment.status}</p>
+                  <div className="appointment-details">
+                    <div className="top-row">
+                      <p><strong>Appointment ID:</strong> {appointment.id}</p>
+                      <p><strong>Date:</strong> {appointmentDate.toLocaleDateString()}</p>
+                      <p><strong>Time:</strong> {appointment.time_slot || 'Not Available'}</p>
+                      <p><strong>Status:</strong> {appointment.status}</p>
+                    </div>
+                    <div className="bottom-row">
+                      <p><strong>Doctor:</strong> {appointment.doctorName}</p>
+                      <p><strong>Specialty:</strong> {appointment.doctorSpecialty}</p>
+                    </div>
+                    <p><i className="fas fa-map-marker-alt icon"></i> <strong>Location:</strong> {appointment.doctorLocation}</p>
                   </div>
-                  <div className="bottom-row">
-                    <p><strong>Doctor:</strong> {appointment.doctorName}</p>
-                    <p><strong>Specialty:</strong> {appointment.doctorSpecialty}</p>
-                  </div>
-                  <p><i className="fas fa-map-marker-alt icon"></i> <strong>Location:</strong> {appointment.doctorLocation}</p>
-                </div>
-                {isUpcoming && (
                   <button 
                     className={`cancel-button ${loadingAppointment === appointment.id ? 'loading-button' : ''}`} 
                     onClick={() => cancelAppointment(appointment.id)}
@@ -144,11 +151,43 @@ const ViewAppointment = () => {
                   >
                     {loadingAppointment === appointment.id ? 'Canceling...' : 'Cancel Appointment'}
                   </button>
-                )}
-              </li>
-            );
-          })}
-        </ul>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      )}
+
+      {completed.length > 0 && (
+        <div className="appointments-section">
+          <h3>Completed Appointments</h3>
+          <ul className="appointments-list">
+            {completed.map((appointment) => {
+              const appointmentDate = new Date(appointment.appointment_date);
+              return (
+                <li key={appointment.id} className="appointment-item">
+                  <div className="appointment-details">
+                    <div className="top-row">
+                      <p><strong>Appointment ID:</strong> {appointment.id}</p>
+                      <p><strong>Date:</strong> {appointmentDate.toLocaleDateString()}</p>
+                      <p><strong>Time:</strong> {appointment.time_slot || 'Not Available'}</p>
+                      <p><strong>Status:</strong> {appointment.status}</p>
+                    </div>
+                    <div className="bottom-row">
+                      <p><strong>Doctor:</strong> {appointment.doctorName}</p>
+                      <p><strong>Specialty:</strong> {appointment.doctorSpecialty}</p>
+                    </div>
+                    <p><i className="fas fa-map-marker-alt icon"></i> <strong>Location:</strong> {appointment.doctorLocation}</p>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      )}
+
+      {upcoming.length === 0 && completed.length === 0 && (
+        <p>No appointments found.</p>
       )}
     </div>
   );

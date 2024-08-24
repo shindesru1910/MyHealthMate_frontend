@@ -10,6 +10,9 @@ const AppointmentForm = () => {
   const [filteredDoctors, setFilteredDoctors] = useState([]);
   const [selectedSpecialty, setSelectedSpecialty] = useState('');
   const [selectedDoctor, setSelectedDoctor] = useState('');
+  const [availableTimeSlots, setAvailableTimeSlots] = useState({});
+  const [selectedTimeSlot, setSelectedTimeSlot] = useState('');
+  const [appointmentDate, setAppointmentDate] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,8 +27,8 @@ const AppointmentForm = () => {
       } catch (error) {
         console.error('Error fetching data:', error);
         setError('Failed to fetch data.');
-        setSpecialties([]);  // Initialize to empty array if error occurs
-        setDoctors([]);      // Initialize to empty array if error occurs
+        setSpecialties([]);
+        setDoctors([]);
       }
     };
 
@@ -33,26 +36,50 @@ const AppointmentForm = () => {
   }, []);
 
   useEffect(() => {
-    // Filter doctors when the selected specialty changes
     if (selectedSpecialty) {
       const filtered = doctors.filter(doc => doc.specialty === selectedSpecialty);
       setFilteredDoctors(filtered);
-      setSelectedDoctor(''); // Reset selected doctor when specialty changes
+      setSelectedDoctor('');
     } else {
       setFilteredDoctors([]);
+      setSelectedDoctor('');
     }
   }, [selectedSpecialty, doctors]);
 
+  useEffect(() => {
+    if (selectedDoctor && appointmentDate) {
+      const fetchTimeSlots = async () => {
+        try {
+          const response = await axios.get('http://127.0.0.1:8000/get-available-time-slots', {
+            params: {
+              doctor_id: selectedDoctor,
+              appointment_date: appointmentDate,
+            },
+          });
+          console.log('Available slots response:', response.data);
+          setAvailableTimeSlots(response.data.available_slots || {});
+        } catch (error) {
+          console.error('Error fetching time slots:', error);
+          setAvailableTimeSlots({});
+        }
+      };
+
+      fetchTimeSlots();
+    } else {
+      setAvailableTimeSlots({});
+    }
+  }, [selectedDoctor, appointmentDate]);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-  
+
     setLoading(true);
     setError('');
     setSuccessMessage('');
-  
+
     try {
       const formData = new FormData(event.target);
-  
+      console.log('FormData:', Object.fromEntries(formData));
       const response = await fetch('http://127.0.0.1:8000/submit-appointment', {
         method: 'POST',
         body: formData,
@@ -60,12 +87,13 @@ const AppointmentForm = () => {
           'X-Requested-With': 'XMLHttpRequest',
         },
       });
-  
+
       if (response.ok) {
         const data = await response.json();
         if (data.status === 'OK') {
           setSuccessMessage('Appointment submitted successfully.');
           event.target.reset();
+          setAvailableTimeSlots({});
         } else {
           throw new Error(data.error || 'Form submission failed.');
         }
@@ -74,7 +102,7 @@ const AppointmentForm = () => {
       }
     } catch (error) {
       setError(`Error: ${error.message}`);
-      console.error('Fetch error:', error); 
+      console.error('Fetch error:', error);
     } finally {
       setLoading(false);
     }
@@ -101,15 +129,22 @@ const AppointmentForm = () => {
           </div>
           <div className="col-lg-4 col-md-6">
             <div className="form-group">
-              <input type="date" name="date" className="form-control" required />
+              <input
+                type="date"
+                name="date"
+                className="form-control"
+                required
+                value={appointmentDate}
+                onChange={(e) => setAppointmentDate(e.target.value)}
+              />
             </div>
           </div>
           <div className="col-lg-4 col-md-6">
             <div className="form-group">
-              <select 
-                name="speciality" 
-                className="form-control" 
-                required 
+              <select
+                name="speciality"
+                className="form-control"
+                required
                 onChange={(e) => setSelectedSpecialty(e.target.value)}
                 value={selectedSpecialty}
               >
@@ -122,16 +157,38 @@ const AppointmentForm = () => {
           </div>
           <div className="col-lg-4 col-md-6">
             <div className="form-group">
-              <select 
-                name="doctor" 
-                className="form-control" 
-                required 
+              <select
+                name="doctor"
+                className="form-control"
+                required
                 value={selectedDoctor}
                 onChange={(e) => setSelectedDoctor(e.target.value)}
               >
                 <option value="">Select Doctor</option>
                 {filteredDoctors.length > 0 && filteredDoctors.map((doctor) => (
                   <option key={doctor.id} value={doctor.id}>{`${doctor.first_name} ${doctor.last_name}`}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+          <div className="col-lg-4 col-md-6">
+            <div className="form-group">
+              <select
+                name="time_slot"
+                className="form-control"
+                required
+                value={selectedTimeSlot}
+                onChange={(e) => setSelectedTimeSlot(e.target.value)}
+              >
+                <option value="">Select Time Slot</option>
+                {Object.keys(availableTimeSlots).map((time) => (
+                  <option
+                    key={time}
+                    value={time}
+                    disabled={availableTimeSlots[time] === 'Booked'}
+                  >
+                    {time} - {availableTimeSlots[time]}
+                  </option>
                 ))}
               </select>
             </div>

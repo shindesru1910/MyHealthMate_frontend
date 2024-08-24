@@ -183,12 +183,15 @@ const AppointmentForm = () => {
                 <option value="">Select Time Slot</option>
                 {Object.keys(availableTimeSlots).map((time) => (
                   <option
-                    key={time}
-                    value={time}
-                    disabled={availableTimeSlots[time] === 'Booked'}
-                  >
-                    {time} - {availableTimeSlots[time]}
-                  </option>
+                  key={time}
+                  value={time}
+                  disabled={availableTimeSlots[time] === 'Booked'}
+                  style={{
+                    color: availableTimeSlots[time] === 'Booked' ? 'gray' : 'green',
+                  }}
+                >
+                  {time} {availableTimeSlots[time] === 'Booked' ? 'Booked' : ''}
+                </option>
                 ))}
               </select>
             </div>

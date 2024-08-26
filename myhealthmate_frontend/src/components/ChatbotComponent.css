@@ -1,5 +1,4 @@
-/* src/components/ChatbotComponent.css */
-
+/* General Chatbot Styles */
 .chatbot-container {
   position: fixed;
   bottom: 90px;
@@ -14,7 +13,6 @@
   flex-direction: column;
   z-index: 1000; /* Ensure the chatbot is on top */
 }
-
 .chatbot-header {
   padding: 10px;
   border-bottom: 1px solid #ccc;
@@ -22,6 +20,7 @@
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   text-align: center;
+  color: #007bff;
 }
 
 .chatbot-messages {
@@ -54,27 +53,41 @@
   margin-right: auto;
 }
 
-.chatbot-input {
-  display: flex;
-  padding: 10px;
-  border-top: 1px solid #ccc;
-}
-
-.chatbot-input input {
-  flex: 1;
+/* Dropdowns inside Chatbot */
+.chatbot-dropdowns {
   padding: 5px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  background-color: #fff;
+  border-top: 1px solid #ccc;
+  position: absolute;
+  bottom: 40px; /* Adjust to fit inside the container */
+  width: calc(100% - 20px); /* Full width minus padding */
+  left: 10px; /* Align with chatbot padding */
+  z-index: 999; /* Ensure dropdowns are on top of other elements */
 }
 
-.chatbot-input button {
-  margin-left: 10px;
-  padding: 5px 10px;
-  border: none;
-  border-radius: 5px;
+.chatbot-dropdowns select,
+.chatbot-dropdowns button {
+  margin-bottom: 10px;
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+}
+
+.chatbot-dropdowns select {
+  padding: 5px;
+}
+
+.chatbot-dropdowns button {
   background-color: #007bff;
   color: #fff;
+  padding: 10px;
   cursor: pointer;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.chatbot-dropdowns button:hover {
+  background-color: #0056b3;
 }
 
 /* Media queries for responsiveness */
@@ -115,39 +128,6 @@
   text-decoration: underline;
 }
 
-/* Add styles to ensure links are visually clear and accessible */
-.chatbot-message a {
-  color: #007bff;
-  text-decoration: none;
-}
-
-.chatbot-message a:hover {
-  text-decoration: underline;
-}
-
-/* Add styles to ensure links are visually clear and accessible */
-.chatbot-message a {
-  color: #007bff;
-  text-decoration: none;
-}
-
-.chatbot-message a:hover {
-  text-decoration: underline;
-}
-
-/* src/components/ChatbotComponent.css */
-
-/* Add styles to ensure links are visually clear and accessible */
-/* Chatbot message links */
-.chatbot-message a {
-  color: #007bff;
-  text-decoration: none;
-}
-
-.chatbot-message a:hover {
-  text-decoration: underline;
-}
-
 /* Style for buttons in messages */
 .chatbot-message .chatbot-button {
   display: inline-block;
@@ -155,11 +135,11 @@
   background-color: transparent; /* Transparent background */
   color: blue; /* Blue text color */
   padding: 8px 16px; /* Padding for the button */
-  border-radius: 20px; /* Rounded corners */
+  border-radius: 40px; /* Rounded corners */
   cursor: pointer; /* Pointer cursor on hover */
   margin: 5px; /* Space between buttons */
   transition: background-color 0.3s ease; /* Smooth transition */
-  width: 300px; /* Fixed width for uniformity */
+  width: 100%; /* Adjust to fit within the container */
   text-align: center; /* Center align text */
   text-overflow: ellipsis; /* Handle overflow text */
   overflow: hidden; /* Hide overflow text */
@@ -200,4 +180,33 @@
 #doctor-table th {
   background-color: #f4f4f4;
   text-align: left;
+}
+.doctor-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 10px;
+  background-color: #f9f9f9;
+}
+
+.doctor-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.doctor-card h4 {
+  margin: 0 0 10px;
+  color: #007bff;
+}
+
+.doctor-card p {
+  margin: 5px 0;
+  color: #333;
+}
+
+.doctor-card strong {
+  font-weight: bold;
 }

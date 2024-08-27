@@ -3,9 +3,11 @@ import axios from 'axios';
 import {jwtDecode} from 'jwt-decode'; // Correct import
 import Swal from 'sweetalert2';
 import './ViewAppointment.css';
+import moment from 'moment';
 
 const ViewAppointment = () => {
-  const [appointments, setAppointments] = useState([]);
+  const [upcomingAppointments, setUpcomingAppointments] = useState([]);
+  const [completedAppointments, setCompletedAppointments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [loadingAppointment, setLoadingAppointment] = useState(null);
   const [error, setError] = useState(null);
@@ -46,7 +48,8 @@ const ViewAppointment = () => {
         });
 
         if (response.data.status === 200) {
-          setAppointments(appointments.filter(appointment => appointment.id !== appointmentId));
+          setUpcomingAppointments(prev => prev.filter(appointment => appointment.id !== appointmentId));
+          setCompletedAppointments(prev => prev.filter(appointment => appointment.id !== appointmentId));
           Swal.fire('Cancelled!', 'Your appointment has been cancelled.', 'success');
         } else {
           setError(`Failed to cancel appointment: ${response.data.msg}`);
@@ -94,15 +97,16 @@ const ViewAppointment = () => {
         );
 
         // Separate and sort appointments
-        const upcomingAppointments = userAppointments
+        const upcoming = userAppointments
           .filter(appointment => new Date(appointment.appointment_date) > new Date())
           .sort((a, b) => new Date(a.appointment_date) - new Date(b.appointment_date));
 
-        const completedAppointments = userAppointments
+        const completed = userAppointments
           .filter(appointment => new Date(appointment.appointment_date) <= new Date())
           .sort((a, b) => new Date(b.appointment_date) - new Date(a.appointment_date));
 
-        setAppointments({ upcoming: upcomingAppointments, completed: completedAppointments });
+        setUpcomingAppointments(upcoming);
+        setCompletedAppointments(completed);
         setLoading(false);
       } catch (err) {
         setError(`Failed to load appointments: ${err.message}`);
@@ -116,17 +120,15 @@ const ViewAppointment = () => {
   if (loading) return <p>Loading appointments...</p>;
   if (error) return <p>{error}</p>;
 
-  const { upcoming, completed } = appointments;
-
   return (
     <div className="appointments-container">
       <h2>Your Appointments</h2>
       
-      {upcoming.length > 0 && (
+      {upcomingAppointments.length > 0 && (
         <div className="appointments-section">
           <h3>Upcoming Appointments</h3>
           <ul className="appointments-list">
-            {upcoming.map((appointment) => {
+            {upcomingAppointments.map((appointment) => {
               const appointmentDate = new Date(appointment.appointment_date);
               return (
                 <li key={appointment.id} className="appointment-item">
@@ -134,7 +136,7 @@ const ViewAppointment = () => {
                   <div className="appointment-details">
                     <div className="top-row">
                       <p><strong>Appointment ID:</strong> {appointment.id}</p>
-                      <p><strong>Date:</strong> {appointmentDate.toLocaleDateString()}</p>
+                      <p><strong>Date:</strong> {moment(appointmentDate).format('DD/MM/YYYY')}</p>
                       <p><strong>Time:</strong> {appointment.time_slot || 'Not Available'}</p>
                       <p><strong>Status:</strong> {appointment.status}</p>
                     </div>
@@ -158,18 +160,18 @@ const ViewAppointment = () => {
         </div>
       )}
 
-      {completed.length > 0 && (
+      {completedAppointments.length > 0 && (
         <div className="appointments-section">
           <h3>Completed Appointments</h3>
           <ul className="appointments-list">
-            {completed.map((appointment) => {
+            {completedAppointments.map((appointment) => {
               const appointmentDate = new Date(appointment.appointment_date);
               return (
                 <li key={appointment.id} className="appointment-item">
                   <div className="appointment-details">
                     <div className="top-row">
                       <p><strong>Appointment ID:</strong> {appointment.id}</p>
-                      <p><strong>Date:</strong> {appointmentDate.toLocaleDateString()}</p>
+                      <p><strong>Date:</strong> {moment(appointmentDate).format('DD/MM/YYYY')}</p>
                       <p><strong>Time:</strong> {appointment.time_slot || 'Not Available'}</p>
                       <p><strong>Status:</strong> {appointment.status}</p>
                     </div>
@@ -186,7 +188,7 @@ const ViewAppointment = () => {
         </div>
       )}
 
-      {upcoming.length === 0 && completed.length === 0 && (
+      {upcomingAppointments.length === 0 && completedAppointments.length === 0 && (
         <p>No appointments found.</p>
       )}
     </div>

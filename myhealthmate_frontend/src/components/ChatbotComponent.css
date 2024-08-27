@@ -210,3 +210,8 @@
 .doctor-card strong {
   font-weight: bold;
 }
+.loading-indicator {
+  text-align: center;
+  font-size: 1.2em;
+  color: #007bff;
+}

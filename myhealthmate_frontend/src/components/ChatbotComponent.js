@@ -181,8 +181,10 @@ import React, { useState, useEffect, useRef } from 'react';
 import './ChatbotComponent.css';
 import sendSound from './Csend.mp3'; // sound files
 import receiveSound from './Csend.mp3';
+import { useNavigate } from 'react-router-dom';
 
 const ChatbotComponent = () => {
+  const navigate = useNavigate();
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [doctors, setDoctors] = useState([]);
@@ -329,6 +331,9 @@ const ChatbotComponent = () => {
       ]);
     }
   };
+  const handleBookAppointment = () => {
+    navigate(`/appointment-form/`);
+  };
 
   const generateSpecialtyAndLocationButtons = () => (
     <div className="chatbot-dropdowns">
@@ -361,6 +366,7 @@ const ChatbotComponent = () => {
             <p><i className="fas fa-user-md"></i> <strong>Specialty:</strong> {doctor.specialty}</p>
             <p><i className="bi bi-telephone"></i> <strong>Contact Info:</strong> {doctor.contact_info}</p>
             <p><i className="fas fa-map-marker-alt icon"></i> <strong>Location:</strong> {doctor.location}</p>
+            <button className="chatbot-button" onClick={() => handleBookAppointment(doctor.id)}>Book Appointment</button>
           </div>
         ))}
       </div>

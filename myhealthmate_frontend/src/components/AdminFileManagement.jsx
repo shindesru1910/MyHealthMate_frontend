@@ -146,10 +146,10 @@ const AdminFileManagement = () => {
                         className="form-control"
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)} // Update search query
-                        placeholder="Search by filename or uploaded by"
+                        placeholder="Search"
                     />
                 </div>
-                <button type="button" className="btn btn-primary">
+                <button type="button" className="btn btn-primary ms-2 mt-0">
                     <i className="fas fa-search"></i>
                 </button>
             </div>

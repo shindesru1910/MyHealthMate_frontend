@@ -32,11 +32,11 @@ function GetFeedback() {
             const firstName = feedback.user?.first_name?.toLowerCase() || '';
             const lastName = feedback.user?.last_name?.toLowerCase() || '';
             const createdAt = feedback.created_at?.toLowerCase() || '';
-    
+
             // Check if any of the fields include the search query
             return firstName.includes(lowercasedQuery) ||
-                   lastName.includes(lowercasedQuery) ||
-                   createdAt.includes(lowercasedQuery);
+                lastName.includes(lowercasedQuery) ||
+                createdAt.includes(lowercasedQuery);
         });
         setFilteredFeedbacks(filtered);
     }, [searchQuery, feedbacks])
@@ -77,15 +77,18 @@ function GetFeedback() {
                     <div className="d-flex align-items-center">
                         <div className="input-group me-3">
                             <div className="form-outline" data-mdb-input-init>
-                                <input 
-                                    type="search" 
-                                    id="form1" 
-                                    className="form-control me-4" 
+                                <input
+                                    type="search"
+                                    id="form1"
+                                    className="form-control me-4"
                                     placeholder="Search"
                                     value={searchQuery}
                                     onChange={(e) => setSearchQuery(e.target.value)}
                                 />
                             </div>
+                            <button type="button" className="btn btn-primary ms-2 mt-0">
+                                <i className="fas fa-search"></i>
+                            </button>
                         </div>
                     </div>
                 </div>

@@ -176,182 +176,202 @@
 
 // export default ChatbotComponent;
 
-
+//final
 import React, { useState, useEffect, useRef } from 'react';
 import './ChatbotComponent.css';
 import sendSound from './Csend.mp3';
 import receiveSound from './Csend.mp3';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const ChatbotComponent = () => {
+  const navigate = useNavigate();
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [doctors, setDoctors] = useState([]);
   const [specialties, setSpecialties] = useState([]);
   const [locations, setLocations] = useState([]);
+  const [selectedSpecialty, setSelectedSpecialty] = useState('');
+  const [selectedLocation, setSelectedLocation] = useState('');
+  const [showDropdowns, setShowDropdowns] = useState(false);
   const [typing, setTyping] = useState(false);
   const messagesEndRef = useRef(null);
   const sendAudioRef = useRef(null);
   const receiveAudioRef = useRef(null);
 
-  const introMessage = `
-    Hello !!<br>I'm your friendly health assistant. How can I help you today?<br>
-    <button id="doctors-button" class="chatbot-button">Doctors</button><br>
-    <button class="chatbot-button" onclick="window.open('/userlogin', '_blank')">Login</button><br>
-    <button class="chatbot-button" onclick="window.open('/appointment-form', '_blank')">Book Appointment</button><br>
-    <button class="chatbot-button" onclick="window.open('/diet-plans', '_blank')">Diet Plans</button><br>
-    <button class="chatbot-button" onclick="window.open('/exercise-plans', '_blank')">Exercise Plans</button>
-  `;
+  const predefinedQA = {
+    hello: "Hi there! How can I assist you today?",
+    hi: "Hey! Tell me how can I help you?",
+    "how are you": "I'm a chatbot, so I don't have feelings, but I'm here to help you!",
+    "what is your name": "I am MyHealthMate, your friendly chatbot assistant.",
+    "what can you do": "I can help answer your questions and assist with basic tasks.",
+    doctors: "Please select a specialty and location to find doctors."
+  };
+
+  const introMessage = (
+    <div>
+      Hello !!<br />I'm your friendly health assistant. How can I help you today?<br />
+      <button className="chatbot-button" onClick={() => window.open('http://localhost:3000/userlogin', '_blank')}>Login</button><br />
+      <button className="chatbot-button" onClick={() => window.open('http://localhost:3000/appointment-form', '_blank')}>Book Appointment</button><br />
+      <button className="chatbot-button" onClick={() => handleSendMessage('doctors')}>Doctors</button><br />
+      <button className="chatbot-button" onClick={() => window.open('http://localhost:3000/diet-plans', '_blank')}>Diet Plans</button><br />
+      <button className="chatbot-button" onClick={() => window.open('https://www.example.com/exercise-plans', '_blank')}>Exercise Plans</button>
+    </div>
+  );
 
   useEffect(() => {
-    const fetchSpecialtiesAndLocations = async () => {
-      try {
-        const { data } = await axios.get('/get-specialties-and-locations');
-        console.log('Fetched Specialties and Locations:', data.data);
-        setSpecialties(data.data.specialties);
-        setLocations(data.data.locations);
-      } catch (error) {
-        console.error('Error fetching specialties and locations:', error);
-      }
-    };
-
     setMessages([{ text: introMessage, user: 'bot' }]);
-    fetchSpecialtiesAndLocations();
-
-    // Attach event listener to Doctors button after rendering
-    setTimeout(() => {
-      const doctorsButton = document.getElementById('doctors-button');
-      if (doctorsButton) {
-        doctorsButton.addEventListener('click', handleDoctorsClick);
-      }
-    }, 100);
   }, []);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
-  const playSound = (ref) => {
-    ref.current?.play();
+  const fetchSpecialtiesAndLocations = async (specialty = '') => {
+    try {
+      const response = await fetch(`http://localhost:8000/get-specialties-and-locations?specialty=${specialty}`);
+      const result = await response.json();
+      if (result.status === 200) {
+        setSpecialties(result.specialties || []);
+        setLocations(result.locations || []);
+        setShowDropdowns(true); // Show dropdowns after fetching data
+      } else {
+        console.error('Failed to fetch specialties and locations:', result);
+      }
+    } catch (error) {
+      console.error('Error fetching specialties and locations:', error);
+    }
   };
 
-  const handleSendMessage = () => {
-    if (input.trim()) {
-      const userMessage = input.trim().toLowerCase();
+  const fetchDoctors = async (specialty, location) => {
+    try {
+      const response = await fetch(`http://localhost:8000/get-doctors?specialty=${specialty}&location=${location}`);
+      const result = await response.json();
+      if (result.status === 200) {
+        setDoctors(result.data || []);
+        setMessages(prevMessages => [
+          ...prevMessages,
+          { text: generateDoctorCards(result.data || []), user: 'bot' }
+        ]);
+      } else {
+        console.error('Failed to fetch doctors:', result);
+        setMessages(prevMessages => [
+          ...prevMessages,
+          { text: 'No doctors available.', user: 'bot' }
+        ]);
+      }
+    } catch (error) {
+      console.error('Error fetching doctors:', error);
+      setMessages(prevMessages => [
+        ...prevMessages,
+        { text: 'An error occurred while fetching doctors.', user: 'bot' }
+      ]);
+    }
+  };
+
+  const playSendSound = () => {
+    sendAudioRef.current.play();
+  };
+
+  const playReceiveSound = () => {
+    receiveAudioRef.current.play();
+  };
+
+  const handleSendMessage = async (message = null) => {
+    const userMessage = message ? message.toLowerCase() : input.trim().toLowerCase();
+
+    if (userMessage) {
+      const botResponse = predefinedQA[userMessage] || "Sorry, I don't understand that question.";
 
       setMessages([...messages, { text: input, user: 'me' }]);
       setInput('');
-      playSound(sendAudioRef);
+      playSendSound();
       setTyping(true);
 
-      setTimeout(() => {
-        let botResponse = "Sorry, I don't understand that question.";
-
+      setTimeout(async () => {
         if (userMessage === 'doctors') {
-          handleDoctorsClick();
-          setTyping(false);
-          return;
+          await fetchSpecialtiesAndLocations();
+          setMessages(prevMessages => [
+            ...prevMessages,
+            { text: 'Here is Doctors Information :', user: 'bot' }
+          ]);
+        } else {
+          setShowDropdowns(false); // Hide dropdowns for other messages
+          setMessages(prevMessages => [...prevMessages, { text: botResponse, user: 'bot' }]);
         }
 
-        setMessages((prevMessages) => [
-          ...prevMessages,
-          { text: botResponse, user: 'bot' }
-        ]);
         setTyping(false);
-        playSound(receiveAudioRef);
+        playReceiveSound();
       }, 500);
     }
   };
 
-  const handleDoctorsClick = () => {
-    const specialtiesOptions = specialties.map(s => `<option value="${s}">${s}</option>`).join('');
-    const locationsOptions = locations.map(l => `<option value="${l}">${l}</option>`).join('');
-
-    const botResponse = `
-      Please select a specialty and location:<br>
-      <select id="specialty-select">
-        <option value="">Select Specialty</option>
-        ${specialtiesOptions}
-      </select><br>
-      <select id="location-select">
-        <option value="">Select Location</option>
-        ${locationsOptions}
-      </select><br>
-      <button id="search-doctors-button" class="chatbot-button">Search Doctors</button>
-    `;
-
-    setMessages((prevMessages) => [
-      ...prevMessages,
-      { text: botResponse, user: 'bot' }
-    ]);
-    playSound(receiveAudioRef);
-
-    setTimeout(() => {
-      const searchDoctorsButton = document.getElementById('search-doctors-button');
-      if (searchDoctorsButton) {
-        searchDoctorsButton.addEventListener('click', handleSearchDoctors);
-      }
-    }, 100);
+  const handleSpecialtyChange = async (event) => {
+    const specialty = event.target.value;
+    setSelectedSpecialty(specialty);
+    if (specialty) {
+      // Fetch locations for the selected specialty
+      await fetchSpecialtiesAndLocations(specialty);
+    } else {
+      setLocations([]); // Clear locations if no specialty is selected
+    }
   };
 
-  const handleSearchDoctors = () => {
-    const specialty = document.getElementById('specialty-select').value;
-    const location = document.getElementById('location-select').value;
+  const handleLocationChange = (event) => {
+    setSelectedLocation(event.target.value);
+  };
 
-    if (!specialty || !location) {
-      setMessages((prevMessages) => [
+  const handleFindDoctorsClick = async () => {
+    if (selectedSpecialty && selectedLocation) {
+      await fetchDoctors(selectedSpecialty, selectedLocation);
+      setShowDropdowns(false); // Hide dropdowns after fetching doctors
+    } else {
+      setMessages(prevMessages => [
         ...prevMessages,
-        { text: 'Please select both a specialty and a location.', user: 'bot' }
+        { text: 'Please select both specialty and location.', user: 'bot' }
       ]);
-      playSound(receiveAudioRef);
-      return;
-    }
-
-    fetchFilteredDoctors(specialty, location);
-  };
-
-  const fetchFilteredDoctors = async (specialty, location) => {
-    try {
-      const { data } = await axios.get('http://localhost:8000/get-doctors', { params: { specialty, location } });
-      setDoctors(data.data);
-      displayDoctorTable();
-    } catch (error) {
-      console.error('Error fetching doctors:', error);
     }
   };
+  const handleBookAppointment = () => {
+    navigate(`/appointment-form/`);
+  };
 
-  const displayDoctorTable = () => {
-    const doctorTable = doctors.length
-      ? `
-        <table>
-          <thead>
-            <tr>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Specialty</th>
-              <th>Contact Info</th>
-              <th>Location</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${doctors.map(doctor => `
-              <tr>
-                <td>${doctor.first_name}</td>
-                <td>${doctor.last_name}</td>
-                <td>${doctor.specialty}</td>
-                <td>${doctor.contact_info}</td>
-                <td>${doctor.location}</td>
-              </tr>
-            `).join('')}
-          </tbody>
-        </table>`
-      : 'No doctors available for the selected criteria.';
+  const generateSpecialtyAndLocationButtons = () => (
+    <div className="chatbot-dropdowns">
+      <label htmlFor="specialty">Select Specialty:</label>
+      <select id="specialty" value={selectedSpecialty} onChange={handleSpecialtyChange}>
+        <option value="">--Select Specialty--</option>
+        {specialties.map(specialty => (
+          <option key={specialty} value={specialty}>{specialty}</option>
+        ))}
+      </select><br />
+      <label htmlFor="location">Select Location:</label>
+      <select id="location" value={selectedLocation} onChange={handleLocationChange}>
+        <option value="">--Select Location--</option>
+        {locations.map(location => (
+          <option key={location} value={location}>{location}</option>
+        ))}
+      </select><br />
+      <button className="chatbot-button" onClick={handleFindDoctorsClick}>Find Doctors</button>
+    </div>
+  );
 
-    setMessages((prevMessages) => [
-      ...prevMessages,
-      { text: doctorTable, user: 'bot' }
-    ]);
-    playSound(receiveAudioRef);
+  const generateDoctorCards = (doctors) => {
+    if (doctors.length === 0) return 'No doctors available.';
+
+    return (
+      <div className="doctor-cards">
+        {doctors.map((doctor, index) => (
+          <div key={index} className="doctor-card">
+            <h4>{doctor.first_name} {doctor.last_name}</h4>
+            <p><i className="fas fa-user-md"></i> <strong>Specialty:</strong> {doctor.specialty}</p>
+            <p><i className="bi bi-telephone"></i> <strong>Contact Info:</strong> {doctor.contact_info}</p>
+            <p><i className="fas fa-map-marker-alt icon"></i> <strong>Location:</strong> {doctor.location}</p>
+            <button className="chatbot-button" onClick={() => handleBookAppointment(doctor.id)}>Book Appointment</button>
+          </div>
+        ))}
+      </div>
+    );
   };
 
   return (
@@ -361,11 +381,9 @@ const ChatbotComponent = () => {
       </div>
       <div className="chatbot-messages">
         {messages.map((msg, index) => (
-          <div
-            key={index}
-            className={`chatbot-message ${msg.user}`}
-            dangerouslySetInnerHTML={{ __html: msg.text }}
-          />
+          <div key={index} className={`chatbot-message ${msg.user}`}>
+            {msg.text}
+          </div>
         ))}
         {typing && (
           <div className="chatbot-message bot typing-indicator">
@@ -380,10 +398,11 @@ const ChatbotComponent = () => {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-          placeholder="Type a message..."
+          placeholder="Type your message here..."
         />
-        <button onClick={handleSendMessage}>Send</button>
+        <button onClick={() => handleSendMessage()}>Send</button>
       </div>
+      {showDropdowns && generateSpecialtyAndLocationButtons()}
       <audio ref={sendAudioRef} src={sendSound} />
       <audio ref={receiveAudioRef} src={receiveSound} />
     </div>

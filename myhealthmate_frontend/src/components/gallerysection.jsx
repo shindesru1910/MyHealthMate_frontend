@@ -5,7 +5,7 @@ const GallerySection = () => {
     <section id="gallery" className="gallery section">
       <div className="container section-title" >
         <h2>Gallery</h2>
-        <p>"A glimpse into our world."</p>
+        <p>"A glimpse into our world."</p> <br />
       </div>
 
       <div className="container-fluid"  data-aos-delay="100">

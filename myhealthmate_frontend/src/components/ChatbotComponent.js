@@ -179,8 +179,9 @@
 //final
 import React, { useState, useEffect, useRef } from 'react';
 import './ChatbotComponent.css';
-import sendSound from './Csend.mp3'; // sound files
+import sendSound from './Csend.mp3';
 import receiveSound from './Csend.mp3';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const ChatbotComponent = () => {
@@ -409,3 +410,4 @@ const ChatbotComponent = () => {
 };
 
 export default ChatbotComponent;
+

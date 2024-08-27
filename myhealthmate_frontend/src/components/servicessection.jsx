@@ -104,7 +104,7 @@ const ServicesSection = () => {
       {/* Section Title */}
       <div className="container section-title">
         <h2>Services</h2>
-        <p>"Discover What We Offer."</p>
+        <p>"Discover What We Offer."</p><br />
       </div>
       {/* End Section Title */}
 

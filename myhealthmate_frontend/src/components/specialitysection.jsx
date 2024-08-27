@@ -7,7 +7,7 @@ const SpecialitySection = () => {
       {/* Section Title */}
       <div className="container section-title" >
         <h2>Specialist</h2>
-        <p>"Specialized expertise for individualized health solutions."</p>
+        <p>"Specialized expertise for individualized health solutions."</p> <br />
       </div>
       
       {/* specialist Content */}

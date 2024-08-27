@@ -201,7 +201,7 @@ export default function UserPage() {
     "You can track your health metrics easily from the Health Overview!",
     "Submit feedback to help us improve your experience!",
     "Upgrade to Premium for more personalized health recommendations!",
-    "You can upload your medical files fron the Medical History"
+    "You can upload your medical files froms the Medical History"
   ];
 
   useEffect(() => {

@@ -176,8 +176,7 @@
 
 // export default ChatbotComponent;
 
-
-//srushti
+//final
 import React, { useState, useEffect, useRef } from 'react';
 import './ChatbotComponent.css';
 import sendSound from './Csend.mp3'; // sound files
@@ -199,10 +198,11 @@ const ChatbotComponent = () => {
 
   const predefinedQA = {
     hello: "Hi there! How can I assist you today?",
+    hi: "Hey! Tell me how can I help you?",
     "how are you": "I'm a chatbot, so I don't have feelings, but I'm here to help you!",
     "what is your name": "I am MyHealthMate, your friendly chatbot assistant.",
     "what can you do": "I can help answer your questions and assist with basic tasks.",
-    "doctors": "Please select a specialty and location to find doctors."
+    doctors: "Please select a specialty and location to find doctors."
   };
 
   const introMessage = (
@@ -224,9 +224,9 @@ const ChatbotComponent = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
-  const fetchSpecialtiesAndLocations = async () => {
+  const fetchSpecialtiesAndLocations = async (specialty = '') => {
     try {
-      const response = await fetch('http://localhost:8000/get-specialties-and-locations');
+      const response = await fetch(`http://localhost:8000/get-specialties-and-locations?specialty=${specialty}`);
       const result = await response.json();
       if (result.status === 200) {
         setSpecialties(result.specialties || []);
@@ -303,8 +303,15 @@ const ChatbotComponent = () => {
     }
   };
 
-  const handleSpecialtyChange = (event) => {
-    setSelectedSpecialty(event.target.value);
+  const handleSpecialtyChange = async (event) => {
+    const specialty = event.target.value;
+    setSelectedSpecialty(specialty);
+    if (specialty) {
+      // Fetch locations for the selected specialty
+      await fetchSpecialtiesAndLocations(specialty);
+    } else {
+      setLocations([]); // Clear locations if no specialty is selected
+    }
   };
 
   const handleLocationChange = (event) => {
@@ -343,51 +350,22 @@ const ChatbotComponent = () => {
     </div>
   );
 
-  // const generateDoctorTable = (doctors) => {
-  //   if (doctors.length === 0) return 'No doctors available.';
-  //   return (
-  //     <table>
-  //       <thead>
-  //         <tr>
-  //           <th>First Name</th>
-  //           <th>Last Name</th>
-  //           <th>Specialty</th>
-  //           <th>Contact Info</th>
-  //           <th>Location</th>
-  //         </tr>
-  //       </thead>
-  //       <tbody>
-  //         {doctors.map((doctor, index) => (
-  //           <tr key={index}>
-  //             <td>{doctor.first_name}</td>
-  //             <td>{doctor.last_name}</td>
-  //             <td>{doctor.specialty}</td>
-  //             <td>{doctor.contact_info}</td>
-  //             <td>{doctor.location}</td>
-  //           </tr>
-  //         ))}
-  //       </tbody>
-  //     </table>
-  //   );
-  // };
   const generateDoctorCards = (doctors) => {
-  if (doctors.length === 0) return 'No doctors available.';
-  
-  return (
-    <div className="doctor-cards">
-      {doctors.map((doctor, index) => (
-        <div key={index} className="doctor-card">
-          <h4>{doctor.first_name} {doctor.last_name}</h4>
-          <p><i class="fas fa-user-md"></i> <strong>Specialty:</strong> {doctor.specialty}</p>
-          <p><i class="bi bi-telephone"></i> <strong>Contact Info:</strong> {doctor.contact_info}</p>
-          <p><i className="fas fa-map-marker-alt icon"></i> <strong>Location:</strong> {doctor.location}</p>
-          {/* <p><strong>Reviews:</strong> {doctor.reviews}</p> */}
-        </div>
-      ))}
-    </div>
-  );
-};
+    if (doctors.length === 0) return 'No doctors available.';
 
+    return (
+      <div className="doctor-cards">
+        {doctors.map((doctor, index) => (
+          <div key={index} className="doctor-card">
+            <h4>{doctor.first_name} {doctor.last_name}</h4>
+            <p><i className="fas fa-user-md"></i> <strong>Specialty:</strong> {doctor.specialty}</p>
+            <p><i className="bi bi-telephone"></i> <strong>Contact Info:</strong> {doctor.contact_info}</p>
+            <p><i className="fas fa-map-marker-alt icon"></i> <strong>Location:</strong> {doctor.location}</p>
+          </div>
+        ))}
+      </div>
+    );
+  };
 
   return (
     <div className="chatbot-container">
@@ -396,10 +374,7 @@ const ChatbotComponent = () => {
       </div>
       <div className="chatbot-messages">
         {messages.map((msg, index) => (
-          <div
-            key={index}
-            className={`chatbot-message ${msg.user}`}
-          >
+          <div key={index} className={`chatbot-message ${msg.user}`}>
             {msg.text}
           </div>
         ))}
@@ -416,7 +391,7 @@ const ChatbotComponent = () => {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-          placeholder="Type a message..."
+          placeholder="Type your message here..."
         />
         <button onClick={() => handleSendMessage()}>Send</button>
       </div>

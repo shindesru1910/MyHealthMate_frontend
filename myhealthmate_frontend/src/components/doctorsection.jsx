@@ -42,7 +42,7 @@ const DoctorsSection = () => {
       {/* Section Title */}
       <div className="container section-title">
         <h2>Doctors</h2>
-        <p>"Our trusted doctors to help you achieve better health."</p>
+        <p>"Our trusted doctors to help you achieve better health."</p> <br />
       </div>
 
       {/* Doctors Content */}

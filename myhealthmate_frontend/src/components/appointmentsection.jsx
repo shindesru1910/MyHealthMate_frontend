@@ -13,7 +13,7 @@ const AppointmentSection = () => {
               <h3>Appointments</h3>
               <p>
                 "Book Your Appointments with Ease."
-              </p>
+              </p> <br />
             </div>
             <AppointmentForm />
           </div>

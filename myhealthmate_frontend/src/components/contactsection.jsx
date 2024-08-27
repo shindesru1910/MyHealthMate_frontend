@@ -5,7 +5,7 @@ const ContactSection = () => {
     <section id="contact" className="contact section">
       <div className="container section-title" >
         <h2>Contact</h2>
-        <p>"Get in touch with us."</p>
+        <p>"Get in touch with us."</p> <br />
       </div>
 
       <div className="mb-5"  data-aos-delay="200">

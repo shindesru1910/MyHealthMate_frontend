@@ -184,6 +184,10 @@ const ChatbotComponent = () => {
             <p><i className="fas fa-user-md"></i> <strong>Specialty:</strong> {doctor.specialty}</p>
             <p><i className="bi bi-telephone"></i> <strong>Contact Info:</strong> {doctor.contact_info}</p>
             <p><i className="fas fa-map-marker-alt icon"></i> <strong>Location:</strong> {doctor.location}</p>
+            <button
+            className="chatbot-button"
+            onClick={() => window.open('/appointment-form', '_blank')}
+          >Book an Appointment</button>
           </div>
         ))}
       </div>

@@ -34,8 +34,8 @@ const ChatbotComponent = () => {
       <button className="chatbot-button" onClick={() => window.open('http://localhost:3000/userlogin', '_blank')}>Login</button><br />
       <button className="chatbot-button" onClick={() => window.open('http://localhost:3000/appointment-form', '_blank')}>Book Appointment</button><br />
       <button className="chatbot-button" onClick={() => handleSendMessage('doctors')}>Doctors</button><br />
-      <button className="chatbot-button" onClick={() => window.open('http://localhost:3000/diet-plans', '_blank')}>Diet Plans</button><br />
-      <button className="chatbot-button" onClick={() => window.open('https://www.example.com/exercise-plans', '_blank')}>Exercise Plans</button>
+      <button className="chatbot-button" onClick={() => window.open('https://www.healthline.com/nutrition/best-diet-plans', '_blank')}>Diet Plans</button><br />
+      <button className="chatbot-button" onClick={() => window.open('https://www.health.com/fitness/workout-schedule', '_blank')}>Exercise Plans</button>
     </div>
   );
 

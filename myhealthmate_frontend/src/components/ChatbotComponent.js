@@ -35,7 +35,7 @@ const ChatbotComponent = () => {
     doctors: "Please select a specialty and location to find doctors."
   };
 
-  // Define the handleBookAppointment function here
+  // handle BookAppointment function here
   const handleBookAppointment = () => {
     const token = localStorage.getItem('token');
     if (token) {

@@ -1,16 +1,18 @@
+//non-round
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 const DoctorsSection = () => {
   const [doctors, setDoctors] = useState([]);
   const [error, setError] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [doctorsPerPage] = useState(4); // Number of doctors to display per page
 
   useEffect(() => {
     const fetchDoctors = async () => {
       try {
         const response = await axios.get('http://127.0.0.1:8000/get-doctor');
         console.log('API response:', response.data);
-        // setDoctors(response.data.doctors);
         if (Array.isArray(response.data.data)) {
           setDoctors(response.data.data);
         } else {
@@ -19,15 +21,12 @@ const DoctorsSection = () => {
         }
       } catch (error) {
         if (error.response) {
-          // Server responded with a status code that falls out of the range of 2xx
           console.error('Server responded with an error:', error.response.data);
           setError('Server error');
         } else if (error.request) {
-          // Request was made but no response was received
           console.error('No response received:', error.request);
           setError('No response from server');
         } else {
-          // Something went wrong in setting up the request
           console.error('Error setting up request:', error.message);
           setError('Request setup error');
         }
@@ -36,6 +35,47 @@ const DoctorsSection = () => {
 
     fetchDoctors();
   }, []);
+
+  // Calculate the index of the first and last doctor to display
+  const indexOfLastDoctor = currentPage * doctorsPerPage;
+  const indexOfFirstDoctor = indexOfLastDoctor - doctorsPerPage;
+  const currentDoctors = doctors.slice(indexOfFirstDoctor, indexOfLastDoctor);
+
+  // Handle page change
+  const handleNextPage = (event) => {
+    event.preventDefault();
+    if (indexOfLastDoctor < doctors.length) {
+      setCurrentPage(prevPage => prevPage + 1);
+    }
+  };
+
+  const handlePrevPage = (event) => {
+    event.preventDefault();
+    if (currentPage > 1) {
+      setCurrentPage(prevPage => prevPage - 1);
+    }
+  };
+
+  const paginationControlsStyle = {
+    display: 'flex',
+    justifyContent: 'center',
+    marginTop: '20px',
+  };
+
+  const iconStyle = {
+    fontSize: '50px',
+    color: '#007bff', // Change to your preferred color
+    textDecoration: 'none',
+    padding: '10px',
+    margin: '0 10px',
+    cursor: 'pointer',
+  };
+
+  const disabledIconStyle = {
+    ...iconStyle,
+    color: '#d3d3d3', // Light grey for disabled state
+    cursor: 'not-allowed',
+  };
 
   return (
     <section id="doctors" className="doctors section">
@@ -50,8 +90,8 @@ const DoctorsSection = () => {
         <div className="row gy-4">
           {error ? (
             <p>Error: {error}</p>
-          ) : doctors.length > 0 ? (
-            doctors.map(doctor => (
+          ) : currentDoctors.length > 0 ? (
+            currentDoctors.map(doctor => (
               <DoctorMember
                 key={doctor.id}
                 imgSrc={`assets/img/doctors/doctors-${doctor.id}.jpg`}
@@ -65,6 +105,26 @@ const DoctorsSection = () => {
           ) : (
             <p>No doctors available</p>
           )}
+        </div>
+
+        {/* Pagination Controls */}
+        <div style={paginationControlsStyle}>
+          <a 
+            href="#"
+            style={currentPage === 1 ? disabledIconStyle : iconStyle}
+            onClick={handlePrevPage}
+            aria-disabled={currentPage === 1}
+          >
+            &#8249;
+          </a>
+          <a 
+            href="#"
+            style={indexOfLastDoctor >= doctors.length ? disabledIconStyle : iconStyle}
+            onClick={handleNextPage}
+            aria-disabled={indexOfLastDoctor >= doctors.length}
+          >
+            &#8250;
+          </a>
         </div>
       </div>
     </section>
@@ -95,4 +155,3 @@ const DoctorMember = ({ imgSrc, name, specialization, description, contact_info,
 };
 
 export default DoctorsSection;
-

@@ -1,13 +1,7 @@
-// src/components/RegistrationForm.js
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
-import './RegistrationForm.css';
 import axios from 'axios';
-import { ToastContainer } from 'react-toastify';
-import { errortoast, successtoast } from '../functions/toast';
-import RegistrationForm from "./RegistrationForm";
-
+import Swal from 'sweetalert2';
 
 export default function UserData() {
     const initialState = { weight: '', height: '', activity_level: '', dietary_preferences: '', health_conditions: '', medical_history: '', health_goals: '', membership_status: '' };
@@ -20,55 +14,85 @@ export default function UserData() {
         setUserData(prev => ({ ...prev, [name]: value }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setIsLoading(true);
 
         let userInfo = JSON.parse(localStorage.getItem("userData"));
-        // console.log(data);
 
-        let formdata = new FormData();
-        formdata.append('phone', userInfo.phone)
-        formdata.append('email', userInfo.email)
-        formdata.append('first_name', userInfo.first_name)
-        formdata.append('last_name', userInfo.last_name)
-        formdata.append('date_of_birth', userInfo.date_of_birth)
-        formdata.append('gender', userInfo.gender)
-        formdata.append('password', userInfo.password)
+        const userDataToSend = {
+            phone: userInfo.phone,
+            email: userInfo.email,
+            first_name: userInfo.first_name,
+            last_name: userInfo.last_name,
+            date_of_birth: userInfo.date_of_birth,
+            gender: userInfo.gender,
+            password: userInfo.password,
+            weight: userData.weight,
+            height: userData.height,
+            activity_level: userData.activity_level,
+            dietary_preferences: userData.dietary_preferences,
+            health_conditions: userData.health_conditions,
+            medical_history: userData.medical_history,
+            health_goals: userData.health_goals,
+            membership_status: userData.membership_status
+        };
 
-        formdata.append('weight', userData.weight)
-        formdata.append('height', userData.height)
-        formdata.append('activity_level', userData.activity_level)
-        formdata.append('dietary_preferences', userData.dietary_preferences)
-        formdata.append('health_conditions', userData.health_conditions)
-        formdata.append('medical_history', userData.medical_history)
-        formdata.append('health_goals', userData.health_goals)
-        formdata.append('membership_status', userData.membership_status)
-
-
-        axios.post("/create-user", formdata)
-            .then((response) => {
-                if (response.data.status === 200) {
-                    // localStorage.setItem('token', response.data.token);
-                    successtoast(response.data.msg);
-                    navigate('/userlogin');
-                } else {
-                    errortoast(response.data.msg);
+        try {
+            // Create User
+            const userResponse = await axios.post("create-user", userDataToSend, {
+                headers: {
+                    'Content-Type': 'application/json'
                 }
-            })
-            .catch(error => {
-                errortoast("An error occurred. Please try again.");
-            })
-            .finally(() => setIsLoading(false));
+            });
 
-    };
-    const handleFormSubmit = (formData) => {
-        setUserData(formData);
+            if (userResponse.data.status === 200) {
+                // Send Email
+                const emailResponse = await axios.post("send-email", userDataToSend, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (emailResponse.data.status === 200) {
+                    Swal.fire({
+                        title: 'Success!',
+                        text: 'User created and email sent successfully.',
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    }).then(() => {
+                        navigate('/userlogin');
+                    });
+                } else {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: emailResponse.data.msg,
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                }
+            } else {
+                Swal.fire({
+                    title: 'Error!',
+                    text: userResponse.data.msg,
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            }
+        } catch (error) {
+            Swal.fire({
+                title: 'Error!',
+                text: 'An error occurred. Please try again.',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     return (
         <section className="vh-100 gradient-custom">
-            <ToastContainer />
             <div className="container py-5 h-100">
                 <div className="row justify-content-center align-items-center h-100">
                     <div className="col-12 col-lg-9 col-xl-7">
@@ -76,8 +100,6 @@ export default function UserData() {
                             <div className="card-body p-4 p-md-5">
                                 <h3 className="mb-4 pb-2 pb-md-0 mb-md-5">Enter Your Details</h3>
                                 <form onSubmit={handleSubmit}>
-                                    {/* <RegistrationForm onFormSubmit={handleFormSubmit} />
-                                <h1>User's First Name: {userData.first_name}</h1> */}
                                     <div className="row">
                                         <div className="col-md-6 mb-4">
                                             <div className="form-outline">
@@ -124,65 +146,42 @@ export default function UserData() {
                                     </div>
 
                                     <div className="row">
-                                        <div className="col-md-6 mb-4 pb-2">
+                                        <div className="col-md-6 mb-4">
                                             <div className="form-outline">
-                                                <select id="health_conditions" name="health_conditions" className="form-control form-control-lg" onChange={handleChange} value={userData.health_conditions}>
-                                                    <option value="">Select Health Condition</option>
-                                                    <option value="diabetes">Diabetes</option>
-                                                    <option value="asthma">Asthma</option>
-                                                    <option value="heart_disease">Heart Disease</option>
-                                                    <option value="thyroid">Thyroid</option>
-                                                    <option value="cancer">Cancer</option>
-                                                    <option value="kidney_disease">Kidney Disease</option>
-                                                    <option value="none">None</option>
-                                                </select>
+                                                <input type="text" id="health_conditions" name="health_conditions" className="form-control form-control-lg" onChange={handleChange} value={userData.health_conditions} />
                                                 <label className="form-label" htmlFor="health_conditions">Health Conditions</label>
                                             </div>
                                         </div>
-                                        <div className="col-md-6 mb-4 pb-2">
+                                        <div className="col-md-6 mb-4">
                                             <div className="form-outline">
-                                                <select id="medical_history" name="medical_history" className="form-control form-control-lg" onChange={handleChange} value={userData.medical_history}>
-                                                    <option value="">Select Medical History</option>
-                                                    <option value="previous_surgeries">Previous Surgeries</option>
-                                                    <option value="chronic_illnesses">Chronic Illnesses</option>
-                                                    <option value="medications">Medications</option>
-                                                    <option value="allergies">Allergies</option>
-                                                    <option value="none">None</option>
-                                                </select>
+                                                <input type="text" id="medical_history" name="medical_history" className="form-control form-control-lg" onChange={handleChange} value={userData.medical_history} />
                                                 <label className="form-label" htmlFor="medical_history">Medical History</label>
                                             </div>
                                         </div>
                                     </div>
 
                                     <div className="row">
-                                        <div className="col-md-6 mb-4 pb-2">
+                                        <div className="col-md-6 mb-4">
                                             <div className="form-outline">
-                                                <select id="health_goals" name="health_goals" className="form-control form-control-lg" onChange={handleChange} value={userData.health_goals}>
-                                                    <option value="">Select Health Goal</option>
-                                                    <option value="weight_loss">Weight Loss</option>
-                                                    <option value="muscle_gain">Muscle Gain</option>
-                                                    <option value="flexibility">Flexibility</option>
-                                                    <option value="general_fitness">General Fitness</option>
-                                                    <option value="stress_relief">Stress Relief</option>
-                                                </select>
+                                                <input type="text" id="health_goals" name="health_goals" className="form-control form-control-lg" onChange={handleChange} value={userData.health_goals} />
                                                 <label className="form-label" htmlFor="health_goals">Health Goals</label>
                                             </div>
                                         </div>
-                                        <div className="col-md-6 mb-4 pb-2">
+                                        <div className="col-md-6 mb-4">
                                             <div className="form-outline">
                                                 <select id="membership_status" name="membership_status" className="form-control form-control-lg" onChange={handleChange} value={userData.membership_status}>
-                                                    <option value="regular">Regular</option>
+                                                    <option value="">Select Membership Status</option>
+                                                    <option value="basic">Basic</option>
                                                     <option value="premium">Premium</option>
                                                 </select>
                                                 <label className="form-label" htmlFor="membership_status">Membership Status</label>
                                             </div>
                                         </div>
                                     </div>
-                                    {/* <button type="submit" disabled={loading}>Submit</button> */}
-                                    <div className="mt-4 pt-2">
-                                        <input data-mdb-ripple-init className="btn btn-primary btn-lg" type="submit" value="Submit" />
-                                    </div>
-                                    <Link to='/register'>Previous</Link>
+
+                                    <button type="submit" className="btn btn-primary btn-lg mb-1" disabled={isLoading}>
+                                        {isLoading ? "Submitting..." : "Submit"}
+                                    </button>
                                 </form>
                             </div>
                         </div>

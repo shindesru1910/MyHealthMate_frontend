@@ -192,6 +192,8 @@
 //         </section>
 //     );
 // }
+
+// new
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
@@ -211,9 +213,19 @@ export default function UserData() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsLoading(true);
-
+    
         let userInfo = JSON.parse(localStorage.getItem("userData"));
-
+        if (!userInfo) {
+            Swal.fire({
+                title: 'Error!',
+                text: 'User information is missing.',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+            setIsLoading(false);
+            return;
+        }
+    
         const userDataToSend = {
             phone: userInfo.phone,
             email: userInfo.email,
@@ -231,52 +243,36 @@ export default function UserData() {
             health_goals: userData.health_goals,
             membership_status: userData.membership_status
         };
-
+    
         try {
-            // Create User
-            const userResponse = await axios.post("create-user", userDataToSend, {
+            const response = await axios.post("/create-user", userDataToSend, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
             });
-
-            if (userResponse.data.status === 200) {
-                // Send Email
-                const emailResponse = await axios.post("send-email", userDataToSend, {
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
+    
+            if (response.data.status === 'User Created and Email Sent Successfully') {
+                Swal.fire({
+                    title: 'Success!',
+                    text: response.data.status,
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                }).then(() => {
+                    navigate('/userlogin');
                 });
-
-                if (emailResponse.data.status === 200) {
-                    Swal.fire({
-                        title: 'Success!',
-                        text: 'User created and email sent successfully.',
-                        icon: 'success',
-                        confirmButtonText: 'OK'
-                    }).then(() => {
-                        navigate('/userlogin');
-                    });
-                } else {
-                    Swal.fire({
-                        title: 'Error!',
-                        text: emailResponse.data.msg,
-                        icon: 'error',
-                        confirmButtonText: 'OK'
-                    });
-                }
             } else {
                 Swal.fire({
                     title: 'Error!',
-                    text: userResponse.data.msg,
+                    text: response.data.error,
                     icon: 'error',
                     confirmButtonText: 'OK'
                 });
             }
         } catch (error) {
+            console.error("Submission error:", error.response ? error.response.data : error.message);
             Swal.fire({
                 title: 'Error!',
-                text: 'An error occurred. Please try again.',
+                text: error.response ? error.response.data.error : 'An error occurred. Please try again.',
                 icon: 'error',
                 confirmButtonText: 'OK'
             });
@@ -284,6 +280,8 @@ export default function UserData() {
             setIsLoading(false);
         }
     };
+    
+    
 
     return (
         <section className="vh-100 gradient-custom">

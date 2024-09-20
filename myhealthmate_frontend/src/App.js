@@ -38,6 +38,9 @@ import Appointments from './components/Appointments';
 import AdminFileManagement from './components/AdminFileManagement';
 import FileUpload from './components/FileUpload';
 import Blogs from './components/Blogs';
+import DoctorRegistrationForm from './components/DoctorRegistrationForm';
+import DoctorLogin from './components/DoctorLogin';
+import DoctorDashboard from './components/DoctorDashboard';
 
 const GlobalStyle = createGlobalStyle`
     * {
@@ -101,7 +104,9 @@ function App() {
           <Route path="/file" element={<FileUpload />} />
           <Route path="/admin-file-management" element={<AdminFileManagement />} />
           <Route path="/blogs" element={<Blogs />} />
-
+          <Route path="/doctor-registartion" element={<DoctorRegistrationForm />} />
+          <Route path="/doctor-login" element={<DoctorLogin />} />
+          <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
         </Routes>
       </div>
     </Router>

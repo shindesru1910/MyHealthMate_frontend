@@ -82,8 +82,29 @@ const DoctorsSection = () => {
       {/* Section Title */}
       <div className="container section-title">
         <h2>Doctors</h2>
-        <p>"Our trusted doctors to help you achieve better health."</p> <br />
+        
+        <div className="d-flex justify-content-between align-items-right">
+          <h5 className="mb-0">Login for doctors to access patient records, appointments, and more.</h5>
+          <a
+            href="/doctor-login"
+            className="btn btn-primary nav-link active ms-3"
+            style={{
+              textDecoration: 'none',
+              backgroundColor: '#1977CC',
+              color: '#fff',
+              padding:"5px",
+              border: 'none'
+            }}
+            onMouseEnter={(e) => e.target.style.textDecoration = 'underline'}
+            onMouseLeave={(e) => e.target.style.textDecoration = 'none'}
+          >
+            LOGIN
+          </a>
+        </div>
+        <p>"Our trusted doctors to help you achieve better health."</p>
+
       </div>
+
 
       {/* Doctors Content */}
       <div className="container">
@@ -109,7 +130,7 @@ const DoctorsSection = () => {
 
         {/* Pagination Controls */}
         <div style={paginationControlsStyle}>
-          <a 
+          <a
             href="#"
             style={currentPage === 1 ? disabledIconStyle : iconStyle}
             onClick={handlePrevPage}
@@ -117,7 +138,7 @@ const DoctorsSection = () => {
           >
             &#8249;
           </a>
-          <a 
+          <a
             href="#"
             style={indexOfLastDoctor >= doctors.length ? disabledIconStyle : iconStyle}
             onClick={handleNextPage}

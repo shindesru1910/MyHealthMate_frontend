@@ -41,6 +41,7 @@ import Blogs from './components/Blogs';
 import DoctorRegistrationForm from './components/DoctorRegistrationForm';
 import DoctorLogin from './components/DoctorLogin';
 import DoctorDashboard from './components/DoctorDashboard';
+import DoctorPatientComponent from './components/DoctorPatientComponent';
 
 const GlobalStyle = createGlobalStyle`
     * {
@@ -107,6 +108,7 @@ function App() {
           <Route path="/doctor-registartion" element={<DoctorRegistrationForm />} />
           <Route path="/doctor-login" element={<DoctorLogin />} />
           <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
+          <Route path="/doctor/:doctorId/patient-management" element={<DoctorPatientComponent />} />
         </Routes>
       </div>
     </Router>

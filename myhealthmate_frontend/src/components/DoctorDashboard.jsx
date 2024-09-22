@@ -84,7 +84,7 @@ export default function DoctorDashboard() {
             name="Patient Management"
             desc="Manage your patients"
             buttons={[
-              <button className="btn btn-primary" onClick={() => navigate('/patients')}>
+              <button className="btn btn-primary" onClick={() => navigate('/doctor/:doctorId/patient-management')}>
                 View Patients
               </button>
             ]}

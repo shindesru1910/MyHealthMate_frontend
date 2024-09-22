@@ -84,7 +84,7 @@ const DoctorsSection = () => {
         <h2>Doctors</h2>
         
         <div className="d-flex justify-content-between align-items-right">
-          <h5 className="mb-0">Login for doctors to access patient records, appointments, and more.</h5>
+          <h5 className="mb-0">Login for doctors to access Patient Records, Appointments, and more.</h5>
           <a
             href="/doctor-login"
             className="btn btn-primary nav-link active ms-3"

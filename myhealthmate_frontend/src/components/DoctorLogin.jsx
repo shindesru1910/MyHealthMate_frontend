@@ -116,7 +116,7 @@ const DoctorLogin = () => {
               </div>
             </div>
             <div className="text-center mt-3">
-              <Link to="/doctor-password-reset">Forgot Password?</Link>
+              <Link to="/password-reset">Forgot Password?</Link>
             </div>
             <div className="text-center mt-2">
               <span>Don't have an account? </span><Link to="/doctor-registartion">Register</Link>

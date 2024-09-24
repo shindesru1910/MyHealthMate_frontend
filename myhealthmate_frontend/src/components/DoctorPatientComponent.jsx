@@ -18,7 +18,7 @@ const DoctorPatientComponent = () => {
 
         if (token) {
             const decodedToken = jwtDecode(token);
-            const id = decodedToken.doctor_id;
+            const id = decodedToken.user_id;
             setDoctorId(id);
             fetchPatients(id);
             fetchFiles();

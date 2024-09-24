@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import './DoctorProfile.css'; // Assuming you have a separate CSS file for styles
+import './DoctorProfile.module.css'; // Assuming you have a separate CSS file for styles
 
 const DoctorProfile = () => {
   const [doctor, setDoctor] = useState({});
@@ -71,20 +71,20 @@ const DoctorProfile = () => {
               src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg" 
               alt="Doctor Avatar"
             />
-            <span className="font-weight-bold">{doctor.first_name} {doctor.last_name}</span>
-            <span className="text-black-50">{doctor.specialty}</span> {/* Display specialty instead of email */}
+            <h2 className="font-weight-bold">{doctor.first_name} {doctor.last_name}</h2>
+            <h5 className="text-black-50">{doctor.specialty}</h5> {/* Display specialty instead of email */}
           </div>
         </div>
         <div className="col-md-9 border-right">
           <div className="p-3 py-5">
             <div className="d-flex justify-content-between align-items-center mb-3">
-              <h4 className="text-right">Profile Settings</h4>
+              <h4 className="text-right">Profile</h4>
             </div>
             {isEditing ? (
               <form onSubmit={handleSubmit}>
                 <div className="row mt-2">
                   <div className="col-md-6">
-                    <label className="labels">First Name</label>
+                    <label className="labels"><strong>First Name</strong></label>
                     <input 
                       type="text" 
                       className="form-control" 
@@ -97,7 +97,7 @@ const DoctorProfile = () => {
                     />
                   </div>
                   <div className="col-md-6">
-                    <label className="labels">Last Name</label>
+                    <label className="labels"><strong>Last Name</strong></label>
                     <input 
                       type="text" 
                       className="form-control" 
@@ -112,7 +112,7 @@ const DoctorProfile = () => {
                 </div>
                 <div className="row mt-3">
                   <div className="col-md-12">
-                    <label className="labels">Specialty</label>
+                    <label className="labels"><strong>Specialty</strong></label>
                     <input 
                       type="text" 
                       className="form-control" 
@@ -125,7 +125,7 @@ const DoctorProfile = () => {
                     />
                   </div>
                   <div className="col-md-12">
-                    <label className="labels">Contact Number</label>
+                    <label className="labels"><strong>Contact Number</strong></label>
                     <input 
                       type="text" 
                       className="form-control" 
@@ -137,7 +137,7 @@ const DoctorProfile = () => {
                     />
                   </div>
                   <div className="col-md-12">
-                    <label className="labels">Location</label>
+                    <label className="labels"><strong>Location</strong></label>
                     <input 
                       type="text" 
                       className="form-control" 
@@ -162,11 +162,11 @@ const DoctorProfile = () => {
               </form>
             ) : (
               <div>
-                <p>First Name: {doctor.first_name}</p>
-                <p>Last Name: {doctor.last_name}</p>
-                <p>Specialty: {doctor.specialty}</p> {/* Display specialty here */}
-                <p>Contact: {doctor.contact_info}</p>
-                <p>Location: {doctor.location}</p>
+                <p><strong>First Name:</strong> {doctor.first_name}</p>
+                <p><strong>Last Name:</strong> {doctor.last_name}</p>
+                <p><strong>Specialty:</strong> {doctor.specialty}</p> {/* Display specialty here */}
+                <p><strong>Contact:</strong> {doctor.contact_info}</p>
+                <p><strong>Location:</strong> {doctor.location}</p>
                 <div className="mt-5 text-center">
                   <button className="btn btn-primary profile-button" onClick={() => setIsEditing(true)}>Update Profile</button>
                 </div>

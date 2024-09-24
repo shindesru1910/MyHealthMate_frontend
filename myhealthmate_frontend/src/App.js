@@ -43,6 +43,7 @@ import DoctorLogin from './components/DoctorLogin';
 import DoctorDashboard from './components/DoctorDashboard';
 import DoctorPatientComponent from './components/DoctorPatientComponent';
 import DoctorProfile from './components/DoctorProfile';
+import AppointmentsPageDoctor from './components/AppointmentsDoctorView';
 
 const GlobalStyle = createGlobalStyle`
     * {
@@ -111,6 +112,7 @@ function App() {
           <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
           <Route path="/doctor-profile" element={<DoctorProfile />} />
           <Route path="/doctor/:doctorId/patient-management" element={<DoctorPatientComponent />} />
+          <Route path="/appointments" element={<AppointmentsPageDoctor />} /> 
         </Routes>
       </div>
     </Router>

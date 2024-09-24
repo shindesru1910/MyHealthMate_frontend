@@ -75,7 +75,7 @@ export default function DoctorDashboard() {
             name="Profile Overview"
             desc={`Specialty: ${specialty} \nContact: ${contactInfo}`}
             buttons={[
-              <button className="btn btn-primary" onClick={() => navigate('/update-profile')}>
+              <button className="btn btn-primary" onClick={() => navigate('/doctor-profile')}>
                 Update Profile
               </button>
             ]}

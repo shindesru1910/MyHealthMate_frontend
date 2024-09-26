@@ -46,17 +46,25 @@ function User() {
         }
 
         if (flag === 'add') {
-            axios.post("/create-user", formData)
-                .then((response) => {
-                    if (response.data.status === 200) {
-                        successtoast(response.data.msg);
-                        setModalShow(false);
-                        setUsers([...users, response.data.data]);
-                        setSearchQuery("");
-                    } else {
-                        errortoast(response.data.msg);
-                    }
-                });
+            axios.post("/create-user", userData, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then((response) => {
+                if (response.data.status === 200) {
+                    successtoast(response.data.msg);
+                    setModalShow(false);
+                    setUsers([...users, response.data.data]);
+                    setSearchQuery("");
+                } else {
+                    errortoast(response.data.msg);
+                }
+            })
+            .catch((error) => {
+                console.error('Error creating user:', error);
+                errortoast('Failed to create user.');
+            });
         } else {
             formData.append('id', userData.id);
             axios.post("/update-user", formData)

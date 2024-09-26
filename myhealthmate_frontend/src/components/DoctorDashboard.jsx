@@ -99,19 +99,10 @@ export default function DoctorDashboard() {
             ]}
           />
           <Card
-            name="Prescription Management"
-            desc="Manage prescriptions for your patients"
-            buttons={[
-              <button className="btn btn-primary" onClick={() => navigate('/prescriptions')}>
-                View Prescriptions
-              </button>
-            ]}
-          />
-          <Card
             name="Reports and Analytics"
             desc="View patient statistics and performance metrics"
             buttons={[
-              <button className="btn btn-primary" onClick={() => navigate('/reports')}>
+              <button className="btn btn-primary" onClick={() => navigate('/doctor/reports/:doctorId')}>
                 View Reports
               </button>
             ]}

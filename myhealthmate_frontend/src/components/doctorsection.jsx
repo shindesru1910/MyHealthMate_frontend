@@ -98,7 +98,7 @@ const DoctorsSection = () => {
             onMouseEnter={(e) => e.target.style.textDecoration = 'underline'}
             onMouseLeave={(e) => e.target.style.textDecoration = 'none'}
           >
-            LOGIN
+            For Doctors 
           </a>
         </div>
         <p>"Our trusted doctors to help you achieve better health."</p>

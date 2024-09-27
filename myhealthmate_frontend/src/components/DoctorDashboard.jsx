@@ -102,7 +102,7 @@ export default function DoctorDashboard() {
             name="Reports and Analytics"
             desc="View patient statistics and performance metrics"
             buttons={[
-              <button className="btn btn-primary" onClick={() => navigate('/doctor/reports')}>
+              <button className="btn btn-primary" onClick={() => navigate('/doctor-report/:doctorId')}>
                 View Reports
               </button>
             ]}

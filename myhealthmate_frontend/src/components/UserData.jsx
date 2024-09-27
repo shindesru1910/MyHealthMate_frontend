@@ -386,7 +386,7 @@ export default function UserData() {
                                             <div className="form-outline">
                                                 <select id="membership_status" name="membership_status" className="form-control form-control-lg" onChange={handleChange} value={userData.membership_status}>
                                                     <option value="">Select Membership Status</option>
-                                                    <option value="basic">Regular</option>
+                                                    <option value="regular">Regular</option>
                                                     <option value="premium">Premium</option>
                                                 </select>
                                                 <label className="form-label" htmlFor="membership_status">Membership Status</label>

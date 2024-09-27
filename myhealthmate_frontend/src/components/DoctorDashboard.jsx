@@ -73,7 +73,12 @@ export default function DoctorDashboard() {
           {/* Cards for various management features */}
           <Card
             name="Profile Overview"
-            desc={`Specialty: ${specialty} \nContact: ${contactInfo}`}
+            desc={
+              <>
+                <div>Specialty: {specialty}</div>
+                <div>Contact: {contactInfo}</div>
+              </>
+            }
             buttons={[
               <button className="btn btn-primary" onClick={() => navigate('/doctor-profile')}>
                 Update Profile
@@ -102,7 +107,7 @@ export default function DoctorDashboard() {
             name="Reports and Analytics"
             desc="View patient statistics and performance metrics"
             buttons={[
-              <button className="btn btn-primary" onClick={() => navigate('/doctor-report/:doctorId')}>
+              <button className="btn btn-primary" onClick={() => navigate('/doctorviewreports')}>
                 View Reports
               </button>
             ]}

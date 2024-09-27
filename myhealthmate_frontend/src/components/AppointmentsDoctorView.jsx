@@ -1,8 +1,7 @@
-//latest
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
-import {jwtDecode} from "jwt-decode"; // Correct import of jwtDecode
+import { jwtDecode } from "jwt-decode"; // Correct import of jwtDecode
 
 const AppointmentsDoctorView = () => {
     const [doctorId, setDoctorId] = useState(null);
@@ -14,7 +13,7 @@ const AppointmentsDoctorView = () => {
     const [searchQuery, setSearchQuery] = useState("");
 
     useEffect(() => {
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem("token");
 
         if (token) {
             const decodedToken = jwtDecode(token);
@@ -22,7 +21,7 @@ const AppointmentsDoctorView = () => {
             setUserId(decodedToken.user_id);
             fetchAppointments(decodedToken.doctor_id);
         } else {
-            setError('No token found. Please log in again.');
+            setError("No token found. Please log in again.");
             setLoading(false);
         }
     }, []);
@@ -30,10 +29,10 @@ const AppointmentsDoctorView = () => {
     const fetchAppointments = async (docId) => {
         try {
             const response = await axios.get(`http://localhost:8000/api/doctor/${docId}/appointments/`);
-            console.log('Fetched appointments:', response.data.data); // Debugging log
+            console.log("Fetched appointments:", response.data.data); // Debugging log
             setAppointments(response.data.data);
         } catch (error) {
-            setError('Error fetching appointments. Please try again later.');
+            setError("Error fetching appointments. Please try again later.");
             console.error(error);
         } finally {
             setLoading(false);
@@ -41,48 +40,48 @@ const AppointmentsDoctorView = () => {
     };
 
     const cancelAppointment = async (appointmentId) => {
-        console.log('Cancelling appointment with ID:', appointmentId); // Log ID being cancelled
+        console.log("Cancelling appointment with ID:", appointmentId); // Log ID being cancelled
 
         if (!appointmentId) {
-            Swal.fire('Error!', 'Invalid appointment ID.', 'error');
+            Swal.fire("Error!", "Invalid appointment ID.", "error");
             return;
         }
 
         const result = await Swal.fire({
-            title: 'Are you sure?',
+            title: "Are you sure?",
             text: "Do you want to cancel this appointment?",
-            icon: 'warning',
+            icon: "warning",
             showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, cancel it!'
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, cancel it!",
         });
 
         if (result.isConfirmed) {
             try {
                 setLoadingAppointment(appointmentId); // Show loading state for the appointment being cancelled
-                const response = await axios.post('http://localhost:8000/doctor-delete-appointment', {
-                    id: appointmentId // Send the appointment ID as JSON
+                const response = await axios.post("http://localhost:8000/doctor-delete-appointment", {
+                    id: appointmentId, // Send the appointment ID as JSON
                 });
 
-                console.log('Cancel appointment response:', response.data); // Debugging log
+                console.log("Cancel appointment response:", response.data); // Debugging log
 
                 if (response.data.status === 200) {
-                    setAppointments(prev => prev.filter(appointment => appointment.id !== appointmentId)); // Update state to remove cancelled appointment
-                    Swal.fire('Cancelled!', 'Your appointment has been cancelled.', 'success');
+                    setAppointments((prev) => prev.filter((appointment) => appointment.id !== appointmentId)); // Update state to remove cancelled appointment
+                    Swal.fire("Cancelled!", "Your appointment has been cancelled.", "success");
                 } else {
-                    Swal.fire('Failed!', `Failed to cancel appointment: ${response.data.msg}`, 'error');
+                    Swal.fire("Failed!", `Failed to cancel appointment: ${response.data.msg}`, "error");
                 }
             } catch (err) {
-                console.error('Error cancelling appointment:', err); // Log error for debugging
-                Swal.fire('Failed!', `Failed to cancel appointment: ${err.message}`, 'error');
+                console.error("Error cancelling appointment:", err); // Log error for debugging
+                Swal.fire("Failed!", `Failed to cancel appointment: ${err.message}`, "error");
             } finally {
                 setLoadingAppointment(null); // Reset loading state
             }
         }
     };
 
-    const filteredAppointments = appointments.filter(appointment => {
+    const filteredAppointments = appointments.filter((appointment) => {
         const lowerCaseQuery = searchQuery.toLowerCase();
         return (
             appointment.user.toLowerCase().includes(lowerCaseQuery) ||
@@ -93,6 +92,8 @@ const AppointmentsDoctorView = () => {
     if (loading) {
         return <p>Loading appointments...</p>;
     }
+
+    const currentDateTime = new Date(); // Get the current date and time
 
     return (
         <div className="container">
@@ -132,32 +133,38 @@ const AppointmentsDoctorView = () => {
                     </thead>
                     <tbody>
                         {filteredAppointments.map((appointment, index) => {
-                            console.log('Appointment:', appointment); // Log each appointment object
+                            console.log("Appointment:", appointment); 
+                            const appointmentDate = new Date(appointment.appointment_date); // Convert to Date object
+                            const isUpcoming = appointmentDate > currentDateTime; // Check if appointment is upcoming
                             return (
                                 <tr key={index}>
                                     <td>{appointment.user}</td>
                                     <td>{appointment.phone}</td>
-                                    <td>{new Date(appointment.appointment_date).toLocaleDateString()}</td>
+                                    <td>{appointmentDate.toLocaleDateString()}</td>
                                     <td>{appointment.time_slot}</td>
                                     <td>{appointment.status}</td>
                                     <td>
                                         <div>
-                                            <strong>Message:</strong> {appointment.message || 'No message'}
+                                            <strong>Message:</strong> {appointment.message || "No message"}
                                             <br />
                                             <strong>Created At:</strong> {new Date(appointment.created_at).toLocaleDateString()}
                                         </div>
                                     </td>
                                     <td>
-                                        <button
-                                            className="btn btn-danger"
-                                            onClick={() => {
-                                                console.log('Cancel button clicked'); // Debugging log
-                                                cancelAppointment(appointment.id); // Pass the appointment ID
-                                            }}
-                                            disabled={loadingAppointment === appointment.id}
-                                        >
-                                            {loadingAppointment === appointment.id ? 'Cancelling...' : 'Cancel'}
-                                        </button>
+                                        {isUpcoming ? (
+                                            <button
+                                                className="btn btn-danger"
+                                                onClick={() => {
+                                                    console.log("Cancel button clicked"); 
+                                                    cancelAppointment(appointment.id); 
+                                                }}
+                                                disabled={loadingAppointment === appointment.id}
+                                            >
+                                                {loadingAppointment === appointment.id ? "Cancelling..." : "Cancel"}
+                                            </button>
+                                        ) : (
+                                            <strong>Completed</strong> 
+                                        )}
                                     </td>
                                 </tr>
                             );

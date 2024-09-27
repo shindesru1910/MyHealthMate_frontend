@@ -146,8 +146,7 @@ const DoctorPatientComponent = () => {
                     <thead className="table-dark">
                         <tr>
                             <th>ID</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
+                            <th>Full Name</th>
                             <th>Contact</th>
                             <th>Email</th>
                             <th>Age</th>
@@ -159,9 +158,8 @@ const DoctorPatientComponent = () => {
                             <tr key={patient.id}>
                                 <td>{patient.id}</td>
                                 <td onClick={() => openModal(patient)} style={{ cursor: 'pointer', color: 'blue' }}>
-                                    {patient.first_name}
+                                    {`${patient.first_name} ${patient.last_name}`}
                                 </td>
-                                <td>{patient.last_name}</td>
                                 <td>{patient.phone}</td>
                                 <td>{patient.email}</td>
                                 <td>{calculateAge(patient.date_of_birth)} years</td>

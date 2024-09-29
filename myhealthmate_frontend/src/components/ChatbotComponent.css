@@ -236,3 +236,34 @@
   border-color: #113c8b; /* Change border color on focus */
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
 }
+
+
+.article-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.article-item {
+  margin: 10px 0;
+  padding: 10px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  font-size: 14px; /* Smaller font size for the article item */
+}
+
+.article-item h4 {
+  margin: 0 0 5px;
+  font-size: 16px; /* Smaller font size for the title */
+}
+
+.article-item a {
+  color: #007bff;
+  text-decoration: none;
+  font-size: 14px; /* Smaller font size for the link */
+}
+
+.article-item a:hover {
+  text-decoration: underline;
+}
+

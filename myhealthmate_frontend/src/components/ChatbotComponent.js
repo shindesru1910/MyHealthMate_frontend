@@ -4,6 +4,9 @@ import './ChatbotComponent.css';
 import sendSound from './Csend.mp3'; // sound files
 import receiveSound from './Csend.mp3';
 
+import axios from 'axios';
+
+
 const ChatbotComponent = () => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
@@ -158,6 +161,7 @@ const ChatbotComponent = () => {
       }, 500);
     }
   };
+////////////////////////////////////////////
 
   const handleDietPlansClick = () => {
     if (isLoggedIn) {
@@ -178,11 +182,32 @@ const ChatbotComponent = () => {
     }
   };
 
-  const handleNonPersonalizedDietClick = () => {
-    // Redirect to the external non-personalized diet plans page
-    window.open('https://www.nutrition.gov/topics/diet-and-health-conditions', '_blank');
-  };
+  // Function to fetch non-personalized diet websites in real-time
+const handleNonPersonalizedDietClick = () => {
+  const keywords = ['healthy eating', 'balanced diet', 'nutrition tips', 'weight loss diet'];
+  const randomKeyword = keywords[Math.floor(Math.random() * keywords.length)];
 
+  axios
+    .get(`https://newsapi.org/v2/everything?q=${randomKeyword}&apiKey=62f6538b84314337ba59664b0fc83a0b`)
+    .then(response => {
+      const articles = response.data.articles.slice(0, 4); 
+      const articleList = (
+        <ul className="article-list">
+          {articles.map(article => (
+            <li key={article.url} className="article-item">
+              <h4>{article.title}</h4>
+              <a href={article.url} target="_blank" rel="noopener noreferrer">Read More</a>
+            </li>
+          ))}
+        </ul>
+      );
+      setMessages(prevMessages => [...prevMessages, { text: <div>{articleList}</div>, user: 'bot' }]);
+      playReceiveSound();
+    })
+    .catch(error => {
+      console.error('Error fetching diet websites:', error);
+    });
+};
 
   const handleExercisePlansClick = () => {
     if (isLoggedIn) {
@@ -194,7 +219,7 @@ const ChatbotComponent = () => {
         <div>
           To view personalized exercise plans, please log in or sign up.<br />
           <button className="chatbot-button" onClick={() => window.open('http://localhost:3000/userlogin', '_blank')}>Login</button><br />
-          <button className="chatbot-button" onClick={() => handleNonPersonalizedExerciseClick()}>View Non-Personalized Exercise Plans</button>
+          <button className="chatbot-button" onClick={() => handleNonPersonalizedExerciseClick()}>View Exercise Workouts and Programs</button>
         </div>
       );
 
@@ -203,9 +228,10 @@ const ChatbotComponent = () => {
     }
   };
 
-  const handleNonPersonalizedExerciseClick = () => {
+ const handleNonPersonalizedExerciseClick = () => {
     window.open('https://darebee.com/workouts.html', '_blank');  
   };
+
 
 
   const handleSpecialtyChange = async (event) => {
@@ -314,3 +340,5 @@ const ChatbotComponent = () => {
 };
 
 export default ChatbotComponent;
+
+

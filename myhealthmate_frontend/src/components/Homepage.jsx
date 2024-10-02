@@ -14,13 +14,6 @@ import GallerySection from './gallerysection';
 import ContactSection from './contactsection';
 import Footer from './footer';
 
-
-
-
-
-
-
-
 const Homepage = () => {
   const location = useLocation();
 
